@@ -1,5 +1,5 @@
-# House.create(name:"Christie's")
-# House.create(name:"Sotheby's")
+House.create(name:"Christie's")
+House.create(name:"Sotheby's")
 # Sale.create(house_id: 1, title:"First Open Post-War and Contemporary Art", internal_id: "1806", sale_date: Date.parse("28 February 2007") )
 
 
@@ -7,9 +7,9 @@
 
 
 
-Dir.foreach('../christies_datascrape/ALL/2012-2017') do |item|
+Dir.foreach('../christies_datascrape/ALL/2007-2011') do |item|
   next if item == '.' or item == '..' or item == '.DS_Store' or item.nil?
-  file = File.read('../christies_datascrape/all/2012-2017/' + item)
+  file = File.read('../christies_datascrape/all/2007-2011/' + item)
   data_hash = JSON.parse(file)
 
   # SALE
@@ -24,7 +24,7 @@ Dir.foreach('../christies_datascrape/ALL/2012-2017') do |item|
     artist_name = lot['artist_name'].split("(")[0].split.join(" ")
     artist = Artist.find_or_create_by(name: artist_name)
   # #LOT
-  lot_real = lot["realized"][1..-1] ? lot["realized"][1..-1] : lot["realized"]
+  lot_real = lot["realized"][1..-1].gsub(",", "").to_i ? lot["realized"][1..-1].gsub(",", "").to_i : lot["realized"]
       lot = Lot.create(
         lot_number: lot["lot_number"],
         artist_id: artist.id,
@@ -33,8 +33,8 @@ Dir.foreach('../christies_datascrape/ALL/2012-2017') do |item|
         size_mat: lot["size_mat"],
         sale_id: sale.id,
         realized: lot_real,
-        estimate_low: lot["estimate"].split.first[1..-1],
-        estimate_high: lot["estimate"].split.last[1..-1]
+        estimate_low: lot["estimate"].split.first[1..-1].gsub(",", "").to_i,
+        estimate_high: lot["estimate"].split.last[1..-1].gsub(",", "").to_i
       )
   end
 end

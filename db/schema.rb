@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180131155554) do
+ActiveRecord::Schema.define(version: 20180201194903) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20180131155554) do
     t.date "sale_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "sum"
     t.index ["house_id"], name: "index_sales_on_house_id"
   end
 
