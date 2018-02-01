@@ -4,6 +4,8 @@ import Navbar from "./Navbar.js";
 import Home from "./Home.js";
 import Auction from "./Auction.js";
 import Year from "./Year.js";
+import Sale from "./Sale.js";
+import ArtistContainer from "./ArtistContainer.js";
 import { Route, Switch, withRouter } from "react-router-dom";
 
 export class App extends Component {
@@ -21,7 +23,7 @@ export class App extends Component {
   }
 
   render() {
-    console.log(this.state);
+    console.log("app props", this.state);
     return (
       <div className="App">
         <Navbar />
@@ -31,11 +33,33 @@ export class App extends Component {
             <Route exact path="/auctions" component={Auction} />
             <Route
               exact
-              path="/auctions/:year"
+              path="/auctions/:year/:id"
               render={({ match }) => {
-                return <Year />;
+                return (
+                  <Sale
+                    year={match.params.year}
+                    sale={this.state.sales.filter(
+                      sale => sale.id.toString() === match.params.id
+                    )}
+                  />
+                );
               }}
             />
+            <Route
+              exact
+              path="/auctions/:year"
+              render={({ match }) => {
+                return (
+                  <Year
+                    year={match.params.year}
+                    sales={this.state.sales.filter(sale =>
+                      sale.sale_date.slice(0, 4).includes(match.params.year)
+                    )}
+                  />
+                );
+              }}
+            />
+            <Route exact path="/" component={ArtistContainer} />
           </Switch>
         </div>
       </div>
