@@ -1,5 +1,5 @@
-House.create(name:"Christie's")
-House.create(name:"Sotheby's")
+# House.create(name:"Christie's")
+# House.create(name:"Sotheby's")
 # Sale.create(house_id: 1, title:"First Open Post-War and Contemporary Art", internal_id: "1806", sale_date: Date.parse("28 February 2007") )
 
 
@@ -7,9 +7,9 @@ House.create(name:"Sotheby's")
 
 
 
-Dir.foreach('../christies_datascrape/ALL/2007-2011') do |item|
+Dir.foreach('../christies_datascrape/ALL/2012-2017') do |item|
   next if item == '.' or item == '..' or item == '.DS_Store' or item.nil?
-  file = File.read('../christies_datascrape/all/2007-2011/' + item)
+  file = File.read('../christies_datascrape/all/2012-2017/' + item)
   data_hash = JSON.parse(file)
 
   # SALE

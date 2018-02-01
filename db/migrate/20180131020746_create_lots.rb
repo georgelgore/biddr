@@ -6,9 +6,9 @@ class CreateLots < ActiveRecord::Migration[5.1]
       t.string :image
       t.string :art_title
       t.string :size_mat
-      t.string :estimate_low
-      t.string :estimate_high
-      t.string :realized
+      t.integer :estimate_low
+      t.integer :estimate_high
+      t.integer :realized
       t.belongs_to :sale, foreign_key: true
 
       t.timestamps
