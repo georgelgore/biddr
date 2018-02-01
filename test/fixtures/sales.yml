@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  house: 
+  title,: MyString
+  internal_id,: MyString
+  sale_date: MyString
+
+two:
+  house: 
+  title,: MyString
+  internal_id,: MyString
+  sale_date: MyString
