@@ -21,7 +21,7 @@ Dir.foreach('../christies_datascrape/ALL/2012-2017') do |item|
   data_hash["Lots"].compact.each do |lot|
     next if lot == [] ||  lot["lot_number"].nil? || lot.length != 7
 
-    artist_name = lot['artist_name'].split("(")[0].split.join(" ")
+    artist_name = lot['artist_name'].split("(")[0].split.join(" ").capitalize
     artist = Artist.find_or_create_by(name: artist_name)
   # #LOT
   lot_real = lot["realized"][1..-1].gsub(",", "").to_i ? lot["realized"][1..-1].gsub(",", "").to_i : lot["realized"]

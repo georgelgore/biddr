@@ -1,6 +1,6 @@
 class Api::V1::ArtistsController < ApplicationController
   def index
-    @artists = Artist.all.page(1)
+    @artists = Artist.all
     render json: @artists
   end
 
