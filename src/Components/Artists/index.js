@@ -7,6 +7,7 @@ class ArtistContainer extends Component {
 
     this.state = {
       artists: [],
+      display: [],
       searchTerm: ""
     };
   }
@@ -18,18 +19,21 @@ class ArtistContainer extends Component {
   }
 
   updateSearchTerm = event => {
-    this.setState({ searchTerm: event.target.value }, console.log("updating"));
-    let toShow = this.state.artists.filter(artist =>
-      artist.name.toLowerCase().includes(event.target.value.toLowerCase())
-    );
-    this.setState(
-      { searchTerm: event.target.value, artists: toShow },
-      console.log("updating")
-    );
-  };
-
-  search = input => {
-    this.state.artists.filter(artist => artist.name.includes(input));
+    if (event.target.value.length === 0) {
+      this.setState({ display: [], searchTerm: "" });
+    } else {
+      this.setState(
+        { searchTerm: event.target.value },
+        console.log("updating")
+      );
+      let toShow = this.state.artists.filter(artist =>
+        artist.name.toLowerCase().includes(event.target.value.toLowerCase())
+      );
+      this.setState(
+        { searchTerm: event.target.value, display: toShow.sort() },
+        console.log("updating")
+      );
+    }
   };
 
   render() {
@@ -38,7 +42,7 @@ class ArtistContainer extends Component {
       <div className="ui container">
         <h1> Artists </h1>
         <ArtistList
-          artists={this.state.artists}
+          artists={this.state.display}
           updateSearchTerm={this.updateSearchTerm}
           searchTerm={this.state.searchTerm}
         />

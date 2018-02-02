@@ -5,6 +5,8 @@ const SaleList = props => {
   console.log("sale list", props);
   return (
     <div className="ui left aligned container">
+      <h1> Sales – {props.year} </h1>
+
       <div className="ui link list">
         {props.sales.map((sale, i) => (
           <Link
@@ -16,6 +18,7 @@ const SaleList = props => {
           </Link>
         ))}
       </div>
+      <h1 className="ui left aligned header"> Analytics </h1>
     </div>
   );
 };

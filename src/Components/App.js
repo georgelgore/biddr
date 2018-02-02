@@ -38,9 +38,15 @@ class App extends Component {
                 return (
                   <Sale
                     year={match.params.year}
-                    sale={this.state.sales.filter(
-                      sale => sale.id.toString() === match.params.id
-                    )}
+                    sale={
+                      this.state.sales.filter(
+                        sale => sale.id.toString() === match.params.id
+                      )[0]
+                        ? this.state.sales.filter(
+                            sale => sale.id.toString() === match.params.id
+                          )[0]
+                        : {}
+                    }
                   />
                 );
               }}

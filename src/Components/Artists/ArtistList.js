@@ -16,6 +16,9 @@ const ArtistList = props => {
       <div className="ui four cards">
         {props.artists.map((artist, i) => (
           <div key={i} className="card">
+            <div className="ui tiny image">
+              <img src={artist.image} />
+            </div>
             {artist.title_name}
           </div>
         ))}
