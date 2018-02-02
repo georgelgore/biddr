@@ -1,11 +1,11 @@
 class Api::V1::SalesController < ApplicationController
   def index
-    @sales = Sale.all
+    @sales = Sale.includes(lots: [:artist]).all
     render json: @sales
   end
 
   def show
-    @sale = Sale.find(params[:id])
+    @sale = Sale.includes(lots: [:artist]).find(params[:id])
     render json: @sale
   end
 

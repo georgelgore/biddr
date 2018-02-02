@@ -1,9 +1,6 @@
 class SaleSerializer < ActiveModel::Serializer
-  attributes :id, :house_id, :title, :internal_id, :sale_date, :sale_sum
+  attributes :id, :house_id, :title, :internal_id, :sale_date
   has_many :lots
 
-  def sale_sum
-    object.lots.map{|lot| lot.realized}.flatten.reduce(:+)
-  end
-
+  #make sale sum on front
 end

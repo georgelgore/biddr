@@ -1,5 +1,5 @@
-# House.create(name:"Christie's")
-# House.create(name:"Sotheby's")
+House.create(name:"Christie's")
+House.create(name:"Sotheby's")
 # Sale.create(house_id: 1, title:"First Open Post-War and Contemporary Art", internal_id: "1806", sale_date: Date.parse("28 February 2007") )
 
 
@@ -22,6 +22,8 @@ Dir.foreach('../christies_datascrape/ALL/2012-2017') do |item|
     next if lot == [] ||  lot["lot_number"].nil? || lot.length != 7
 
     artist_name = lot['artist_name'].split("(")[0].split.join(" ").gsub('ö', 'o').gsub('é', 'e').gsub('á', 'a').gsub('ê', 'e').gsub('ü', 'u').gsub('ç', 'c').upcase
+    artist_name.gsub('Ö', 'O')
+
     artist = Artist.find_or_create_by(name: artist_name)
   # #LOT
   lot_real = lot["realized"][1..-1].gsub(",", "").to_i ? lot["realized"][1..-1].gsub(",", "").to_i : lot["realized"]

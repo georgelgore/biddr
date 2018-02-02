@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :sales
       resources :artists
+      resources :lots
     end
   end
 end
