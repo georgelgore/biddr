@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import "./App.css";
 import Navbar from "./Navbar.js";
 import Home from "./Home.js";
-import Auction from "./Auction";
+import Auction from "./Sale/Auction";
 import Year from "./Sale";
 import Sale from "./Sale/Sale";
 import ArtistContainer from "./Artists";
+import Artist from "./Artists/Artist.js";
 import { Route, Switch, withRouter } from "react-router-dom";
 
 class App extends Component {
@@ -65,7 +66,24 @@ class App extends Component {
                 );
               }}
             />
-            <Route exact path="/artists" component={ArtistContainer} />
+            <Route
+              exact
+              path="/artists/:id"
+              render={() => {
+                return <Artist />;
+              }}
+            />
+            <Route
+              exact
+              path="/artists"
+              render={({ match }) => {
+                return (
+                  <ArtistContainer
+                    updateDisplayArtist={this.updateDisplayArtist}
+                  />
+                );
+              }}
+            />
           </Switch>
         </div>
       </div>

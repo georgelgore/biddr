@@ -8,7 +8,8 @@ class ArtistContainer extends Component {
     this.state = {
       artists: [],
       display: [],
-      searchTerm: ""
+      searchTerm: "",
+      displayArtist: ""
     };
   }
 
@@ -16,6 +17,15 @@ class ArtistContainer extends Component {
     fetch("http://localhost:3000/api/v1/artists")
       .then(resp => resp.json())
       .then(arr => this.setState({ artists: arr }));
+  }
+
+  updateDisplayArtist(event) {
+    this.state.displayArtist
+      ? this.setState(
+          { displayArtist: event.target.id },
+          console.log("change artist display", this.state.displayArtist)
+        )
+      : null;
   }
 
   updateSearchTerm = event => {
@@ -45,6 +55,7 @@ class ArtistContainer extends Component {
           artists={this.state.display}
           updateSearchTerm={this.updateSearchTerm}
           searchTerm={this.state.searchTerm}
+          updateDisplayArtist={this.updateDisplayArtist}
         />
       </div>
     );

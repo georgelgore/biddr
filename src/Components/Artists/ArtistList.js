@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const ArtistList = props => {
   return (
@@ -13,15 +14,43 @@ const ArtistList = props => {
         />
       </div>
       <br />
-      <div className="ui four cards">
-        {props.artists.map((artist, i) => (
-          <div key={i} className="card">
-            <div className="ui tiny image">
-              <img src={artist.image} />
-            </div>
-            {artist.title_name}
-          </div>
-        ))}
+      <div className="ui center aligned container">
+        <div className="ui text container">
+          <table className="ui very basic table">
+            <thead>
+              <tr>
+                <th />
+                <th />
+              </tr>
+            </thead>
+            <tbody>
+              {props.artists.map((artist, i) => (
+                <tr key={i}>
+                  <td id={artist.id} onClick={props.updateDisplayArtist}>
+                    <Link
+                      className="ui item"
+                      key={i}
+                      to={`artists/${artist.id}`}
+                    >
+                      <h1 id={artist.id} className="ui center aligned header">
+                        {artist.title_name}
+                      </h1>
+                      {artist.image ? (
+                        <img
+                          src={encodeURI(artist.image)}
+                          alt={"google.com"}
+                          className="lot-image"
+                          id={artist.id}
+                        />
+                      ) : null}
+                    </Link>
+                  </td>
+                  <td />
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
