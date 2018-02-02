@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import "./App.css";
 import Navbar from "./Navbar.js";
 import Home from "./Home.js";
-import Auction from "./Auction.js";
-import Year from "./Year.js";
-import Sale from "./Sale.js";
-import ArtistContainer from "./ArtistContainer.js";
+import Auction from "./Auction";
+import Year from "./Sale";
+import Sale from "./Sale/Sale";
+import ArtistContainer from "./Artists";
 import { Route, Switch, withRouter } from "react-router-dom";
 
-export class App extends Component {
+class App extends Component {
   constructor() {
     super();
 
@@ -59,7 +59,7 @@ export class App extends Component {
                 );
               }}
             />
-            <Route exact path="/" component={ArtistContainer} />
+            <Route exact path="/artists" component={ArtistContainer} />
           </Switch>
         </div>
       </div>
