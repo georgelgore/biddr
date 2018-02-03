@@ -1,6 +1,21 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const LotList = props => {
+const ArtistLotList = props => {
+  const findSale = lot => {
+    return props.sales.find(sale => sale.id === lot.sale_id);
+  };
+
+  const getYear = lot => {
+    let sale = findSale(lot);
+    return sale.sale_date.slice(0, 4);
+  };
+
+  const linkAuction = lot => {
+    let year = getYear(lot);
+    let sale = findSale(lot).id;
+    return `auctions/${year}/${sale}`;
+  };
   console.log("sale list", props);
   return (
     <div className="ui centered grid">
@@ -11,8 +26,9 @@ const LotList = props => {
             <thead>
               <tr>
                 <th />
-                <th />
-                <th>Artist</th>
+                <th>Sale</th>
+                <th>Sale Date</th>
+                <th>Lot Number</th>
                 <th>Title</th>
                 <th>Low Estimate</th>
                 <th>High Estimate</th>
@@ -23,23 +39,26 @@ const LotList = props => {
               {props.lots ? (
                 props.lots.map((lot, i) => (
                   <tr key={i}>
-                    <td key={`${i}0`}>{lot.lot_number}</td>
-                    <td key={`${i}1`}>
+                    <td key={`${i}0`}>
                       <img src={lot.image} alt={"google.com"} />
                     </td>
-                    <td key={`${i}2`}>{lot.artist_name}</td>
-                    <td key={`${i}3`}>{lot.art_title}</td>
-                    <td key={`${i}4`}>
+                    <td key={`${i}1`}>
+                      <Link to={linkAuction(lot)}>{findSale(lot).title}</Link>
+                    </td>
+                    <td key={`${i}3`}>{findSale(lot).sale_date}</td>
+                    <td key={`${i}4`}>{lot.lot_number}</td>
+                    <td key={`${i}5`}>{lot.art_title}</td>
+                    <td key={`${i}6`}>
                       ${lot.estimate_low.toLocaleString(navigator.language, {
                         minimumFractionDigits: 0
                       })}
                     </td>
-                    <td key={`${i}5`}>
+                    <td key={`${i}7`}>
                       ${lot.estimate_high.toLocaleString(navigator.language, {
                         minimumFractionDigits: 0
                       })}
                     </td>
-                    <td key={`${i}6`}>
+                    <td key={`${i}8`}>
                       ${lot.realized.toLocaleString(navigator.language, {
                         minimumFractionDigits: 0
                       })}
@@ -60,4 +79,4 @@ const LotList = props => {
   );
 };
 
-export default LotList;
+export default ArtistLotList;

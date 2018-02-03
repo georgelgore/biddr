@@ -6,27 +6,20 @@ class ArtistContainer extends Component {
     super();
 
     this.state = {
-      artists: [],
       display: [],
       searchTerm: "",
       displayArtist: ""
     };
   }
 
-  componentDidMount() {
-    fetch("http://localhost:3000/api/v1/artists")
-      .then(resp => resp.json())
-      .then(arr => this.setState({ artists: arr }));
-  }
-
-  updateDisplayArtist(event) {
-    this.state.displayArtist
-      ? this.setState(
-          { displayArtist: event.target.id },
-          console.log("change artist display", this.state.displayArtist)
-        )
-      : null;
-  }
+  // updateDisplayArtist(event) {
+  //   this.state.displayArtist
+  //     ? this.setState(
+  //         { displayArtist: event.target.id },
+  //         console.log("change artist display", this.state.displayArtist)
+  //       )
+  //     : null;
+  // } NEED TO MAKE THE ARTIST PAGE NOT COMPONENT MOUNT, GET FROM HIGH LEVEL
 
   updateSearchTerm = event => {
     if (event.target.value.length === 0) {
@@ -36,7 +29,7 @@ class ArtistContainer extends Component {
         { searchTerm: event.target.value },
         console.log("updating")
       );
-      let toShow = this.state.artists.filter(artist =>
+      let toShow = this.props.artists.filter(artist =>
         artist.name.toLowerCase().includes(event.target.value.toLowerCase())
       );
       this.setState(

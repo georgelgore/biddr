@@ -14,13 +14,19 @@ class App extends Component {
     super();
 
     this.state = {
-      sales: []
+      sales: [],
+      artists: []
     };
   }
   componentDidMount() {
     fetch("http://localhost:3000/api/v1/sales/")
       .then(resp => resp.json())
-      .then(arr => this.setState({ sales: arr }));
+      .then(arr => this.setState({ sales: arr }))
+      .then(
+        fetch("http://localhost:3000/api/v1/artists")
+          .then(resp => resp.json())
+          .then(arr => this.setState({ artists: arr }))
+      );
   }
 
   render() {
@@ -70,7 +76,12 @@ class App extends Component {
               exact
               path="/artists/:id"
               render={() => {
-                return <Artist />;
+                return (
+                  <Artist
+                    artists={this.state.artists}
+                    sales={this.state.sales}
+                  />
+                );
               }}
             />
             <Route
@@ -80,6 +91,7 @@ class App extends Component {
                 return (
                   <ArtistContainer
                     updateDisplayArtist={this.updateDisplayArtist}
+                    artists={this.state.artists}
                   />
                 );
               }}
