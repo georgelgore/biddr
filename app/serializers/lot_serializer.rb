@@ -5,5 +5,4 @@ class LotSerializer < ActiveModel::Serializer
   belongs_to :sale
 
 
-
 end
