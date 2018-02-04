@@ -8,29 +8,11 @@ import Sale from "./Sale/Sale";
 import ArtistContainer from "./Artists";
 import Artist from "./Artists/Artist.js";
 import { Route, Switch, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 
 class App extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      sales: [],
-      artists: []
-    };
-  }
-  componentDidMount() {
-    fetch("http://localhost:3000/api/v1/sales/")
-      .then(resp => resp.json())
-      .then(arr => this.setState({ sales: arr }))
-      .then(
-        fetch("http://localhost:3000/api/v1/artists")
-          .then(resp => resp.json())
-          .then(arr => this.setState({ artists: arr }))
-      );
-  }
-
   render() {
-    console.log("app props", this.state);
+    console.log("app props", this.props);
     return (
       <div className="App">
         <Navbar />
@@ -46,10 +28,10 @@ class App extends Component {
                   <Sale
                     year={match.params.year}
                     sale={
-                      this.state.sales.filter(
+                      this.props.sales.filter(
                         sale => sale.id.toString() === match.params.id
                       )[0]
-                        ? this.state.sales.filter(
+                        ? this.props.sales.filter(
                             sale => sale.id.toString() === match.params.id
                           )[0]
                         : {}
@@ -65,7 +47,7 @@ class App extends Component {
                 return (
                   <Year
                     year={match.params.year}
-                    sales={this.state.sales.filter(sale =>
+                    sales={this.props.sales.filter(sale =>
                       sale.sale_date.slice(0, 4).includes(match.params.year)
                     )}
                   />
@@ -78,8 +60,8 @@ class App extends Component {
               render={() => {
                 return (
                   <Artist
-                    artists={this.state.artists}
-                    sales={this.state.sales}
+                    artists={this.props.artists}
+                    sales={this.props.sales}
                   />
                 );
               }}
@@ -91,7 +73,7 @@ class App extends Component {
                 return (
                   <ArtistContainer
                     updateDisplayArtist={this.updateDisplayArtist}
-                    artists={this.state.artists}
+                    artists={this.props.artists}
                   />
                 );
               }}
@@ -103,4 +85,11 @@ class App extends Component {
   }
 }
 
-export default withRouter(App);
+const mapStateToProps = ({ artists, sales }) => {
+  return {
+    artists,
+    sales
+  };
+};
+
+export default withRouter(connect(mapStateToProps)(App));

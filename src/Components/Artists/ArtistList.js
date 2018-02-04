@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 const ArtistList = props => {
   return (
@@ -24,7 +25,7 @@ const ArtistList = props => {
               </tr>
             </thead>
             <tbody>
-              {props.artists.map((artist, i) => (
+              {props.artistDisplay.map((artist, i) => (
                 <tr key={i}>
                   <td id={artist.id} onClick={props.updateDisplayArtist}>
                     <Link
@@ -56,4 +57,12 @@ const ArtistList = props => {
   );
 };
 
-export default ArtistList;
+const mapStateToProps = ({ artists, sales, artist }) => {
+  return {
+    artists,
+    sales,
+    artist
+  };
+};
+
+export default connect(mapStateToProps)(ArtistList);

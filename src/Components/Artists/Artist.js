@@ -1,68 +1,54 @@
 import React, { Component } from "react";
 import ArtistLotList from "./ArtistLotList";
+import { connect } from "react-redux";
+import * as actions from "../../actions";
 
-class Artist extends Component {
-  constructor() {
-    super();
+const Artist = props => {
+  const setPropsArtist = () => {
+    if (props.artists.length > 0) {
+      props.setArtist(findArtist(getArtistId()));
+    }
+  };
 
-    this.state = {
-      artists: {},
-      artist: {},
-      artistId: ""
-    };
-  }
-
-  setArtistId = () => {
+  const getArtistId = () => {
     let url = window.location.href;
     return url.split("/").splice(4)[0];
   };
 
-  findArtist = () => {
-    if (!!this.state.artistId && this.state.artists.length > 0) {
-      let newArtist = this.state.artists.filter(
-        artist => artist.id === parseInt(this.state.artistId, 10)
-      )[0];
-      return newArtist;
-    }
+  const findArtist = newId => {
+    let newArtist = props.artists.filter(
+      artist => artist.id === parseInt(newId, 10)
+    )[0];
+    return newArtist;
   };
 
-  componentWillReceiveProps(nextProps) {
-    this.setState(
-      {
-        artists: nextProps.artists,
-        artistId: this.setArtistId()
-      },
-      console.log("PROPS", this.props)
-    );
-  }
+  return (
+    <div>
+      <button onClick={() => setPropsArtist()}>Load Artist</button>
+      <h1>
+        {props.artist &&
+        props.artist.constructor === Object &&
+        Object.keys(props.artist).length > 0
+          ? props.artist.name
+          : "Loading"}
+      </h1>
+      {props.artist &&
+      props.artist.constructor === Object &&
+      Object.keys(props.artist).length > 0 ? (
+        <ArtistLotList lots={props.artist.lots} sales={props.sales} />
+      ) : (
+        "Loading"
+      )}
+    </div>
+  );
+};
 
-  componentDidUpdate(prevProps, prevState) {
-    prevProps.artists !== this.props.artists && this.props.artists.length > 0
-      ? this.setState({
-          artist: this.findArtist()
-        })
-      : null;
-  }
+const mapStateToProps = ({ artists, sales, artist }) => {
+  return {
+    artists,
+    sales,
+    artist
+  };
+};
 
-  render() {
-    console.log("in artist", this.state);
-
-    return (
-      <div>
-        <h1>
-          {this.state.artist.title_name
-            ? this.state.artist.title_name
-            : "Loading..."}
-        </h1>
-        <ArtistLotList lots={this.state.artist.lots} sales={this.props.sales} />
-      </div>
-    );
-  }
-}
-
-export default Artist;
-//
-// {this.state.artist.title_name
-//   ? this.state.artist.title_name
-//   : "Loading"}
-// <LotList lots={this.state.artist.lots} />
+export default connect(mapStateToProps, actions)(Artist);

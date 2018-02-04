@@ -1,13 +1,18 @@
 import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 const LotList = props => {
+  const artistRoute = artistId => {
+    return `/artists/${artistId}`;
+  };
   console.log("sale list", props);
   return (
     <div className="ui centered grid">
       <div className="twelve wide column">
         <h1> Lots </h1>
         <div className="ui left aligned container">
-          <table className="ui very basic table">
+          <table className="ui sortable very basic table">
             <thead>
               <tr>
                 <th />
@@ -27,7 +32,15 @@ const LotList = props => {
                     <td key={`${i}1`}>
                       <img src={lot.image} alt={"google.com"} />
                     </td>
-                    <td key={`${i}2`}>{lot.artist_name}</td>
+                    <td key={`${i}2`}>
+                      <Link to={artistRoute(lot.artist_id)}>
+                        {
+                          props.artists.find(
+                            artist => artist.id === lot.artist_id
+                          ).title_name
+                        }
+                      </Link>
+                    </td>
                     <td key={`${i}3`}>{lot.art_title}</td>
                     <td key={`${i}4`}>
                       ${lot.estimate_low.toLocaleString(navigator.language, {
@@ -60,4 +73,10 @@ const LotList = props => {
   );
 };
 
-export default LotList;
+const mapStateToProps = ({ artists }) => {
+  return {
+    artists
+  };
+};
+
+export default connect(mapStateToProps)(LotList);

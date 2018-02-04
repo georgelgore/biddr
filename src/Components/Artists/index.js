@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ArtistList from "./ArtistList";
+import { connect } from "react-redux";
 
 class ArtistContainer extends Component {
   constructor() {
@@ -11,15 +12,6 @@ class ArtistContainer extends Component {
       displayArtist: ""
     };
   }
-
-  // updateDisplayArtist(event) {
-  //   this.state.displayArtist
-  //     ? this.setState(
-  //         { displayArtist: event.target.id },
-  //         console.log("change artist display", this.state.displayArtist)
-  //       )
-  //     : null;
-  // } NEED TO MAKE THE ARTIST PAGE NOT COMPONENT MOUNT, GET FROM HIGH LEVEL
 
   updateSearchTerm = event => {
     if (event.target.value.length === 0) {
@@ -45,7 +37,7 @@ class ArtistContainer extends Component {
       <div className="ui container">
         <h1> Artists </h1>
         <ArtistList
-          artists={this.state.display}
+          artistDisplay={this.state.display}
           updateSearchTerm={this.updateSearchTerm}
           searchTerm={this.state.searchTerm}
           updateDisplayArtist={this.updateDisplayArtist}
@@ -54,5 +46,11 @@ class ArtistContainer extends Component {
     );
   }
 }
+const mapStateToProps = ({ artists, sales }) => {
+  return {
+    artists,
+    sales
+  };
+};
 
-export default ArtistContainer;
+export default connect(mapStateToProps)(ArtistContainer);
