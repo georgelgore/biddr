@@ -20,65 +20,71 @@ class App extends Component {
     console.log("app props", this.props);
     return (
       <div className="App">
-        <Navbar />
-        <div className="Main">
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/auctions" component={Auction} />
-            <Route
-              exact
-              path="/auctions/:year/:id"
-              render={({ match }) => {
-                return (
-                  <Sale
-                    year={match.params.year}
-                    sale={
-                      this.props.sales.filter(
-                        sale => sale.id.toString() === match.params.id
-                      )[0]
-                        ? this.props.sales.filter(
+        {this.props.artists.length > 0 ? (
+          <div>
+            <Navbar />
+            <div className="Main">
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/auctions" component={Auction} />
+                <Route
+                  exact
+                  path="/auctions/:year/:id"
+                  render={({ match }) => {
+                    return (
+                      <Sale
+                        year={match.params.year}
+                        sale={
+                          this.props.sales.filter(
                             sale => sale.id.toString() === match.params.id
                           )[0]
-                        : {}
-                    }
-                  />
-                );
-              }}
-            />
-            <Route
-              exact
-              path="/auctions/:year"
-              render={({ match }) => {
-                return (
-                  <Year
-                    year={match.params.year}
-                    sales={this.props.sales.filter(sale =>
-                      sale.sale_date.slice(0, 4).includes(match.params.year)
-                    )}
-                  />
-                );
-              }}
-            />
-            <Route
-              exact
-              path="/artists/:id"
-              render={() => {
-                return <Artist />;
-              }}
-            />
-            <Route
-              exact
-              path="/artists"
-              render={({ match }) => {
-                return (
-                  <ArtistContainer
-                    updateDisplayArtist={this.updateDisplayArtist}
-                  />
-                );
-              }}
-            />
-          </Switch>
-        </div>
+                            ? this.props.sales.filter(
+                                sale => sale.id.toString() === match.params.id
+                              )[0]
+                            : {}
+                        }
+                      />
+                    );
+                  }}
+                />
+                <Route
+                  exact
+                  path="/auctions/:year"
+                  render={({ match }) => {
+                    return (
+                      <Year
+                        year={match.params.year}
+                        sales={this.props.sales.filter(sale =>
+                          sale.sale_date.slice(0, 4).includes(match.params.year)
+                        )}
+                      />
+                    );
+                  }}
+                />
+                <Route
+                  exact
+                  path="/artists/:id"
+                  render={() => {
+                    return <Artist />;
+                  }}
+                />
+                <Route
+                  exact
+                  path="/artists"
+                  render={({ match }) => {
+                    return (
+                      <ArtistContainer
+                        updateDisplayArtist={this.updateDisplayArtist}
+                      />
+                    );
+                  }}
+                />
+              </Switch>
+            </div>
+          </div>
+        ) : (
+          "Loading"
+        )}
       </div>
     );
   }

@@ -1,10 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { ScatterPlot } from "react-d3-basic";
 const LotList = props => {
   const artistRoute = artistId => {
     return `/artists/${artistId}`;
+  };
+
+  const sortByLotId = lots => {
+    return lots.sort(function(a, b) {
+      return a.id - b.id;
+    });
   };
 
   const makeData = lots => {
@@ -54,27 +60,24 @@ const LotList = props => {
             </thead>
             <tbody>
               {props.lots ? (
-                props.lots.map((lot, i) => (
+                sortByLotId(props.lots).map((lot, i) => (
                   <tr key={i}>
                     <td key={`${i}0`}>{lot.lot_number}</td>
                     <td key={`${i}1`}>
                       <img src={lot.image} alt={"google.com"} />
                     </td>
                     <td key={`${i}2`}>
-                      <p
+                      <a
                         onClick={() => {
                           props.history.push(`/artists/${lot.artist_id}`);
                         }}
                       >
-                        {lot.lot_number}
-                      </p>
-                      <Link to={artistRoute(lot.artist_id)}>
                         {
                           props.artists.find(
                             artist => artist.id === lot.artist_id
                           ).title_name
                         }
-                      </Link>
+                      </a>
                     </td>
                     <td key={`${i}3`}>{lot.art_title}</td>
                     <td key={`${i}4`}>
@@ -107,9 +110,10 @@ const LotList = props => {
   );
 };
 
-const mapStateToProps = ({ artists }) => {
+const mapStateToProps = ({ artists, sales }) => {
   return {
-    artists
+    artists,
+    sales
   };
 };
 

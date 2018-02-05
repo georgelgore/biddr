@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import * as actions from "../actions";
 import { VictoryBar, VictoryChart, VictoryAxis } from "victory";
 
 class Home extends React.Component {
