@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 const ArtistLotList = props => {
   const findSale = lot => {
@@ -40,7 +41,12 @@ const ArtistLotList = props => {
                 props.lots.map((lot, i) => (
                   <tr key={i}>
                     <td key={`${i}0`}>
-                      <img src={lot.image} alt={"google.com"} />
+                      <img
+                        src={lot.image}
+                        alt={
+                          "https://www.christies.com/img/lotimages//Alert/NoImage/non_NoImag.jpg?Width=77"
+                        }
+                      />
                     </td>
                     <td key={`${i}1`}>
                       <Link to={linkAuction(lot)}>{findSale(lot).title}</Link>
@@ -79,4 +85,10 @@ const ArtistLotList = props => {
   );
 };
 
-export default ArtistLotList;
+const mapStateToProps = ({ sales }) => {
+  return {
+    sales
+  };
+};
+
+export default connect(mapStateToProps)(ArtistLotList);

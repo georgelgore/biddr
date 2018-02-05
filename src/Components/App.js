@@ -9,8 +9,13 @@ import ArtistContainer from "./Artists";
 import Artist from "./Artists/Artist.js";
 import { Route, Switch, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import * as actions from "../actions";
 
 class App extends Component {
+  componentDidMount() {
+    this.props.fetchArtists() && this.props.fetchSales();
+  }
+
   render() {
     console.log("app props", this.props);
     return (
@@ -58,12 +63,7 @@ class App extends Component {
               exact
               path="/artists/:id"
               render={() => {
-                return (
-                  <Artist
-                    artists={this.props.artists}
-                    sales={this.props.sales}
-                  />
-                );
+                return <Artist />;
               }}
             />
             <Route
@@ -73,7 +73,6 @@ class App extends Component {
                 return (
                   <ArtistContainer
                     updateDisplayArtist={this.updateDisplayArtist}
-                    artists={this.props.artists}
                   />
                 );
               }}
@@ -92,4 +91,4 @@ const mapStateToProps = ({ artists, sales }) => {
   };
 };
 
-export default withRouter(connect(mapStateToProps)(App));
+export default withRouter(connect(mapStateToProps, actions)(App));

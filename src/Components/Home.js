@@ -1,20 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 import * as actions from "../actions";
+import { VictoryBar, VictoryChart, VictoryAxis } from "victory";
 
 class Home extends React.Component {
-  handleClick = () => {
-    console.log("in handle click");
-    this.props.fetchSales();
-    this.props.fetchArtists();
-    console.log("after handle click");
-  };
-
   render() {
+    console.log("home props", this.props);
     return (
       <div>
-        <button onClick={this.handleClick}>Load</button>
         <div className="ui huge header">Welcome to Biddr</div>
+        <div className="ui container">
+          <div className="ui segment" />
+        </div>
       </div>
     );
   }
@@ -27,4 +24,4 @@ const mapStateToProps = ({ artists, sales }) => {
   };
 };
 
-export default connect(mapStateToProps, actions)(Home);
+export default connect(mapStateToProps)(Home);

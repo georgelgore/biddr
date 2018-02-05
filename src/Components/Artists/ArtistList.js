@@ -1,8 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import * as actions from "../../actions";
 
 const ArtistList = props => {
+  console.log("ARTIST LIST", props);
   return (
     <div className="ui container">
       <div className="ui fluid icon input">
@@ -27,24 +29,31 @@ const ArtistList = props => {
             <tbody>
               {props.artistDisplay.map((artist, i) => (
                 <tr key={i}>
-                  <td id={artist.id} onClick={props.updateDisplayArtist}>
-                    <Link
-                      className="ui item"
-                      key={i}
-                      to={`artists/${artist.id}`}
-                    >
-                      <h1 id={artist.id} className="ui center aligned header">
-                        {artist.title_name}
-                      </h1>
-                      {artist.image ? (
-                        <img
-                          src={encodeURI(artist.image)}
-                          alt={"google.com"}
-                          className="lot-image"
-                          id={artist.id}
-                        />
-                      ) : null}
-                    </Link>
+                  <td
+                    id={artist.id}
+                    onClick={() => {
+                      props.updateDisplayArtist(artist.id);
+                      props.history.push(`artists/${artist.id}`);
+                    }}
+                  >
+                    {/*// <Link
+                    //   className="ui item"
+                    //   key={i}
+                    //   to={`artists/${artist.id}`}
+                    //   </Link>
+                    // >
+                    //*/}
+                    <h1 id={artist.id} className="ui center aligned header">
+                      {artist.title_name}
+                    </h1>
+                    {artist.image ? (
+                      <img
+                        src={encodeURI(artist.image)}
+                        alt={"google.com"}
+                        className="lot-image"
+                        id={artist.id}
+                      />
+                    ) : null}
                   </td>
                   <td />
                 </tr>
@@ -65,4 +74,4 @@ const mapStateToProps = ({ artists, sales, artist }) => {
   };
 };
 
-export default connect(mapStateToProps)(ArtistList);
+export default withRouter(connect(mapStateToProps, actions)(ArtistList));

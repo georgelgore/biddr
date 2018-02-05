@@ -13,6 +13,11 @@ class ArtistContainer extends Component {
     };
   }
 
+  updateDisplayArtist = (history, artistId) => {
+    console.log("IN UPDATE DISPLAY", history, artistId);
+    history.push(`/artists/${artistId}`);
+  };
+
   updateSearchTerm = event => {
     if (event.target.value.length === 0) {
       this.setState({ display: [], searchTerm: "" });
@@ -40,7 +45,6 @@ class ArtistContainer extends Component {
           artistDisplay={this.state.display}
           updateSearchTerm={this.updateSearchTerm}
           searchTerm={this.state.searchTerm}
-          updateDisplayArtist={this.updateDisplayArtist}
         />
       </div>
     );
