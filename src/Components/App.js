@@ -26,6 +26,24 @@ class App extends Component {
             <div className="Main">
               <Switch>
                 <Route exact path="/" component={Home} />
+                <Route
+                  exact
+                  path="/artists/:id"
+                  render={() => {
+                    return <Artist />;
+                  }}
+                />
+                <Route
+                  exact
+                  path="/artists"
+                  render={({ match }) => {
+                    return (
+                      <ArtistContainer
+                        updateDisplayArtist={this.updateDisplayArtist}
+                      />
+                    );
+                  }}
+                />
                 <Route exact path="/auctions" component={Auction} />
                 <Route
                   exact
@@ -57,24 +75,6 @@ class App extends Component {
                         sales={this.props.sales.filter(sale =>
                           sale.sale_date.slice(0, 4).includes(match.params.year)
                         )}
-                      />
-                    );
-                  }}
-                />
-                <Route
-                  exact
-                  path="/artists/:id"
-                  render={() => {
-                    return <Artist />;
-                  }}
-                />
-                <Route
-                  exact
-                  path="/artists"
-                  render={({ match }) => {
-                    return (
-                      <ArtistContainer
-                        updateDisplayArtist={this.updateDisplayArtist}
                       />
                     );
                   }}

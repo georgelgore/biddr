@@ -1,14 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 const SaleList = props => {
+  const yearSales = () => {
+    return props.sales.filter(
+      sale => sale.sale_date.slice(0, 4) === props.year
+    );
+  };
   console.log("sale list", props);
   return (
     <div className="ui left aligned container">
       <h1> Sales – {props.year} </h1>
 
       <div className="ui link list">
-        {props.sales.map((sale, i) => (
+        {yearSales().map((sale, i) => (
           <Link
             className="ui item"
             key={i}
@@ -22,5 +28,9 @@ const SaleList = props => {
     </div>
   );
 };
-
-export default SaleList;
+const mapStateToProps = ({ sales }) => {
+  return {
+    sales
+  };
+};
+export default connect(mapStateToProps)(SaleList);

@@ -1,12 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 const ArtistLotList = props => {
   const findSale = lot => {
     return props.sales.find(sale => sale.id === lot.sale_id);
   };
-
+  const christiesLink =
+    "https://www.christies.com/img/lotimages//Alert/NoImage/non_NoImag.jpg?Width=77";
+  const addDefaultSrc = ev => {
+    ev.target.src = christiesLink;
+  };
   const getYear = lot => {
     let sale = findSale(lot);
     return sale.sale_date.slice(0, 4);
@@ -42,14 +46,19 @@ const ArtistLotList = props => {
                   <tr key={i}>
                     <td key={`${i}0`}>
                       <img
+                        onError={addDefaultSrc}
                         src={lot.image}
-                        alt={
-                          "https://www.christies.com/img/lotimages//Alert/NoImage/non_NoImag.jpg?Width=77"
-                        }
+                        alt={christiesLink}
                       />
                     </td>
                     <td key={`${i}1`}>
-                      <Link to={linkAuction(lot)}>{findSale(lot).title}</Link>
+                      <a
+                        onClick={() => {
+                          props.history.replace(linkAuction(lot));
+                        }}
+                      >
+                        {findSale(lot).title}
+                      </a>
                     </td>
                     <td key={`${i}3`}>{findSale(lot).sale_date}</td>
                     <td key={`${i}4`}>{lot.lot_number}</td>
@@ -91,4 +100,4 @@ const mapStateToProps = ({ sales }) => {
   };
 };
 
-export default connect(mapStateToProps)(ArtistLotList);
+export default withRouter(connect(mapStateToProps)(ArtistLotList));

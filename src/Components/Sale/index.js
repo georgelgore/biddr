@@ -1,5 +1,6 @@
 import React from "react";
 import SaleList from "./SaleList";
+import { connect } from "react-redux";
 
 const Year = props => {
   console.log("year props", props);
@@ -11,4 +12,9 @@ const Year = props => {
   );
 };
 
-export default Year;
+const mapStateToProps = ({ sales }) => {
+  return {
+    sales
+  };
+};
+export default connect(mapStateToProps)(Year);

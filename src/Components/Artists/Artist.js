@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import * as actions from "../../actions";
 import { ScatterPlot } from "react-d3-basic";
 import { withRouter } from "react-router-dom";
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from "victory";
 
 class Artist extends Component {
   getArtistId = () => {
@@ -59,30 +60,18 @@ class Artist extends Component {
         Object.keys(this.props.artist).length > 0 ? (
           <div>
             <h1>{this.props.artist.title_name}</h1>
-            <ScatterPlot
-              data={this.makeData(this.props.artist.lots)}
-              width={960}
-              height={500}
-              margins={{
-                top: 80,
-                right: 150,
-                bottom: 80,
-                left: 100
-              }}
-              chartSeries={[
-                {
-                  field: "price",
-                  name: "Price",
-                  symbol: "cross",
-                  symbolSize: 6
-                }
-              ]}
-              x={function(d) {
-                return d.lot;
-              }}
-              xScale={"linear"}
-              yScale={"linear"}
-              xLabel="Lot Number"
+            <VictoryChart domainPadding={10} theme={VictoryTheme.material}>
+              <VictoryAxis />
+              <VictoryAxis
+                dependentAxis
+                tickFormat={x => `${x / 1000000000}B`}
+              />
+              <VictoryBar
+                data={this.makeData(this.props.artist.lots)}
+                x="year"
+                y="sum"
+              />
+            </VictoryChart>
             />
             <ArtistLotList lots={this.props.artist.lots} />
           </div>

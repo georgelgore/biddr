@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import AuctionBarChart from "../VictoryCharts/AuctionBarChart";
 
-const Auction = () => {
+const Auction = props => {
   return (
     <div className="ui grid">
       <div className="sixteen wide column">
@@ -59,11 +61,17 @@ const Auction = () => {
       </div>
       <br />
       <br />
-      <div className="sixteen wide column">
+      <div className="centered ten wide column">
         <div className="ui large header">Analytics</div>
+        <AuctionBarChart />
       </div>
     </div>
   );
 };
 
-export default Auction;
+const mapStateToProps = ({ sales }) => {
+  return {
+    sales
+  };
+};
+export default connect(mapStateToProps)(Auction);

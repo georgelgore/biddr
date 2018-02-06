@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { ScatterPlot } from "react-d3-basic";
+
 const LotList = props => {
   const artistRoute = artistId => {
     return `/artists/${artistId}`;
@@ -69,7 +70,7 @@ const LotList = props => {
                     <td key={`${i}2`}>
                       <a
                         onClick={() => {
-                          props.history.push(`/artists/${lot.artist_id}`);
+                          props.history.replace(`/artists/${lot.artist_id}`);
                         }}
                       >
                         {
