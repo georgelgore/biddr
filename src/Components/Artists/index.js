@@ -19,25 +19,24 @@ class ArtistContainer extends Component {
   };
 
   updateSearchTerm = event => {
+    console.log("HELLO", this.props);
     if (event.target.value.length === 0) {
       this.setState({ display: [], searchTerm: "" });
     } else {
-      this.setState(
-        { searchTerm: event.target.value },
-        console.log("updating")
-      );
-      let toShow = this.props.artists.filter(artist =>
-        artist.name.toLowerCase().includes(event.target.value.toLowerCase())
-      );
+      let toShow = this.props.artists.filter(artist => {
+        if (artist.name) {
+          return artist.name.includes(event.target.value.toUpperCase());
+        }
+      });
       this.setState(
         { searchTerm: event.target.value, display: toShow.sort() },
-        console.log("updating")
+        console.log("updating1", this.state, this.props)
       );
     }
   };
 
   render() {
-    console.log("artist container", this.state);
+    console.log("artist container", this.state, this.props);
     return (
       <div className="ui container">
         <h1> Artists </h1>

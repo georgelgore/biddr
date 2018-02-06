@@ -10,7 +10,7 @@ const ArtistList = props => {
       <div className="ui fluid icon input">
         <i className="search icon" />
         <input
-          onChange={props.updateSearchTerm}
+          onChange={event => props.updateSearchTerm(event)}
           value={props.searchTerm}
           type="text"
           placeholder="Search for artists by name..."
@@ -44,12 +44,16 @@ const ArtistList = props => {
                     // >
                     //*/}
                     <h1 id={artist.id} className="ui center aligned header">
-                      {artist.title_name}
+                      {artist.name}
                     </h1>
-                    {artist.image ? (
+                    {artist.lots.length > 0 ? (
                       <img
-                        src={encodeURI(artist.image)}
-                        alt={"google.com"}
+                        src={encodeURI(
+                          artist.lots[artist.lots.length - 1].image
+                        )}
+                        alt={
+                          "https://www.christies.com/img/lotimages//Alert/NoImage/non_NoImag.jpg?Width=77"
+                        }
                         className="lot-image"
                         id={artist.id}
                       />

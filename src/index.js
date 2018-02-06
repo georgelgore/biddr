@@ -41,13 +41,13 @@ const reducer = (state = defaultState, action) => {
     case FETCH_ARTISTS:
       return {
         ...state,
-        artists: action.artists,
+        artists: action.artists.data.map(sale => sale.attributes),
         loading: false
       };
     case FETCH_SALES:
       return {
         ...state,
-        sales: action.sales,
+        sales: action.sales.data.map(sale => sale.attributes),
         loading: false
       };
     case SET_ARTIST:
