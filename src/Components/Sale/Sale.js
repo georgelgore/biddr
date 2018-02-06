@@ -7,7 +7,7 @@ const Sale = props => {
     <div className="ui container">
       <h1>{props.sale.title ? props.sale.title : "Loading"}</h1>
       <h1>{props.sale.sale_date ? props.sale.sale_date : ""}</h1>
-      <LotList lots={props.sale.lots} />
+      <LotList lots={props.sale.lots} artists={props.sale.artists} />
     </div>
   );
 };
