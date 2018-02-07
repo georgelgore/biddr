@@ -4,7 +4,8 @@ import {
   VictoryScatter,
   VictoryChart,
   VictoryAxis,
-  VictoryClipContainer
+  VictoryClipContainer,
+  VictoryTooltip
 } from "victory";
 
 class LotList extends React.Component {
@@ -14,7 +15,8 @@ class LotList extends React.Component {
     this.state = {
       lots: [],
       originalSort: true,
-      sorted: false
+      sorted: false,
+      xLabel: ""
     };
   }
   sortByLotId = lots => {
@@ -27,10 +29,25 @@ class LotList extends React.Component {
     let data = [];
     this.props.lots.forEach((lot, i) =>
       data.push({
-        x: i,
+        x: i + 2,
         y: lot.realized,
         fillOpacity: 0.8,
-        strokeWidth: 3
+        strokeWidth: 3,
+        label: `${lot.lot_number}\n${
+          this.findArtist(lot).name
+        }\n\nLow Estimate: $${lot.estimate_low.toLocaleString(
+          navigator.language,
+          {
+            minimumFractionDigits: 0
+          }
+        )}\nHigh Estimate: $${lot.estimate_high.toLocaleString(
+          navigator.language,
+          {
+            minimumFractionDigits: 0
+          }
+        )}\nPrice Realized: $${lot.realized.toLocaleString(navigator.language, {
+          minimumFractionDigits: 0
+        })}`
       })
     );
     return data;
@@ -207,23 +224,26 @@ class LotList extends React.Component {
 
   handleClick = event => {
     this.sortLots(this.props.lots, event.target.innerText);
+    this.setState({ xLabel: event.target.innerText });
   };
 
   render() {
     console.log("LOT LIST", this.state, this.props);
     return (
       <div>
+        <h1 className="ui left aligned header"> Analytics </h1>
         <VictoryChart domainPadding={20}>
           <VictoryAxis
-            label={"realized"}
+            label={"Realized"}
             style={{ tickLabels: { fontSize: 5, padding: 2 } }}
             dependentAxis
           />
           <VictoryAxis
-            label={""}
+            label={this.state.xLabel}
             style={{ tickLabels: { fontSize: 5, padding: 2 } }}
           />
           <VictoryScatter
+            labelComponent={<VictoryTooltip />}
             groupComponent={<VictoryClipContainer />}
             bubbleProperty="amount"
             data={this.makeData()}
@@ -231,7 +251,6 @@ class LotList extends React.Component {
         </VictoryChart>
         <div className="ui centered grid">
           <div className="twelve wide column">
-            <h1 className="ui left aligned header"> Analytics </h1>
             <h1> Lots </h1>
             <div className="ui left aligned container">
               <table className="ui very basic table">
@@ -258,7 +277,12 @@ class LotList extends React.Component {
                       <tr key={i}>
                         <td key={`${i}0`}>{lot.lot_number}</td>
                         <td key={`${i}1`}>
-                          <img src={lot.image} alt={"google.com"} />
+                          <img
+                            src={lot.image}
+                            alt={
+                              "https://www.christies.com/img/lotimages//Alert/NoImage/non_NoImag.jpg?Width=77"
+                            }
+                          />
                         </td>
                         <td key={`${i}2`}>
                           <a

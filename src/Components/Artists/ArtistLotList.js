@@ -18,7 +18,8 @@ class ArtistLotList extends Component {
     this.state = {
       lots: [],
       sorted: false,
-      originalSort: true
+      originalSort: true,
+      xLabel: ""
     };
   }
 
@@ -26,7 +27,7 @@ class ArtistLotList extends Component {
     let data = [];
     this.props.lots.forEach((lot, i) =>
       data.push({
-        x: i,
+        x: i + 1,
         y: lot.realized,
         fillOpacity: 0.8,
         strokeWidth: 3
@@ -188,6 +189,7 @@ class ArtistLotList extends Component {
 
   handleClick = event => {
     this.sortLots(this.props.lots, event.target.innerText);
+    this.setState({ xLabel: event.target.innerText });
   };
 
   render() {
@@ -202,7 +204,7 @@ class ArtistLotList extends Component {
               dependentAxis
             />
             <VictoryAxis
-              label={""}
+              label={this.state.xLabel}
               style={{ tickLabels: { fontSize: 5, padding: 2 } }}
             />
             <VictoryScatter

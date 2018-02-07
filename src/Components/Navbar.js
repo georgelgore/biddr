@@ -5,18 +5,20 @@ const Navbar = () => {
   return (
     <div className="ui top fixed menu">
       <Link to="/">
-        <div className="header item">Biddr</div>
+        <div style={{ fontSize: 24 }} className="Iconic header item">
+          Biddr
+        </div>
       </Link>
       <div className="right menu">
         <div className="right menu">
           <Link to="/artists">
-            <div className="item">Artists</div>
+            <h4 className="Iconic item">Artists</h4>
           </Link>
           <Link to="/auctions">
-            <div className="item">Auctions</div>
+            <h4 className="Iconic item">Auctions</h4>
           </Link>
           <Link to="/analytics">
-            <div className="item">Analytics</div>
+            <h4 className="Iconic item">Analytics</h4>
           </Link>
         </div>
       </div>
