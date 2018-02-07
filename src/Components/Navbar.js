@@ -3,22 +3,55 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <div className="ui top fixed menu">
+    <div style={{ maxHeight: 75 }} className="ui top fixed menu">
       <Link to="/">
-        <div style={{ fontSize: 24 }} className="Iconic header item">
+        <h1 style={{ fontSize: 30 }} className="Iconic header item">
           Biddr
-        </div>
+        </h1>
       </Link>
-      <div className="right menu">
-        <div className="right menu">
+      <div className="right fixed menu">
+        <div className="right fixed menu">
           <Link to="/artists">
-            <h4 className="Iconic item">Artists</h4>
+            <div
+              className="item"
+              style={{
+                fontSize: 20,
+                paddingTop: "25px",
+                paddingBottom: "25px",
+                marginTop: "5px",
+                marginBottom: "5px"
+              }}
+            >
+              <h4 className="head2">ARTISTS</h4>
+            </div>
           </Link>
           <Link to="/auctions">
-            <h4 className="Iconic item">Auctions</h4>
+            <div
+              className="item"
+              style={{
+                fontSize: 20,
+                paddingTop: "25px",
+                paddingBottom: "25px",
+                marginTop: "5px",
+                marginBottom: "5px"
+              }}
+            >
+              <h4 className="head2">AUCTIONS</h4>
+            </div>
           </Link>
           <Link to="/analytics">
-            <h4 className="Iconic item">Analytics</h4>
+            <div
+              className="item"
+              style={{
+                fontSize: 20,
+                paddingTop: "25px",
+                paddingBottom: "25px",
+                marginTop: "5px",
+                marginBottom: "5px"
+              }}
+            >
+              <h4 className="head2 ">ANALYTICS</h4>
+            </div>
           </Link>
         </div>
       </div>

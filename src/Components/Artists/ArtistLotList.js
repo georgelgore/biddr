@@ -6,7 +6,8 @@ import {
   VictoryChart,
   VictoryAxis,
   VictoryZoomContainer,
-  VictoryClipContainer
+  VictoryClipContainer,
+  VictoryTooltip
 } from "victory";
 
 const christiesLink =
@@ -27,10 +28,30 @@ class ArtistLotList extends Component {
     let data = [];
     this.props.lots.forEach((lot, i) =>
       data.push({
-        x: i + 1,
+        x: i + 2,
         y: lot.realized,
+        size: lot.realized,
+        fill: d =>
+          d.y >= lot.estimate_low && d.y <= lot.estimate_high
+            ? "#000000"
+            : d.y <= lot.estimate_low ? "#c43a31" : "#006400",
         fillOpacity: 0.8,
-        strokeWidth: 3
+        strokeWidth: 3,
+        label: `${this.findSale(lot).title}\nSale Date ${
+          this.findSale(lot).sale_date
+        }\nLow Estimate: $${lot.estimate_low.toLocaleString(
+          navigator.language,
+          {
+            minimumFractionDigits: 0
+          }
+        )}\nHigh Estimate: $${lot.estimate_high.toLocaleString(
+          navigator.language,
+          {
+            minimumFractionDigits: 0
+          }
+        )}\nPrice Realized: $${lot.realized.toLocaleString(navigator.language, {
+          minimumFractionDigits: 0
+        })}`
       })
     );
     return data;
@@ -199,17 +220,20 @@ class ArtistLotList extends Component {
           <h1 className="ui left aligned header"> Analytics </h1>
           <VictoryChart domainPadding={20}>
             <VictoryAxis
-              label={"realized"}
-              style={{ tickLabels: { fontSize: 5, padding: 2 } }}
-              dependentAxis
-            />
-            <VictoryAxis
               label={this.state.xLabel}
               style={{ tickLabels: { fontSize: 5, padding: 2 } }}
             />
+            <VictoryAxis
+              label={"Realized"}
+              style={{ tickLabels: { fontSize: 0, padding: 2 } }}
+              dependentAxis
+            />
             <VictoryScatter
+              labelComponent={<VictoryTooltip />}
               groupComponent={<VictoryClipContainer />}
               bubbleProperty="amount"
+              minBubbleSize={1}
+              maxBubbleSize={10}
               data={this.makeData()}
             />
           </VictoryChart>

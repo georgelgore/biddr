@@ -5,6 +5,7 @@ import {
   VictoryChart,
   VictoryAxis,
   VictoryClipContainer,
+  VictoryZoomContainer,
   VictoryTooltip
 } from "victory";
 
@@ -29,10 +30,14 @@ class LotList extends React.Component {
     let data = [];
     this.props.lots.forEach((lot, i) =>
       data.push({
-        x: i + 2,
+        x: i + 10,
         y: lot.realized,
-        fillOpacity: 0.8,
-        strokeWidth: 3,
+        amount: lot.realized,
+        fillOpacity: 0.5,
+        fill: d =>
+          d.y >= lot.estimate_low && d.y <= lot.estimate_high
+            ? "#000000"
+            : d.y <= lot.estimate_low ? "#c43a31" : "#006400",
         label: `${lot.lot_number}\n${
           this.findArtist(lot).name
         }\n\nLow Estimate: $${lot.estimate_low.toLocaleString(
@@ -232,20 +237,25 @@ class LotList extends React.Component {
     return (
       <div>
         <h1 className="ui left aligned header"> Analytics </h1>
-        <VictoryChart domainPadding={20}>
-          <VictoryAxis
-            label={"Realized"}
-            style={{ tickLabels: { fontSize: 5, padding: 2 } }}
-            dependentAxis
-          />
+        <VictoryChart
+          domainPadding={10}
+          containerComponent={<VictoryZoomContainer />}
+        >
           <VictoryAxis
             label={this.state.xLabel}
-            style={{ tickLabels: { fontSize: 5, padding: 2 } }}
+            style={{ tickLabels: { fontSize: 0, padding: 1 } }}
+          />
+          <VictoryAxis
+            label={"Realized"}
+            style={{ tickLabels: { fontSize: 4, padding: 4 } }}
+            dependentAxis
           />
           <VictoryScatter
-            labelComponent={<VictoryTooltip />}
-            groupComponent={<VictoryClipContainer />}
             bubbleProperty="amount"
+            minBubbleSize={1}
+            maxBubbleSize={10}
+            groupComponent={<VictoryClipContainer />}
+            labelComponent={<VictoryTooltip />}
             data={this.makeData()}
           />
         </VictoryChart>

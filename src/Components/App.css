@@ -1,5 +1,5 @@
 .Main {
-  padding-top: 2cm;
+  padding-top: 3cm;
 }
 
 .App {
@@ -15,4 +15,8 @@
 
 .Iconic {
   font-family: "Coda", cursive;
+}
+
+.head2 {
+  font-family: "Lato", sans-serif;
 }
