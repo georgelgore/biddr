@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import * as actions from "../../actions";
 import {
   VictoryScatter,
   VictoryChart,
@@ -26,11 +27,11 @@ class ArtistLotList extends Component {
 
   makeData = () => {
     let data = [];
-    this.props.lots.forEach((lot, i) =>
+    this.state.lots.forEach((lot, i) =>
       data.push({
         x: i + 2,
         y: lot.realized,
-        size: lot.realized,
+        amount: lot.realized,
         fill: d =>
           d.y >= lot.estimate_low && d.y <= lot.estimate_high
             ? "#000000"
@@ -54,21 +55,21 @@ class ArtistLotList extends Component {
         })}`
       })
     );
+    console.log("DATA", data);
     return data;
   };
 
-  // componentDidMount(props) {
-  //   this.setState({
-  //     lots: this.props.lots.sort(
-  //       (a, b) =>
-  //         parseInt(this.findSale(a).sale_date, 10) -
-  //         parseInt(this.findSale(b).sale_date, 10)
-  //     )
-  //   });
-  // }
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      lots: nextProps.displayArtist.data.attributes.lots
+    });
+  }
 
-  componentDidReceiveProps(nextProps) {
-    if (this.props !== nextProps) {
+  componentDidMount() {
+    this.props.fetchDisplayArtist(`${this.props.artist.id}`);
+
+    {
+      /*if (this.props !== nextProps) {
       this.setState({
         lots: this.nextProps.lots.sort(
           (a, b) =>
@@ -83,7 +84,8 @@ class ArtistLotList extends Component {
           parseInt(this.findSale(a).sale_date, 10) -
           parseInt(this.findSale(b).sale_date, 10)
       )
-    });
+    });*/
+    }
   }
 
   findSale = lot => {
@@ -209,34 +211,40 @@ class ArtistLotList extends Component {
   };
 
   handleClick = event => {
-    this.sortLots(this.props.lots, event.target.innerText);
+    this.sortLots(this.state.lots, event.target.innerText);
     this.setState({ xLabel: event.target.innerText });
   };
 
   render() {
+    console.log("IN ALL", this.props);
     return (
       <div>
         <div className="ui container">
           <h1 className="ui left aligned header"> Analytics </h1>
-          <VictoryChart domainPadding={20}>
-            <VictoryAxis
-              label={this.state.xLabel}
-              style={{ tickLabels: { fontSize: 5, padding: 2 } }}
-            />
-            <VictoryAxis
-              label={"Realized"}
-              style={{ tickLabels: { fontSize: 0, padding: 2 } }}
-              dependentAxis
-            />
-            <VictoryScatter
-              labelComponent={<VictoryTooltip />}
-              groupComponent={<VictoryClipContainer />}
-              bubbleProperty="amount"
-              minBubbleSize={1}
-              maxBubbleSize={10}
-              data={this.makeData()}
-            />
-          </VictoryChart>
+          {this.state.lots && this.state.lots.length > 0 ? (
+            <VictoryChart
+              domainPadding={10}
+              containerComponent={<VictoryZoomContainer />}
+            >
+              <VictoryAxis
+                label={this.state.xLabel}
+                style={{ tickLabels: { fontSize: 0, padding: 1 } }}
+              />
+              <VictoryAxis
+                label={"Realized"}
+                style={{ tickLabels: { fontSize: 4, padding: 4 } }}
+                dependentAxis
+              />
+              <VictoryScatter
+                bubbleProperty="amount"
+                minBubbleSize={1}
+                maxBubbleSize={10}
+                groupComponent={<VictoryClipContainer />}
+                labelComponent={<VictoryTooltip />}
+                data={this.makeData()}
+              />
+            </VictoryChart>
+          ) : null}
         </div>
         <div className="ui centered grid">
           <div className="twelve wide column">
@@ -266,8 +274,8 @@ class ArtistLotList extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {this.props.lots ? (
-                    this.props.lots.map((lot, i) => (
+                  {this.state.lots && this.state.lots.length > 0 ? (
+                    this.state.lots.map((lot, i) => (
                       <tr key={i}>
                         <td key={`${i}0`}>
                           <img
@@ -326,11 +334,12 @@ class ArtistLotList extends Component {
   }
 }
 
-const mapStateToProps = ({ sales, artist }) => {
+const mapStateToProps = ({ sales, artist, displayArtist }) => {
   return {
     sales,
-    artist
+    artist,
+    displayArtist
   };
 };
 
-export default withRouter(connect(mapStateToProps)(ArtistLotList));
+export default withRouter(connect(mapStateToProps, actions)(ArtistLotList));

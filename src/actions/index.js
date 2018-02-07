@@ -5,7 +5,8 @@ import {
   UPDATE_DISPLAY_ARTIST,
   SET_SEARCH_TERM,
   SET_DISPLAY_ARTISTS,
-  RESET_ARTIST_DISPLAY_STATE
+  RESET_ARTIST_DISPLAY_STATE,
+  FETCH_DISPLAY_ARTIST
 } from "./types";
 
 export function fetchArtists() {
@@ -24,6 +25,16 @@ export function fetchSales() {
       .then(res => res.json())
       .then(data => {
         dispatch({ type: FETCH_SALES, sales: data });
+      });
+  };
+}
+
+export function fetchDisplayArtist(id) {
+  return dispatch => {
+    return fetch(`http://localhost:3000/api/v1/artists/${id}`)
+      .then(res => res.json())
+      .then(data => {
+        dispatch({ type: FETCH_DISPLAY_ARTIST, displayArtist: data });
       });
   };
 }

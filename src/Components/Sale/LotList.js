@@ -237,28 +237,30 @@ class LotList extends React.Component {
     return (
       <div>
         <h1 className="ui left aligned header"> Analytics </h1>
-        <VictoryChart
-          domainPadding={10}
-          containerComponent={<VictoryZoomContainer />}
-        >
-          <VictoryAxis
-            label={this.state.xLabel}
-            style={{ tickLabels: { fontSize: 0, padding: 1 } }}
-          />
-          <VictoryAxis
-            label={"Realized"}
-            style={{ tickLabels: { fontSize: 4, padding: 4 } }}
-            dependentAxis
-          />
-          <VictoryScatter
-            bubbleProperty="amount"
-            minBubbleSize={1}
-            maxBubbleSize={10}
-            groupComponent={<VictoryClipContainer />}
-            labelComponent={<VictoryTooltip />}
-            data={this.makeData()}
-          />
-        </VictoryChart>
+        <div className="ui segment">
+          <VictoryChart
+            domainPadding={10}
+            containerComponent={<VictoryZoomContainer />}
+          >
+            <VictoryAxis
+              label={this.state.xLabel}
+              style={{ tickLabels: { fontSize: 0, padding: 1 } }}
+            />
+            <VictoryAxis
+              label={"Realized"}
+              style={{ tickLabels: { fontSize: 4, padding: 4 } }}
+              dependentAxis
+            />
+            <VictoryScatter
+              bubbleProperty="amount"
+              minBubbleSize={1}
+              maxBubbleSize={10}
+              groupComponent={<VictoryClipContainer />}
+              labelComponent={<VictoryTooltip />}
+              data={this.makeData()}
+            />
+          </VictoryChart>
+        </div>
         <div className="ui centered grid">
           <div className="twelve wide column">
             <h1> Lots </h1>
@@ -268,6 +270,9 @@ class LotList extends React.Component {
                   <tr>
                     <th />
                     <th />
+                    <th onClick={event => this.handleClick(event)}>
+                      Lot Number
+                    </th>
                     <th onClick={event => this.handleClick(event)}>Artist</th>
                     <th onClick={event => this.handleClick(event)}>Title</th>
                     <th onClick={event => this.handleClick(event)}>

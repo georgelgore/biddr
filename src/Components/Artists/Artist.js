@@ -58,20 +58,7 @@ class Artist extends Component {
         Object.keys(this.props.artist).length > 0 ? (
           <div>
             <h1>{this.props.artist.name}</h1>
-            {/*}<VictoryChart domainPadding={10} theme={VictoryTheme.material}>
-              <VictoryAxis />
-              <VictoryAxis
-                dependentAxis
-                tickFormat={x => `${x / 1000000000}B`}
-              />
-              <VictoryBar
-                data={this.makeData(this.props.artist.lots)}
-                x="year"
-                y="sum"
-              />
-            </VictoryChart>
-            />*/}
-            <ArtistLotList lots={this.props.artist.lots} />
+            <ArtistLotList />
           </div>
         ) : (
           <h1>Loading</h1>

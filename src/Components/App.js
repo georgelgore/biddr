@@ -13,14 +13,14 @@ import * as actions from "../actions";
 
 class App extends Component {
   componentDidMount() {
-    this.props.fetchArtists() && this.props.fetchSales();
+    this.props.fetchSales() && this.props.fetchArtists();
   }
 
   render() {
     console.log("app props", this.props);
     return (
       <div className="App">
-        {this.props.artists.length > 0 ? (
+        {this.props.sales && this.props.sales.length > 0 ? (
           <div>
             <Navbar />
             <div className="Main">
