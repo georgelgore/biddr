@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import ArtistLotList from "./ArtistLotList";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
-import { ScatterPlot } from "react-d3-basic";
 import { withRouter } from "react-router-dom";
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from "victory";
 
 class Artist extends Component {
   getArtistId = () => {

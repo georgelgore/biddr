@@ -28,18 +28,14 @@ class App extends Component {
                 <Route exact path="/" component={Home} />
                 <Route
                   exact
-                  path="/artists/:id"
-                  render={() => {
-                    return <Artist />;
-                  }}
-                />
-                <Route
-                  exact
-                  path="/artists"
+                  path="/auctions/:year"
                   render={({ match }) => {
                     return (
-                      <ArtistContainer
-                        updateDisplayArtist={this.updateDisplayArtist}
+                      <Year
+                        year={match.params.year}
+                        sales={this.props.sales.filter(sale =>
+                          sale.sale_date.slice(0, 4).includes(match.params.year)
+                        )}
                       />
                     );
                   }}
@@ -67,16 +63,20 @@ class App extends Component {
                 />
                 <Route
                   exact
-                  path="/auctions/:year"
+                  path="/artists"
                   render={({ match }) => {
                     return (
-                      <Year
-                        year={match.params.year}
-                        sales={this.props.sales.filter(sale =>
-                          sale.sale_date.slice(0, 4).includes(match.params.year)
-                        )}
+                      <ArtistContainer
+                        updateDisplayArtist={this.updateDisplayArtist}
                       />
                     );
+                  }}
+                />
+                <Route
+                  exact
+                  path="/artists/:id"
+                  render={() => {
+                    return <Artist />;
                   }}
                 />
               </Switch>

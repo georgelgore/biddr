@@ -21,7 +21,7 @@ class ArtistContainer extends Component {
   updateSearchTerm = event => {
     console.log("HELLO", this.props);
     if (event.target.value.length === 0) {
-      this.setState({ display: [], searchTerm: "" });
+      return this.setState({ display: [], searchTerm: "" });
     } else {
       let toShow = this.props.artists.filter(artist => {
         if (artist.name) {

@@ -67,9 +67,8 @@ const ArtistList = props => {
   );
 };
 
-const mapStateToProps = ({ artists, sales, artist }) => {
+const mapStateToProps = ({ sales, artist }) => {
   return {
-    artists,
     sales,
     artist
   };
