@@ -44,9 +44,10 @@ class Artist extends Component {
     console.log("IN NEXT PROPS", this.props, nextProps);
     if (this.props !== nextProps) {
       let artist = this.findArtist(nextProps.display_artist, nextProps.artists);
-      this.props.setArtist(artist);
-
-      this.props.fetchDisplayArtist(artist.id);
+      nextProps.setArtist(artist);
+      if (artist) {
+        nextProps.fetchDisplayArtist(artist.id);
+      }
     }
     console.log("HEEEEEEEEY");
   }

@@ -7,7 +7,8 @@ import {
   SET_DISPLAY_ARTISTS,
   RESET_ARTIST_DISPLAY_STATE,
   FETCH_DISPLAY_ARTIST,
-  ASYNC_START
+  ASYNC_START,
+  FETCH_DISPLAY_SALE
 } from "./types";
 
 export function fetchArtists() {
@@ -39,6 +40,16 @@ export function fetchDisplayArtist(id) {
       .then(res => res.json())
       .then(data => {
         dispatch({ type: FETCH_DISPLAY_ARTIST, displayArtist: data });
+      });
+  };
+}
+export function fetchDisplaySale(id) {
+  return dispatch => {
+    dispatch({ type: ASYNC_START });
+    return fetch(`http://localhost:3000/api/v1/sales/${id}`)
+      .then(res => res.json())
+      .then(data => {
+        dispatch({ type: FETCH_DISPLAY_SALE, displaySale: data });
       });
   };
 }

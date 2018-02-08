@@ -15,7 +15,8 @@ import {
   RESET_ARTIST_DISPLAY_STATE,
   SET_SEARCH_TERM,
   SET_DISPLAY_ARTISTS,
-  FETCH_DISPLAY_ARTIST
+  FETCH_DISPLAY_ARTIST,
+  FETCH_DISPLAY_SALE
 } from "./actions/types";
 
 const defaultState = {
@@ -25,7 +26,8 @@ const defaultState = {
   display_artist: "",
   displayArtist: {},
   searchTerm: "",
-  display_artists: []
+  display_artists: [],
+  displaySale: {}
 };
 
 const reducer = (state = defaultState, action) => {
@@ -45,6 +47,12 @@ const reducer = (state = defaultState, action) => {
       return {
         ...state,
         displayArtist: action.displayArtist,
+        loading: false
+      };
+    case FETCH_DISPLAY_SALE:
+      return {
+        ...state,
+        displaySale: action.displaySale.data.attributes,
         loading: false
       };
     case FETCH_SALES:

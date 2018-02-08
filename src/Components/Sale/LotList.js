@@ -32,7 +32,7 @@ class LotList extends React.Component {
 
   makeData = () => {
     let data = [];
-    this.props.lots.forEach((lot, i) =>
+    this.props.displayLots.forEach((lot, i) =>
       data.push({
         x: i + 10,
         y: lot.realized,
@@ -62,34 +62,6 @@ class LotList extends React.Component {
     return data;
   };
 
-  componentDidMount(props) {
-    this.setState({
-      lots: this.props.lots.sort(
-        (a, b) =>
-          parseInt(a.lot_number.slice(4), 10) -
-          parseInt(b.lot_number.slice(4), 10)
-      )
-    });
-  }
-
-  componentDidReceiveProps(nextProps) {
-    if (this.props !== nextProps) {
-      this.setState({
-        lots: this.nextProps.lots.sort(
-          (a, b) =>
-            parseInt(a.lot_number.slice(4), 10) -
-            parseInt(b.lot_number.slice(4), 10)
-        )
-      });
-    }
-    this.setState({
-      lots: this.props.lots.sort(
-        (a, b) =>
-          parseInt(a.lot_number.slice(4), 10) -
-          parseInt(b.lot_number.slice(4), 10)
-      )
-    });
-  }
   addDefaultSrc = ev => {
     ev.target.src = christiesLink;
   };
@@ -235,7 +207,7 @@ class LotList extends React.Component {
     this.props.artists.find(artist => artist.id === lot.artist_id);
 
   handleClick = event => {
-    this.sortLots(this.props.lots, event.target.innerText);
+    this.sortLots(this.props.displayLots, event.target.innerText);
     this.setState({ xLabel: event.target.innerText });
   };
 
@@ -249,7 +221,40 @@ class LotList extends React.Component {
           <VictoryChart
             domainPadding={10}
             containerComponent={<VictoryZoomContainer />}
+            animate={{ duration: 500 }}
           >
+            <VictoryLabel
+              text={`Price Realized x ${
+                this.state.xLabel ? this.state.xLabel : "Lot Number"
+              }`}
+              x={225}
+              y={5}
+              textAnchor="middle"
+            />
+            <VictoryLegend
+              x={150}
+              y={25}
+              orientation="horizontal"
+              symbolSpacer={3}
+              gutter={20}
+              data={[
+                {
+                  name: "Within Estimate",
+                  symbol: { fill: "#000000" },
+                  labels: { fontSize: 6 }
+                },
+                {
+                  name: "Above Estimate",
+                  symbol: { fill: "#006400" },
+                  labels: { fontSize: 6 }
+                },
+                {
+                  name: "Below Estimate",
+                  symbol: { fill: "#c43a31" },
+                  labels: { fontSize: 6 }
+                }
+              ]}
+            />
             <VictoryAxis
               label={this.state.xLabel}
               style={{ tickLabels: { fontSize: 0, padding: 1 } }}
@@ -266,6 +271,7 @@ class LotList extends React.Component {
               groupComponent={<VictoryClipContainer />}
               labelComponent={<VictoryTooltip />}
               data={this.makeData()}
+              animate={{ duration: 500 }}
             />
           </VictoryChart>
         </div>
@@ -294,8 +300,8 @@ class LotList extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {this.state.lots ? (
-                    this.state.lots.map((lot, i) => (
+                  {this.props.displayLots ? (
+                    this.props.displayLots.map((lot, i) => (
                       <tr key={i}>
                         <td key={`${i}0`}>{lot.lot_number}</td>
                         <td key={`${i}1`}>
@@ -354,9 +360,14 @@ class LotList extends React.Component {
     );
   }
 }
-const mapStateToProps = ({ loading }) => {
+const mapStateToProps = ({ loading, displaySale }) => {
+  const displayLots = displaySale.id ? displaySale.lots : [];
+  const artists = displaySale.artists ? displaySale.artists : [];
   return {
-    loading
+    loading,
+    displaySale,
+    displayLots,
+    artists
   };
 };
 export default connect(mapStateToProps)(withRouter(LotList));

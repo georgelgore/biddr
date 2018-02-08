@@ -9,7 +9,8 @@ import {
   VictoryZoomContainer,
   VictoryClipContainer,
   VictoryTooltip,
-  VictoryLegend
+  VictoryLegend,
+  VictoryLabel
 } from "victory";
 
 const christiesLink =
@@ -22,7 +23,7 @@ class ArtistLotList extends Component {
       lots: [],
       sorted: false,
       originalSort: true,
-      xLabel: ""
+      xLabel: "Lot Number"
     };
   }
 
@@ -195,36 +196,50 @@ class ArtistLotList extends Component {
     console.log("IN ALL", this.props);
     return (
       <div>
-        <h1>{this.props.loading ? "Loading" : null}</h1>
+        {this.props.loading ? <div class="ui loading form" /> : null}
         <div className="ui  container">
           <h1 className="ui left aligned header"> Analytics </h1>
           {this.props.lots && this.props.lots.length > 0 ? (
             <div className="ui container">
               <div
                 className="ui segment"
-                style={{ marginLeft: "20%", marginRight: "20%" }}
+                style={{ marginLeft: "15%", marginRight: "15%" }}
               >
                 <VictoryChart
                   domainPadding={10}
                   containerComponent={<VictoryZoomContainer />}
                   animate={{ duration: 500 }}
                 >
+                  <VictoryLabel
+                    text={`Price Realized x ${
+                      this.state.xLabel ? this.state.xLabel : "Lot Number"
+                    }`}
+                    x={225}
+                    y={5}
+                    textAnchor="middle"
+                  />
                   <VictoryLegend
-                    x={50}
-                    y={10}
+                    x={150}
+                    y={25}
                     orientation="horizontal"
-                    symbolSpacer={5}
+                    symbolSpacer={3}
                     gutter={20}
-                    style={{
-                      fontSize: 5
-                    }}
                     data={[
                       {
                         name: "Within Estimate",
-                        symbol: { fill: "#000000" }
+                        symbol: { fill: "#000000" },
+                        labels: { fontSize: 6 }
                       },
-                      { name: "Above Estimate", symbol: { fill: "#006400" } },
-                      { name: "Below Estimate", symbol: { fill: "#c43a31" } }
+                      {
+                        name: "Above Estimate",
+                        symbol: { fill: "#006400" },
+                        labels: { fontSize: 6 }
+                      },
+                      {
+                        name: "Below Estimate",
+                        symbol: { fill: "#c43a31" },
+                        labels: { fontSize: 6 }
+                      }
                     ]}
                   />
                   <VictoryAxis
@@ -243,6 +258,7 @@ class ArtistLotList extends Component {
                     groupComponent={<VictoryClipContainer />}
                     labelComponent={<VictoryTooltip />}
                     data={this.makeData()}
+                    animate={{ duration: 500 }}
                   />
                 </VictoryChart>
               </div>

@@ -6,7 +6,7 @@ const Navbar = () => {
     <div style={{ maxHeight: 75 }} className="ui top fixed menu">
       <Link to="/">
         <h1
-          style={{ fontSize: 30, paddingBottom: "17 px" }}
+          style={{ fontSize: 30, paddingBottom: 17 }}
           className="Iconic header item"
         >
           Biddr
