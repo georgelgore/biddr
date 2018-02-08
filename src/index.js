@@ -23,6 +23,7 @@ const defaultState = {
   loading: false,
   artist: {},
   display_artist: "",
+  displayArtist: {},
   searchTerm: "",
   display_artists: []
 };
@@ -92,7 +93,11 @@ const reducer = (state = defaultState, action) => {
   }
 };
 
-const store = createStore(reducer, applyMiddleware(reduxThunk));
+const store = createStore(
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  applyMiddleware(reduxThunk)
+);
 
 ReactDOM.render(
   <Provider store={store}>

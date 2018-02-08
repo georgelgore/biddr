@@ -27,7 +27,7 @@ class ArtistLotList extends Component {
 
   makeData = () => {
     let data = [];
-    this.state.lots.forEach((lot, i) =>
+    this.props.lots.forEach((lot, i) =>
       data.push({
         x: i + 2,
         y: lot.realized,
@@ -55,37 +55,12 @@ class ArtistLotList extends Component {
         })}`
       })
     );
-    console.log("DATA", data);
     return data;
   };
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      lots: nextProps.displayArtist.data.attributes.lots
-    });
-  }
-
   componentDidMount() {
-    this.props.fetchDisplayArtist(`${this.props.artist.id}`);
-
-    {
-      /*if (this.props !== nextProps) {
-      this.setState({
-        lots: this.nextProps.lots.sort(
-          (a, b) =>
-            parseInt(this.findSale(a).sale_date, 10) -
-            parseInt(this.findSale(b).sale_date, 10)
-        )
-      });
-    }
-    this.setState({
-      lots: this.nextProps.lots.sort(
-        (a, b) =>
-          parseInt(this.findSale(a).sale_date, 10) -
-          parseInt(this.findSale(b).sale_date, 10)
-      )
-    });*/
-    }
+    this.props.fetchDisplayArtist(`${this.props.display_artist}`);
+    console.log("did mount", this.props);
   }
 
   findSale = lot => {
@@ -221,7 +196,7 @@ class ArtistLotList extends Component {
       <div>
         <div className="ui container">
           <h1 className="ui left aligned header"> Analytics </h1>
-          {this.state.lots && this.state.lots.length > 0 ? (
+          {this.props.lots && this.props.lots.length > 0 ? (
             <VictoryChart
               domainPadding={10}
               containerComponent={<VictoryZoomContainer />}
@@ -274,8 +249,8 @@ class ArtistLotList extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {this.state.lots && this.state.lots.length > 0 ? (
-                    this.state.lots.map((lot, i) => (
+                  {this.props.lots && this.props.lots.length > 0 ? (
+                    this.props.lots.map((lot, i) => (
                       <tr key={i}>
                         <td key={`${i}0`}>
                           <img
@@ -334,11 +309,13 @@ class ArtistLotList extends Component {
   }
 }
 
-const mapStateToProps = ({ sales, artist, displayArtist }) => {
+const mapStateToProps = ({ sales, displayArtist, display_artist }) => {
+  const lots = displayArtist.data ? displayArtist.data.attributes.lots : [];
   return {
     sales,
-    artist,
-    displayArtist
+    displayArtist,
+    display_artist,
+    lots
   };
 };
 

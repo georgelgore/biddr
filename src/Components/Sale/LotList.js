@@ -269,7 +269,6 @@ class LotList extends React.Component {
                 <thead>
                   <tr>
                     <th />
-                    <th />
                     <th onClick={event => this.handleClick(event)}>
                       Lot Number
                     </th>
