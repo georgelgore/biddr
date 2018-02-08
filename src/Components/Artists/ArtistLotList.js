@@ -8,7 +8,8 @@ import {
   VictoryAxis,
   VictoryZoomContainer,
   VictoryClipContainer,
-  VictoryTooltip
+  VictoryTooltip,
+  VictoryLegend
 } from "victory";
 
 const christiesLink =
@@ -186,7 +187,7 @@ class ArtistLotList extends Component {
   };
 
   handleClick = event => {
-    this.sortLots(this.state.lots, event.target.innerText);
+    this.sortLots(this.props.lots, event.target.innerText);
     this.setState({ xLabel: event.target.innerText });
   };
 
@@ -194,31 +195,58 @@ class ArtistLotList extends Component {
     console.log("IN ALL", this.props);
     return (
       <div>
-        <div className="ui container">
+        <h1>{this.props.loading ? "Loading" : null}</h1>
+        <div className="ui  container">
           <h1 className="ui left aligned header"> Analytics </h1>
           {this.props.lots && this.props.lots.length > 0 ? (
-            <VictoryChart
-              domainPadding={10}
-              containerComponent={<VictoryZoomContainer />}
-            >
-              <VictoryAxis
-                label={this.state.xLabel}
-                style={{ tickLabels: { fontSize: 0, padding: 1 } }}
-              />
-              <VictoryAxis
-                label={"Realized"}
-                style={{ tickLabels: { fontSize: 4, padding: 4 } }}
-                dependentAxis
-              />
-              <VictoryScatter
-                bubbleProperty="amount"
-                minBubbleSize={1}
-                maxBubbleSize={10}
-                groupComponent={<VictoryClipContainer />}
-                labelComponent={<VictoryTooltip />}
-                data={this.makeData()}
-              />
-            </VictoryChart>
+            <div className="ui container">
+              <div
+                className="ui segment"
+                style={{ marginLeft: "20%", marginRight: "20%" }}
+              >
+                <VictoryChart
+                  domainPadding={10}
+                  containerComponent={<VictoryZoomContainer />}
+                  animate={{ duration: 500 }}
+                >
+                  <VictoryLegend
+                    x={50}
+                    y={10}
+                    orientation="horizontal"
+                    symbolSpacer={5}
+                    gutter={20}
+                    style={{
+                      fontSize: 5
+                    }}
+                    data={[
+                      {
+                        name: "Within Estimate",
+                        symbol: { fill: "#000000" }
+                      },
+                      { name: "Above Estimate", symbol: { fill: "#006400" } },
+                      { name: "Below Estimate", symbol: { fill: "#c43a31" } }
+                    ]}
+                  />
+                  <VictoryAxis
+                    label={this.state.xLabel}
+                    style={{ tickLabels: { fontSize: 0, padding: 1 } }}
+                  />
+                  <VictoryAxis
+                    label={"Realized"}
+                    style={{ tickLabels: { fontSize: 4, padding: 4 } }}
+                    dependentAxis
+                  />
+                  <VictoryScatter
+                    bubbleProperty="amount"
+                    minBubbleSize={1}
+                    maxBubbleSize={10}
+                    groupComponent={<VictoryClipContainer />}
+                    labelComponent={<VictoryTooltip />}
+                    data={this.makeData()}
+                  />
+                </VictoryChart>
+              </div>
+            </div>
           ) : null}
         </div>
         <div className="ui centered grid">
@@ -309,13 +337,15 @@ class ArtistLotList extends Component {
   }
 }
 
-const mapStateToProps = ({ sales, displayArtist, display_artist }) => {
+const mapStateToProps = ({ sales, displayArtist, display_artist, loading }) => {
   const lots = displayArtist.data ? displayArtist.data.attributes.lots : [];
   return {
     sales,
     displayArtist,
     display_artist,
-    lots
+    lots,
+    loading
+    // lots_loading: displayArtist.id === artist.id
   };
 };
 

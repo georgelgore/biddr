@@ -5,7 +5,10 @@ const Navbar = () => {
   return (
     <div style={{ maxHeight: 75 }} className="ui top fixed menu">
       <Link to="/">
-        <h1 style={{ fontSize: 30 }} className="Iconic header item">
+        <h1
+          style={{ fontSize: 30, paddingBottom: "17 px" }}
+          className="Iconic header item"
+        >
           Biddr
         </h1>
       </Link>

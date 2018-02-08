@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 import {
   VictoryScatter,
   VictoryChart,
@@ -8,6 +9,9 @@ import {
   VictoryZoomContainer,
   VictoryTooltip
 } from "victory";
+
+const christiesLink =
+  "https://www.christies.com/img/lotimages//Alert/NoImage/non_NoImag.jpg?Width=77";
 
 class LotList extends React.Component {
   constructor() {
@@ -86,6 +90,9 @@ class LotList extends React.Component {
       )
     });
   }
+  addDefaultSrc = ev => {
+    ev.target.src = christiesLink;
+  };
 
   sortLots = (lots, filter) => {
     switch (filter) {
@@ -236,6 +243,7 @@ class LotList extends React.Component {
     console.log("LOT LIST", this.state, this.props);
     return (
       <div>
+        <h1>{this.props.loading ? "Loading" : null}</h1>
         <h1 className="ui left aligned header"> Analytics </h1>
         <div className="ui segment">
           <VictoryChart
@@ -292,10 +300,9 @@ class LotList extends React.Component {
                         <td key={`${i}0`}>{lot.lot_number}</td>
                         <td key={`${i}1`}>
                           <img
+                            onError={this.addDefaultSrc}
                             src={lot.image}
-                            alt={
-                              "https://www.christies.com/img/lotimages//Alert/NoImage/non_NoImag.jpg?Width=77"
-                            }
+                            alt={christiesLink}
                           />
                         </td>
                         <td key={`${i}2`}>
@@ -347,5 +354,9 @@ class LotList extends React.Component {
     );
   }
 }
-
-export default withRouter(LotList);
+const mapStateToProps = ({ loading }) => {
+  return {
+    loading
+  };
+};
+export default connect(mapStateToProps)(withRouter(LotList));

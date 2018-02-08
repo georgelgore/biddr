@@ -33,13 +33,7 @@ const reducer = (state = defaultState, action) => {
     case "ASYNC_START":
       return {
         ...state,
-        artists: [],
-        loading: false,
-        artist: {},
-        display_artist: "",
-        searchTerm: "",
-        display_artists: [],
-        displayArtist: {}
+        loading: true
       };
     case FETCH_ARTISTS:
       return {
@@ -81,12 +75,14 @@ const reducer = (state = defaultState, action) => {
     case SET_SEARCH_TERM:
       return {
         ...state,
-        searchTerm: action.value
+        searchTerm: action.value,
+        loading: false
       };
     case SET_DISPLAY_ARTISTS:
       return {
         ...state,
-        display_artists: action.value
+        display_artists: action.value,
+        loading: false
       };
     default:
       return state;

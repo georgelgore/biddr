@@ -6,11 +6,13 @@ import {
   SET_SEARCH_TERM,
   SET_DISPLAY_ARTISTS,
   RESET_ARTIST_DISPLAY_STATE,
-  FETCH_DISPLAY_ARTIST
+  FETCH_DISPLAY_ARTIST,
+  ASYNC_START
 } from "./types";
 
 export function fetchArtists() {
   return dispatch => {
+    dispatch({ type: ASYNC_START });
     return fetch("http://localhost:3000/api/v1/artists/")
       .then(res => res.json())
       .then(data => {
@@ -21,6 +23,7 @@ export function fetchArtists() {
 
 export function fetchSales() {
   return dispatch => {
+    dispatch({ type: ASYNC_START });
     return fetch("http://localhost:3000/api/v1/sales/")
       .then(res => res.json())
       .then(data => {
@@ -31,6 +34,7 @@ export function fetchSales() {
 
 export function fetchDisplayArtist(id) {
   return dispatch => {
+    dispatch({ type: ASYNC_START });
     return fetch(`http://localhost:3000/api/v1/artists/${id}`)
       .then(res => res.json())
       .then(data => {
