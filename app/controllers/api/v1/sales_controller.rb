@@ -1,7 +1,7 @@
 class Api::V1::SalesController < ApplicationController
   def index
     @sales = Sale.all
-    render json: SaleSerializer.new(@sales).serialized_json
+    render json: SaleListSerializer.new(@sales).serialized_json
   end
 
   def show
