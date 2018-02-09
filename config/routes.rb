@@ -4,6 +4,8 @@ Rails.application.routes.draw do
       resources :sales
       resources :artists
       resources :lots
+      resources :data
+      # get '/data' to 'data#'
     end
   end
 end
