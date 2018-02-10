@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import AuctionBarChart from "../VictoryCharts/AuctionBarChart";
 
 const Auction = props => {
   return (

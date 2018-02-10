@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import Navbar from "./Navbar.js";
 import Home from "./Home.js";
+import Analytics from "./Analytics.js";
 import Auction from "./Sale/Auction";
 import Year from "./Sale";
 import Sale from "./Sale/Sale";
@@ -27,6 +28,7 @@ class App extends Component {
             <div className="Main">
               <Switch>
                 <Route exact path="/" component={Home} />
+                <Route exact path="/analytics" component={Analytics} />
                 <Route
                   exact
                   path="/auctions/:year"

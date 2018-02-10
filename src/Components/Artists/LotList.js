@@ -21,7 +21,7 @@ class LotList extends React.Component {
 
     this.state = {
       lots: [],
-      sorted: true,
+      sorted: false,
       xLabel: "Lot Number"
     };
   }
@@ -125,14 +125,14 @@ class LotList extends React.Component {
             sorted: true,
             lots: lots.sort((a, b) => {
               if (
-                this.findArtist(a).name.slice(0, 2) <
-                this.findArtist(b).name.slice(0, 2)
+                this.findArtist(a).name.slice(0, 1) <
+                this.findArtist(b).name.slice(0, 1)
               ) {
                 return -1;
               }
               if (
-                this.findArtist(b).name.slice(0, 2) >
-                this.findArtist(a).name.slice(0, 2)
+                this.findArtist(b).name.slice(0, 1) >
+                this.findArtist(a).name.slice(0, 1)
               ) {
                 return 1;
               } else {
@@ -266,9 +266,9 @@ class LotList extends React.Component {
               dependentAxis
             />
             {this.state.sorted ? (
-              <VictoryLabel text="👉🏼" x={300} y={275} textAnchor="middle" />
-            ) : (
               <VictoryLabel text="👈🏼" x={150} y={275} textAnchor="middle" />
+            ) : (
+              <VictoryLabel text="👉🏼" x={300} y={275} textAnchor="middle" />
             )}
             <VictoryScatter
               bubbleProperty="amount"
@@ -319,7 +319,6 @@ class LotList extends React.Component {
                         </td>
                         <td key={`${i}2`}>
                           <a
-                            href={""}
                             onClick={() => {
                               this.props.history.replace(
                                 `/artists/${lot.artist_id}`

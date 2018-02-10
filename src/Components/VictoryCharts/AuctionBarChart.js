@@ -3,7 +3,6 @@ import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from "victory";
 import { connect } from "react-redux";
 
 const AuctionBarChart = props => {
-  const data = [];
   const reducer = (accumulator, currentValue) => {
     return accumulator + currentValue.realized;
   };

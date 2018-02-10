@@ -22,7 +22,6 @@ class ArtistLotList extends Component {
     this.state = {
       lots: [],
       sorted: false,
-      originalSort: true,
       xLabel: "Lot Number"
     };
   }
@@ -86,9 +85,9 @@ class ArtistLotList extends Component {
   sortLots = (lots, filter) => {
     switch (filter) {
       case "Sale Date":
-        if (this.state.originalSort === false) {
+        if (this.state.sorted === true) {
           return this.setState({
-            originalSort: true,
+            sorted: false,
             lots: lots.sort(
               (a, b) =>
                 parseInt(this.findSale(a).sale_date, 10) -
@@ -97,7 +96,7 @@ class ArtistLotList extends Component {
           });
         } else {
           return this.setState({
-            originalSort: false,
+            sorted: true,
             lots: lots.sort(
               (a, b) =>
                 parseInt(this.findSale(b).sale_date, 10) -
@@ -180,6 +179,18 @@ class ArtistLotList extends Component {
           });
         }
 
+      case "Low Estimate":
+        if (this.state.sorted === false) {
+          return this.setState({
+            sorted: true,
+            lots: lots.sort((a, b) => a.estimate_high - b.estimate_high)
+          });
+        } else {
+          return this.setState({
+            sorted: false,
+            lots: lots.sort((a, b) => b.estimate_high - a.estimate_high)
+          });
+        }
       default:
         return this.setState({
           lots: lots
@@ -251,6 +262,21 @@ class ArtistLotList extends Component {
                     style={{ tickLabels: { fontSize: 4, padding: 4 } }}
                     dependentAxis
                   />
+                  {this.state.sorted ? (
+                    <VictoryLabel
+                      text="👈🏼"
+                      x={150}
+                      y={275}
+                      textAnchor="middle"
+                    />
+                  ) : (
+                    <VictoryLabel
+                      text="👉🏼"
+                      x={300}
+                      y={275}
+                      textAnchor="middle"
+                    />
+                  )}
                   <VictoryScatter
                     bubbleProperty="amount"
                     minBubbleSize={1}
@@ -283,7 +309,9 @@ class ArtistLotList extends Component {
                     <th onClick={event => this.handleClick(event)}>
                       <i className="sort icon" />Title
                     </th>
-                    <th>Low Estimate</th>
+                    <th onClick={event => this.handleClick(event)}>
+                      Low Estimate
+                    </th>
                     <th onClick={event => this.handleClick(event)}>
                       High Estimate
                     </th>
@@ -354,7 +382,14 @@ class ArtistLotList extends Component {
 }
 
 const mapStateToProps = ({ sales, displayArtist, display_artist, loading }) => {
-  const lots = displayArtist.data ? displayArtist.data.attributes.lots : [];
+  const lots = displayArtist.data
+    ? displayArtist.data.attributes.lots.sort(
+        (a, b) =>
+          parseInt(a.lot_number.slice(4), 10) -
+          parseInt(b.lot_number.slice(4), 10)
+      )
+    : [];
+
   return {
     sales,
     displayArtist,

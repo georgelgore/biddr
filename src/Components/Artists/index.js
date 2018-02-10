@@ -28,7 +28,7 @@ class ArtistContainer extends Component {
           return artist.name.includes(event.target.value.toUpperCase());
         }
       });
-      this.setState(
+      return this.setState(
         { searchTerm: event.target.value, display: toShow.sort() },
         console.log("updating1", this.state, this.props)
       );
