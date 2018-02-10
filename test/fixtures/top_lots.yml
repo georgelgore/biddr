@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lot_number: MyString
+  artist: one
+  image: MyString
+  art_title: MyString
+  size_mat: MyString
+  estimate_low: 1
+  estimate_high: 1
+  realized: 1
+  sale: one
+
+two:
+  lot_number: MyString
+  artist: two
+  image: MyString
+  art_title: MyString
+  size_mat: MyString
+  estimate_low: 1
+  estimate_high: 1
+  realized: 1
+  sale: two

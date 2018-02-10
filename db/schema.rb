@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180209172248) do
+ActiveRecord::Schema.define(version: 20180209203008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20180209172248) do
     t.bigint "sale_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "artist_name"
     t.index ["artist_id"], name: "index_high_lots_on_artist_id"
     t.index ["sale_id"], name: "index_high_lots_on_sale_id"
   end
@@ -75,6 +76,7 @@ ActiveRecord::Schema.define(version: 20180209172248) do
     t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "sum"
   end
 
   create_table "top_sales", force: :cascade do |t|
@@ -84,6 +86,8 @@ ActiveRecord::Schema.define(version: 20180209172248) do
     t.date "sale_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image"
+    t.integer "sum"
     t.index ["house_id"], name: "index_top_sales_on_house_id"
   end
 
