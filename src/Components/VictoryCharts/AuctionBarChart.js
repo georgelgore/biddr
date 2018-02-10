@@ -1,11 +1,17 @@
 import React from "react";
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from "victory";
+import {
+  VictoryBar,
+  VictoryChart,
+  VictoryAxis,
+  VictoryTheme,
+  VictoryTooltip
+} from "victory";
 import { connect } from "react-redux";
 
 const AuctionBarChart = props => {
-  const reducer = (accumulator, currentValue) => {
-    return accumulator + currentValue.realized;
-  };
+  // const reducer = (accumulator, currentValue) => {
+  //   return accumulator + currentValue.realized;
+  // };
   const reducer2 = (accumulator, currentValue) => {
     return accumulator + currentValue.sum;
   };
@@ -16,7 +22,7 @@ const AuctionBarChart = props => {
       props.sales.forEach(sale =>
         data.push({
           year: sale.sale_date.slice(0, 4),
-          sum: sale.lots.reduce(reducer, 0)
+          sum: sale.sum
         })
       );
     }
@@ -40,7 +46,12 @@ const AuctionBarChart = props => {
         {},
         {
           year: "'07",
-          sum: yearReducer(findSales(sales, "2007"))
+          sum: yearReducer(findSales(sales, "2007")),
+          label: `Annual Sales Total: $${yearReducer(
+            findSales(sales, "2007")
+          ).toLocaleString(navigator.language, {
+            minimumFractionDigits: 0
+          })}`
         }
       )
     );
@@ -49,7 +60,12 @@ const AuctionBarChart = props => {
         {},
         {
           year: "'08",
-          sum: yearReducer(findSales(sales, "2008"))
+          sum: yearReducer(findSales(sales, "2008")),
+          label: `Annual Sales Total: $${yearReducer(
+            findSales(sales, "2008")
+          ).toLocaleString(navigator.language, {
+            minimumFractionDigits: 0
+          })}`
         }
       )
     );
@@ -58,7 +74,12 @@ const AuctionBarChart = props => {
         {},
         {
           year: "'09",
-          sum: yearReducer(findSales(sales, "2009"))
+          sum: yearReducer(findSales(sales, "2009")),
+          label: `Annual Sales Total: $${yearReducer(
+            findSales(sales, "2009")
+          ).toLocaleString(navigator.language, {
+            minimumFractionDigits: 0
+          })}`
         }
       )
     );
@@ -67,7 +88,12 @@ const AuctionBarChart = props => {
         {},
         {
           year: "'10",
-          sum: yearReducer(findSales(sales, "2010"))
+          sum: yearReducer(findSales(sales, "2010")),
+          label: `Annual Sales Total: $${yearReducer(
+            findSales(sales, "2010")
+          ).toLocaleString(navigator.language, {
+            minimumFractionDigits: 0
+          })}`
         }
       )
     );
@@ -76,7 +102,12 @@ const AuctionBarChart = props => {
         {},
         {
           year: "'11",
-          sum: yearReducer(findSales(sales, "2011"))
+          sum: yearReducer(findSales(sales, "2011")),
+          label: `Annual Sales Total: $${yearReducer(
+            findSales(sales, "2011")
+          ).toLocaleString(navigator.language, {
+            minimumFractionDigits: 0
+          })}`
         }
       )
     );
@@ -85,7 +116,12 @@ const AuctionBarChart = props => {
         {},
         {
           year: "'12",
-          sum: yearReducer(findSales(sales, "2012"))
+          sum: yearReducer(findSales(sales, "2012")),
+          label: `Annual Sales Total: $${yearReducer(
+            findSales(sales, "2012")
+          ).toLocaleString(navigator.language, {
+            minimumFractionDigits: 0
+          })}`
         }
       )
     );
@@ -94,7 +130,12 @@ const AuctionBarChart = props => {
         {},
         {
           year: "'13",
-          sum: yearReducer(findSales(sales, "2013"))
+          sum: yearReducer(findSales(sales, "2013")),
+          label: `Annual Sales Total: $${yearReducer(
+            findSales(sales, "2013")
+          ).toLocaleString(navigator.language, {
+            minimumFractionDigits: 0
+          })}`
         }
       )
     );
@@ -103,7 +144,12 @@ const AuctionBarChart = props => {
         {},
         {
           year: "'14",
-          sum: yearReducer(findSales(sales, "2014"))
+          sum: yearReducer(findSales(sales, "2014")),
+          label: `Annual Sales Total: $${yearReducer(
+            findSales(sales, "2014")
+          ).toLocaleString(navigator.language, {
+            minimumFractionDigits: 0
+          })}`
         }
       )
     );
@@ -112,7 +158,12 @@ const AuctionBarChart = props => {
         {},
         {
           year: "'15",
-          sum: yearReducer(findSales(sales, "2015"))
+          sum: yearReducer(findSales(sales, "2015")),
+          label: `Annual Sales Total: $${yearReducer(
+            findSales(sales, "2015")
+          ).toLocaleString(navigator.language, {
+            minimumFractionDigits: 0
+          })}`
         }
       )
     );
@@ -121,7 +172,12 @@ const AuctionBarChart = props => {
         {},
         {
           year: "'16",
-          sum: yearReducer(findSales(sales, "2016"))
+          sum: yearReducer(findSales(sales, "2016")),
+          label: `Annual Sales Total: $${yearReducer(
+            findSales(sales, "2016")
+          ).toLocaleString(navigator.language, {
+            minimumFractionDigits: 0
+          })}`
         }
       )
     );
@@ -130,7 +186,12 @@ const AuctionBarChart = props => {
         {},
         {
           year: "'17",
-          sum: yearReducer(findSales(sales, "2017"))
+          sum: yearReducer(findSales(sales, "2017")),
+          label: `Annual Sales Total: $${yearReducer(
+            findSales(sales, "2017")
+          ).toLocaleString(navigator.language, {
+            minimumFractionDigits: 0
+          })}`
         }
       )
     );
@@ -142,7 +203,12 @@ const AuctionBarChart = props => {
     <VictoryChart domainPadding={10} theme={VictoryTheme.material}>
       <VictoryAxis />
       <VictoryAxis dependentAxis tickFormat={x => `${x / 1000000000}B`} />
-      <VictoryBar data={makeData()} x="year" y="sum" />
+      <VictoryBar
+        labelComponent={<VictoryTooltip />}
+        data={makeData()}
+        x="year"
+        y="sum"
+      />
     </VictoryChart>
   );
 };

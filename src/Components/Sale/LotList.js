@@ -212,6 +212,10 @@ class LotList extends React.Component {
     this.setState({ xLabel: event.target.innerText });
   };
 
+  handleNewClick = event => {
+    debugger;
+  };
+
   render() {
     console.log("LOT LIST", this.state, this.props);
     return (
@@ -221,6 +225,7 @@ class LotList extends React.Component {
         <div className="ui segment">
           <VictoryChart
             domainPadding={10}
+            width={800}
             containerComponent={<VictoryZoomContainer />}
             animate={{ duration: 500 }}
           >
@@ -228,12 +233,12 @@ class LotList extends React.Component {
               text={`Price Realized x ${
                 this.state.xLabel ? this.state.xLabel : "Lot Number"
               }`}
-              x={225}
+              x={400}
               y={5}
               textAnchor="middle"
             />
             <VictoryLegend
-              x={150}
+              x={305}
               y={25}
               orientation="horizontal"
               symbolSpacer={3}
@@ -266,9 +271,9 @@ class LotList extends React.Component {
               dependentAxis
             />
             {this.state.sorted ? (
-              <VictoryLabel text="👉🏼" x={300} y={275} textAnchor="middle" />
+              <VictoryLabel text="👉🏼" x={450} y={275} textAnchor="middle" />
             ) : (
-              <VictoryLabel text="👈🏼" x={150} y={275} textAnchor="middle" />
+              <VictoryLabel text="👈🏼" x={350} y={275} textAnchor="middle" />
             )}
             <VictoryScatter
               bubbleProperty="amount"
@@ -281,9 +286,9 @@ class LotList extends React.Component {
             />
           </VictoryChart>
         </div>
+        <h1 className="ui left aligned header"> Lots </h1>
         <div className="ui centered grid">
           <div className="twelve wide column">
-            <h1> Lots </h1>
             <div className="ui left aligned container">
               <table className="ui very basic table">
                 <thead>

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import AuctionBarChart from "../VictoryCharts/AuctionBarChart";
 
 const Auction = props => {
   return (
@@ -62,7 +63,7 @@ const Auction = props => {
       <br />
       <div className="centered ten wide column">
         <div className="ui large header">Analytics</div>
-        {/*<AuctionBarChart />*/}
+        <AuctionBarChart />
       </div>
     </div>
   );
