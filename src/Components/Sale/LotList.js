@@ -20,9 +20,11 @@ class LotList extends React.Component {
     super();
 
     this.state = {
-      lots: [],
       sorted: true,
-      xLabel: "Lot Number"
+      xLabel: "Lot Number",
+      displayLots: [],
+      searchTerm: "",
+      search: false
     };
   }
   sortByLotId = lots => {
@@ -212,13 +214,37 @@ class LotList extends React.Component {
     this.setState({ xLabel: event.target.innerText });
   };
 
-  handleNewClick = event => {
-    debugger;
+  updateSearchTerm(event) {
+    if (event.target.value.length === 0) {
+      return this.setState({ search: false, searchTerm: "", displayLots: [] });
+    }
+    this.setState({ searchTerm: event.target.value });
+  }
+
+  handleSearch(event) {
+    if (event.target.value.length === 0) {
+      return this.setState({ search: false, searchTerm: "", displayLots: [] });
+    } else {
+      let lots = this.props.displayLots.filter(
+        lot =>
+          lot.art_title.toLowerCase().includes(event.target.value) ||
+          this.findArtist(lot)
+            .name.toLowerCase()
+            .includes(event.target.value)
+      );
+      this.setState(
+        { displayLots: lots },
+        console.log("new lots", this.state.displayLots)
+      );
+    }
+  }
+
+  chooseLots = () => {
+    this.state.search ? this.state.displayLots : this.props.lots;
   };
 
-  everything = () => {};
-
   render() {
+    console.log("LOTS", this.props.displayLots);
     return (
       <div>
         {this.props.loading ? (
@@ -290,7 +316,19 @@ class LotList extends React.Component {
                 />
               </VictoryChart>
             </div>
+            <br />
             <h1 className="ui left aligned header"> Lots </h1>
+            <div className="ui fluid icon input">
+              <i className="search icon" />
+              <input
+                onChange={event => this.updateSearchTerm(event)}
+                value={this.state.searchTerm}
+                type="text"
+                placeholder="Search for by name..."
+              />
+            </div>
+            {/*<button onClick={event => this.handleSearch(event)}>search</button>*/}
+            <br />
             <div className="ui centered grid">
               <div className="twelve wide column">
                 <div className="ui left aligned container">
@@ -320,55 +358,107 @@ class LotList extends React.Component {
                     </thead>
                     <tbody>
                       {this.props.displayLots ? (
-                        this.props.displayLots.map((lot, i) => (
-                          <tr key={i}>
-                            <td key={`${i}0`}>{lot.lot_number}</td>
-                            <td key={`${i}1`}>
-                              <img
-                                onError={this.addDefaultSrc}
-                                src={lot.image}
-                                alt={christiesLink}
-                              />
-                            </td>
-                            <td key={`${i}2`}>
-                              <a
-                                href={""}
-                                onClick={() => {
-                                  this.props.history.replace(
-                                    `/artists/${lot.artist_id}`
-                                  );
-                                }}
-                              >
-                                {this.findArtist(lot).name}
-                              </a>
-                            </td>
-                            <td key={`${i}3`}>{lot.art_title}</td>
-                            <td key={`${i}4`}>
-                              ${lot.estimate_low.toLocaleString(
-                                navigator.language,
-                                {
-                                  minimumFractionDigits: 0
-                                }
-                              )}
-                            </td>
-                            <td key={`${i}5`}>
-                              ${lot.estimate_high.toLocaleString(
-                                navigator.language,
-                                {
-                                  minimumFractionDigits: 0
-                                }
-                              )}
-                            </td>
-                            <td key={`${i}6`}>
-                              ${lot.realized.toLocaleString(
-                                navigator.language,
-                                {
-                                  minimumFractionDigits: 0
-                                }
-                              )}
-                            </td>
-                          </tr>
-                        ))
+                        this.state.search ? (
+                          this.state.displayLots.map((lot, i) => (
+                            <tr key={i}>
+                              <td key={`${i}0`}>{lot.lot_number}</td>
+                              <td key={`${i}1`}>
+                                <img
+                                  onError={this.addDefaultSrc}
+                                  src={lot.image}
+                                  alt={christiesLink}
+                                />
+                              </td>
+                              <td key={`${i}2`}>
+                                <a
+                                  href={""}
+                                  onClick={() => {
+                                    this.props.history.replace(
+                                      `/artists/${lot.artist_id}`
+                                    );
+                                  }}
+                                >
+                                  {this.findArtist(lot).name}
+                                </a>
+                              </td>
+                              <td key={`${i}3`}>{lot.art_title}</td>
+                              <td key={`${i}4`}>
+                                ${lot.estimate_low.toLocaleString(
+                                  navigator.language,
+                                  {
+                                    minimumFractionDigits: 0
+                                  }
+                                )}
+                              </td>
+                              <td key={`${i}5`}>
+                                ${lot.estimate_high.toLocaleString(
+                                  navigator.language,
+                                  {
+                                    minimumFractionDigits: 0
+                                  }
+                                )}
+                              </td>
+                              <td key={`${i}6`}>
+                                ${lot.realized.toLocaleString(
+                                  navigator.language,
+                                  {
+                                    minimumFractionDigits: 0
+                                  }
+                                )}
+                              </td>
+                            </tr>
+                          ))
+                        ) : (
+                          this.props.displayLots.map((lot, i) => (
+                            <tr key={i}>
+                              <td key={`${i}0`}>{lot.lot_number}</td>
+                              <td key={`${i}1`}>
+                                <img
+                                  onError={this.addDefaultSrc}
+                                  src={lot.image}
+                                  alt={christiesLink}
+                                />
+                              </td>
+                              <td key={`${i}2`}>
+                                <a
+                                  href={""}
+                                  onClick={() => {
+                                    this.props.history.replace(
+                                      `/artists/${lot.artist_id}`
+                                    );
+                                  }}
+                                >
+                                  {this.findArtist(lot).name}
+                                </a>
+                              </td>
+                              <td key={`${i}3`}>{lot.art_title}</td>
+                              <td key={`${i}4`}>
+                                ${lot.estimate_low.toLocaleString(
+                                  navigator.language,
+                                  {
+                                    minimumFractionDigits: 0
+                                  }
+                                )}
+                              </td>
+                              <td key={`${i}5`}>
+                                ${lot.estimate_high.toLocaleString(
+                                  navigator.language,
+                                  {
+                                    minimumFractionDigits: 0
+                                  }
+                                )}
+                              </td>
+                              <td key={`${i}6`}>
+                                ${lot.realized.toLocaleString(
+                                  navigator.language,
+                                  {
+                                    minimumFractionDigits: 0
+                                  }
+                                )}
+                              </td>
+                            </tr>
+                          ))
+                        )
                       ) : (
                         <tr>
                           <td>Loading</td>

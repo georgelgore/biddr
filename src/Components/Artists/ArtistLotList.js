@@ -20,9 +20,11 @@ class ArtistLotList extends Component {
     super();
 
     this.state = {
-      lots: [],
+      displayLots: [],
       sorted: true,
-      xLabel: "Lot Number"
+      xLabel: "Lot Number",
+      searchTerm: "",
+      search: false
     };
   }
 
@@ -196,6 +198,23 @@ class ArtistLotList extends Component {
     }
   };
 
+  updateSearchTerm(event) {
+    if (event.target.value.length === 0) {
+      return this.setState({ search: false, searchTerm: "", displayLots: [] });
+    } else {
+      this.setState({ searchTerm: event.target.value, search: true }, () =>
+        console.log("1 STATE LOCAL", this.state)
+      );
+      let lots = this.props.lots.filter(lot =>
+        lot.art_title.toLowerCase().includes(event.target.value)
+      );
+      console.log("2 LOTS!", lots);
+      this.setState({ displayLots: lots }, () =>
+        console.log("3 new lots", this.state.displayLots)
+      );
+    }
+  }
+
   handleClick = event => {
     this.sortLots(this.props.lots, event.target.innerText);
     this.setState({ xLabel: event.target.innerText });
@@ -276,7 +295,18 @@ class ArtistLotList extends Component {
         </div>
         <div className="ui centered grid">
           <div className="twelve wide column">
+            <br />
             <h1> Lots </h1>
+            <div className="ui fluid icon input">
+              <i className="search icon" />
+              <input
+                onChange={event => this.updateSearchTerm(event)}
+                value={this.state.searchTerm}
+                type="text"
+                placeholder="Search for by name..."
+              />
+            </div>
+            <br />
             <div className="ui left aligned container">
               <table className="ui very basic table">
                 <thead>
@@ -305,50 +335,97 @@ class ArtistLotList extends Component {
                 </thead>
                 <tbody>
                   {this.props.lots && this.props.lots.length > 0 ? (
-                    this.props.lots.map((lot, i) => (
-                      <tr key={i}>
-                        <td key={`${i}0`}>
-                          <img
-                            onError={this.addDefaultSrc}
-                            src={lot.image}
-                            alt={christiesLink}
-                          />
-                        </td>
-                        <td key={`${i}1`}>
-                          <Link
-                            to={`/auctions/${this.getYear(lot)}/${
-                              this.findSale(lot).id
-                            }`}
-                          >
-                            {this.findSale(lot).title}
-                          </Link>
-                        </td>
-                        <td key={`${i}3`}>{this.findSale(lot).sale_date}</td>
-                        <td key={`${i}4`}>{lot.lot_number}</td>
-                        <td key={`${i}5`}>{lot.art_title}</td>
-                        <td key={`${i}6`}>
-                          ${lot.estimate_low.toLocaleString(
-                            navigator.language,
-                            {
+                    this.state.search ? (
+                      this.state.displayLots.map((lot, i) => (
+                        <tr key={i}>
+                          <td key={`${i}0`}>
+                            <img
+                              onError={this.addDefaultSrc}
+                              src={lot.image}
+                              alt={christiesLink}
+                            />
+                          </td>
+                          <td key={`${i}1`}>
+                            <Link
+                              to={`/auctions/${this.getYear(lot)}/${
+                                this.findSale(lot).id
+                              }`}
+                            >
+                              {this.findSale(lot).title}
+                            </Link>
+                          </td>
+                          <td key={`${i}3`}>{this.findSale(lot).sale_date}</td>
+                          <td key={`${i}4`}>{lot.lot_number}</td>
+                          <td key={`${i}5`}>{lot.art_title}</td>
+                          <td key={`${i}6`}>
+                            ${lot.estimate_low.toLocaleString(
+                              navigator.language,
+                              {
+                                minimumFractionDigits: 0
+                              }
+                            )}
+                          </td>
+                          <td key={`${i}7`}>
+                            ${lot.estimate_high.toLocaleString(
+                              navigator.language,
+                              {
+                                minimumFractionDigits: 0
+                              }
+                            )}
+                          </td>
+                          <td key={`${i}8`}>
+                            ${lot.realized.toLocaleString(navigator.language, {
                               minimumFractionDigits: 0
-                            }
-                          )}
-                        </td>
-                        <td key={`${i}7`}>
-                          ${lot.estimate_high.toLocaleString(
-                            navigator.language,
-                            {
+                            })}
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      this.props.lots.map((lot, i) => (
+                        <tr key={i}>
+                          <td key={`${i}0`}>
+                            <img
+                              onError={this.addDefaultSrc}
+                              src={lot.image}
+                              alt={christiesLink}
+                            />
+                          </td>
+                          <td key={`${i}1`}>
+                            <Link
+                              to={`/auctions/${this.getYear(lot)}/${
+                                this.findSale(lot).id
+                              }`}
+                            >
+                              {this.findSale(lot).title}
+                            </Link>
+                          </td>
+                          <td key={`${i}3`}>{this.findSale(lot).sale_date}</td>
+                          <td key={`${i}4`}>{lot.lot_number}</td>
+                          <td key={`${i}5`}>{lot.art_title}</td>
+                          <td key={`${i}6`}>
+                            ${lot.estimate_low.toLocaleString(
+                              navigator.language,
+                              {
+                                minimumFractionDigits: 0
+                              }
+                            )}
+                          </td>
+                          <td key={`${i}7`}>
+                            ${lot.estimate_high.toLocaleString(
+                              navigator.language,
+                              {
+                                minimumFractionDigits: 0
+                              }
+                            )}
+                          </td>
+                          <td key={`${i}8`}>
+                            ${lot.realized.toLocaleString(navigator.language, {
                               minimumFractionDigits: 0
-                            }
-                          )}
-                        </td>
-                        <td key={`${i}8`}>
-                          ${lot.realized.toLocaleString(navigator.language, {
-                            minimumFractionDigits: 0
-                          })}
-                        </td>
-                      </tr>
-                    ))
+                            })}
+                          </td>
+                        </tr>
+                      ))
+                    )
                   ) : (
                     <tr>null</tr>
                   )}
