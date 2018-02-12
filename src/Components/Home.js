@@ -5,11 +5,13 @@ class Home extends React.Component {
   render() {
     console.log("home props", this.props);
     return (
-      <div
-        style={{
-          backgroundImage: `https://d7hftxdivxxvm.cloudfront.net/?resize_to=width&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2FLMIiM-G105jy7QYGetZfDw%252FWarhol%2BSelf%2BPortrait.JPG&width=1200&quality=80`
-        }}
-      >
+      <div>
+        <video autoPlay muted loop id="myVideo">
+          <source
+            src="https://www.youtube.com/watch?v=duJQMdSbsBw.mp4"
+            type="video/mp4"
+          />
+        </video>
         <div className="ui huge header">Welcome to Biddr</div>
         <div className="ui container" />
       </div>

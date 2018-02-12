@@ -209,7 +209,8 @@ class ArtistLotList extends Component {
         lot.art_title.toLowerCase().includes(event.target.value)
       );
       console.log("2 LOTS!", lots);
-      this.setState({ displayLots: lots }, () =>
+      this.setState(
+        { displayLots: lots },
         console.log("3 new lots", this.state.displayLots)
       );
     }
@@ -297,15 +298,17 @@ class ArtistLotList extends Component {
           <div className="twelve wide column">
             <br />
             <h1> Lots </h1>
-            <div className="ui fluid icon input">
-              <i className="search icon" />
-              <input
-                onChange={event => this.updateSearchTerm(event)}
-                value={this.state.searchTerm}
-                type="text"
-                placeholder="Search for by name..."
-              />
-            </div>
+            {this.props.lots.length > 150 ? null : (
+              <div className="ui fluid icon input">
+                <i className="search icon" />
+                <input
+                  onChange={event => this.updateSearchTerm(event)}
+                  value={this.state.searchTerm}
+                  type="text"
+                  placeholder="Search for lots by name..."
+                />
+              </div>
+            )}
             <br />
             <div className="ui left aligned container">
               <table className="ui very basic table">

@@ -217,14 +217,8 @@ class LotList extends React.Component {
   updateSearchTerm(event) {
     if (event.target.value.length === 0) {
       return this.setState({ search: false, searchTerm: "", displayLots: [] });
-    }
-    this.setState({ searchTerm: event.target.value });
-  }
-
-  handleSearch(event) {
-    if (event.target.value.length === 0) {
-      return this.setState({ search: false, searchTerm: "", displayLots: [] });
     } else {
+      this.setState({ searchTerm: event.target.value, search: true });
       let lots = this.props.displayLots.filter(
         lot =>
           lot.art_title.toLowerCase().includes(event.target.value) ||
@@ -324,10 +318,9 @@ class LotList extends React.Component {
                 onChange={event => this.updateSearchTerm(event)}
                 value={this.state.searchTerm}
                 type="text"
-                placeholder="Search for by name..."
+                placeholder="Search for lots by artist name or artwork title..."
               />
             </div>
-            {/*<button onClick={event => this.handleSearch(event)}>search</button>*/}
             <br />
             <div className="ui centered grid">
               <div className="twelve wide column">

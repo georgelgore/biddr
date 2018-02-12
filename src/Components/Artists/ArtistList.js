@@ -35,19 +35,21 @@ const ArtistList = props => {
                       props.history.push(`artists/${artist.id}`);
                     }}
                   >
-                    <h1 id={artist.id} className="ui center aligned header">
-                      {artist.name}
-                    </h1>
-                    <img
-                      src={encodeURI(
-                        artist.image.slice(0, artist.image.length - 2) + "700"
-                      )}
-                      alt={
-                        "https://www.christies.com/img/lotimages//Alert/NoImage/non_NoImag.jpg?Width=700"
-                      }
-                      className="lot-image"
-                      id={artist.id}
-                    />
+                    <a href={""}>
+                      <h1 id={artist.id} className="ui center aligned header">
+                        {artist.name}
+                      </h1>
+                      <img
+                        src={encodeURI(
+                          artist.image.slice(0, artist.image.length - 2) + "700"
+                        )}
+                        alt={
+                          "https://www.christies.com/img/lotimages//Alert/NoImage/non_NoImag.jpg?Width=700"
+                        }
+                        className="lot-image"
+                        id={artist.id}
+                      />
+                    </a>
                   </td>
                   <td />
                 </tr>
