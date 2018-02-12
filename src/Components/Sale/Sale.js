@@ -9,11 +9,16 @@ class Sale extends React.Component {
   }
   render() {
     return (
-      <div className="ui container">
-        {this.props.loading ? <h1>"LOADING"</h1> : null}
-        <h1>{this.props.sale.title ? this.props.sale.title : "Loading"}</h1>
-        <h1>{this.props.sale.sale_date ? this.props.sale.sale_date : ""}</h1>
-        <LotList />
+      <div>
+        {this.props.loading ? null : (
+          <div className="ui container">
+            <h1>{this.props.sale.title ? this.props.sale.title : "Loading"}</h1>
+            <h1>
+              {this.props.sale.sale_date ? this.props.sale.sale_date : ""}
+            </h1>
+            <LotList />
+          </div>
+        )}
       </div>
     );
   }

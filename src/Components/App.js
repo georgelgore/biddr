@@ -86,7 +86,7 @@ class App extends Component {
             </div>
           </div>
         ) : (
-          "Loading"
+          <div className="ui loading segment" />
         )}
       </div>
     );

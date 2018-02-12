@@ -21,7 +21,7 @@ class ArtistLotList extends Component {
 
     this.state = {
       lots: [],
-      sorted: false,
+      sorted: true,
       xLabel: "Lot Number"
     };
   }
@@ -30,7 +30,7 @@ class ArtistLotList extends Component {
     let data = [];
     this.props.lots.forEach((lot, i) =>
       data.push({
-        x: i + 2,
+        x: i + 3,
         y: lot.realized,
         amount: lot.realized,
         fill: d =>
@@ -39,21 +39,20 @@ class ArtistLotList extends Component {
             : d.y <= lot.estimate_low ? "#c43a31" : "#006400",
         fillOpacity: 0.8,
         strokeWidth: 3,
-        label: `${this.findSale(lot).title}\nSale Date ${
+        label: `"${lot.art_title}"\n${lot.size_mat}\n${
+          this.findSale(lot).title
+        }\nSale Date ${
           this.findSale(lot).sale_date
-        }\nLow Estimate: $${lot.estimate_low.toLocaleString(
-          navigator.language,
-          {
-            minimumFractionDigits: 0
-          }
-        )}\nHigh Estimate: $${lot.estimate_high.toLocaleString(
-          navigator.language,
-          {
-            minimumFractionDigits: 0
-          }
-        )}\nPrice Realized: $${lot.realized.toLocaleString(navigator.language, {
+        }\nEstimate $${lot.estimate_low.toLocaleString(navigator.language, {
           minimumFractionDigits: 0
-        })}`
+        })}-$${lot.estimate_high.toLocaleString(navigator.language, {
+          minimumFractionDigits: 0
+        })}\nPrice Realized: $${lot.realized.toLocaleString(
+          navigator.language,
+          {
+            minimumFractionDigits: 0
+          }
+        )}`
       })
     );
     return data;
@@ -61,7 +60,6 @@ class ArtistLotList extends Component {
 
   componentDidMount() {
     this.props.fetchDisplayArtist(`${this.props.display_artist}`);
-    console.log("did mount", this.props);
   }
 
   findSale = lot => {
@@ -90,8 +88,8 @@ class ArtistLotList extends Component {
             sorted: false,
             lots: lots.sort(
               (a, b) =>
-                parseInt(this.findSale(a).sale_date, 10) -
-                parseInt(this.findSale(b).sale_date, 10)
+                parseInt(this.findSale(b).sale_date, 10) -
+                parseInt(this.findSale(a).sale_date, 10)
             )
           });
         } else {
@@ -99,8 +97,8 @@ class ArtistLotList extends Component {
             sorted: true,
             lots: lots.sort(
               (a, b) =>
-                parseInt(this.findSale(b).sale_date, 10) -
-                parseInt(this.findSale(a).sale_date, 10)
+                parseInt(this.findSale(a).sale_date, 10) -
+                parseInt(this.findSale(b).sale_date, 10)
             )
           });
         }
@@ -204,90 +202,75 @@ class ArtistLotList extends Component {
   };
 
   render() {
-    console.log("IN ALL", this.props);
     return (
       <div>
-        {this.props.loading ? <div class="ui loading form" /> : null}
+        {this.props.loading ? <div className="ui loading segment" /> : null}
         <div className="ui  container">
           <h1 className="ui left aligned header"> Analytics </h1>
           {this.props.lots && this.props.lots.length > 0 ? (
-            <div className="ui container">
-              <div
-                className="ui segment"
-                style={{ marginLeft: "15%", marginRight: "15%" }}
+            <div className="ui segment">
+              <VictoryChart
+                domainPadding={10}
+                width={800}
+                containerComponent={<VictoryZoomContainer />}
+                animate={{ duration: 500 }}
               >
-                <VictoryChart
-                  domainPadding={10}
-                  containerComponent={<VictoryZoomContainer />}
+                <VictoryLabel
+                  text={`Price Realized x ${
+                    this.state.xLabel ? this.state.xLabel : "Lot Number"
+                  }`}
+                  x={400}
+                  y={5}
+                  textAnchor="middle"
+                />
+                <VictoryLegend
+                  x={305}
+                  y={25}
+                  orientation="horizontal"
+                  symbolSpacer={3}
+                  gutter={20}
+                  data={[
+                    {
+                      name: "Within Estimate",
+                      symbol: { fill: "#000000" },
+                      labels: { fontSize: 6 }
+                    },
+                    {
+                      name: "Above Estimate",
+                      symbol: { fill: "#006400" },
+                      labels: { fontSize: 6 }
+                    },
+                    {
+                      name: "Below Estimate",
+                      symbol: { fill: "#c43a31" },
+                      labels: { fontSize: 6 }
+                    }
+                  ]}
+                />
+                <VictoryAxis
+                  label={this.state.xLabel}
+                  style={{ tickLabels: { fontSize: 0, padding: 1 } }}
+                />
+                <VictoryAxis
+                  label={"Realized"}
+                  style={{ tickLabels: { fontSize: 4, padding: 4 } }}
+                  dependentAxis
+                />
+                {this.state.sorted ? (
+                  <VictoryLabel text="👉🏼" x={450} y={275} textAnchor="middle" />
+                ) : (
+                  <VictoryLabel text="👈🏼" x={350} y={275} textAnchor="middle" />
+                )}
+                <VictoryScatter
+                  bubbleProperty="amount"
+                  minBubbleSize={1}
+                  maxBubbleSize={10}
+                  groupComponent={<VictoryClipContainer />}
+                  labelComponent={<VictoryTooltip />}
+                  data={this.makeData()}
                   animate={{ duration: 500 }}
-                >
-                  <VictoryLabel
-                    text={`Price Realized x ${
-                      this.state.xLabel ? this.state.xLabel : "Lot Number"
-                    }`}
-                    x={225}
-                    y={5}
-                    textAnchor="middle"
-                  />
-                  <VictoryLegend
-                    x={150}
-                    y={25}
-                    orientation="horizontal"
-                    symbolSpacer={3}
-                    gutter={20}
-                    data={[
-                      {
-                        name: "Within Estimate",
-                        symbol: { fill: "#000000" },
-                        labels: { fontSize: 6 }
-                      },
-                      {
-                        name: "Above Estimate",
-                        symbol: { fill: "#006400" },
-                        labels: { fontSize: 6 }
-                      },
-                      {
-                        name: "Below Estimate",
-                        symbol: { fill: "#c43a31" },
-                        labels: { fontSize: 6 }
-                      }
-                    ]}
-                  />
-                  <VictoryAxis
-                    label={this.state.xLabel}
-                    style={{ tickLabels: { fontSize: 0, padding: 1 } }}
-                  />
-                  <VictoryAxis
-                    label={"Realized"}
-                    style={{ tickLabels: { fontSize: 4, padding: 4 } }}
-                    dependentAxis
-                  />
-                  {this.state.sorted ? (
-                    <VictoryLabel
-                      text="👈🏼"
-                      x={150}
-                      y={275}
-                      textAnchor="middle"
-                    />
-                  ) : (
-                    <VictoryLabel
-                      text="👉🏼"
-                      x={300}
-                      y={275}
-                      textAnchor="middle"
-                    />
-                  )}
-                  <VictoryScatter
-                    bubbleProperty="amount"
-                    minBubbleSize={1}
-                    maxBubbleSize={10}
-                    groupComponent={<VictoryClipContainer />}
-                    labelComponent={<VictoryTooltip />}
-                    data={this.makeData()}
-                    animate={{ duration: 500 }}
-                  />
-                </VictoryChart>
-              </div>
+                />
+              </VictoryChart>
             </div>
           ) : null}
         </div>
@@ -301,22 +284,22 @@ class ArtistLotList extends Component {
                     <th />
                     <th>Sale</th>
                     <th onClick={event => this.handleClick(event)}>
-                      <i className="sort icon" />Sale Date
+                      <div className="hover">Sale Date</div>
                     </th>
                     <th onClick={event => this.handleClick(event)}>
-                      <i className="sort icon" />Lot Number
+                      <div className="hover">Lot Number </div>
                     </th>
                     <th onClick={event => this.handleClick(event)}>
-                      <i className="sort icon" />Title
+                      <div className="hover">Title </div>
                     </th>
                     <th onClick={event => this.handleClick(event)}>
-                      Low Estimate
+                      <div className="hover">Low Estimate</div>
                     </th>
                     <th onClick={event => this.handleClick(event)}>
-                      High Estimate
+                      <div className="hover">High Estimate </div>
                     </th>
                     <th onClick={event => this.handleClick(event)}>
-                      <i className="sort icon" />Price Realized
+                      <div className="hover">Price Realized </div>
                     </th>
                   </tr>
                 </thead>
@@ -367,9 +350,7 @@ class ArtistLotList extends Component {
                       </tr>
                     ))
                   ) : (
-                    <tr>
-                      <td>Loading</td>
-                    </tr>
+                    <tr>null</tr>
                   )}
                 </tbody>
               </table>

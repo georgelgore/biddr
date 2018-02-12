@@ -14,7 +14,6 @@ class Artist extends Component {
     let newArtist = thisPropArtists.filter(
       artist => artist.id === parseInt(newId, 10)
     )[0];
-    console.log("NEW ARTIST", newArtist);
     return newArtist;
   };
 
@@ -22,7 +21,6 @@ class Artist extends Component {
     let newArtist = this.nextProps.artists.filter(
       artist => artist.id === parseInt(newId, 10)
     )[0];
-    console.log("NEW ARTIST", newArtist);
     return newArtist;
   };
 
@@ -33,7 +31,6 @@ class Artist extends Component {
   };
 
   componentDidMount() {
-    console.log("CDM MONT");
     this.props.updateDisplayArtist(this.getArtistId()) &&
       this.props.setArtist(
         this.findArtist(this.props.display_artist, this.props.artists)
@@ -41,7 +38,6 @@ class Artist extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log("IN NEXT PROPS", this.props, nextProps);
     if (this.props !== nextProps) {
       let artist = this.findArtist(nextProps.display_artist, nextProps.artists);
       nextProps.setArtist(artist);
@@ -49,11 +45,9 @@ class Artist extends Component {
         nextProps.fetchDisplayArtist(artist.id);
       }
     }
-    console.log("HEEEEEEEEY");
   }
 
   render() {
-    console.log("artist", this.props);
     return (
       <div>
         {this.props.artist &&

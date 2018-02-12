@@ -38,7 +38,7 @@ class LotList extends React.Component {
         x: i + 10,
         y: lot.realized,
         amount: lot.realized,
-        fillOpacity: 0.5,
+        fillOpacity: 0.8,
         fill: d =>
           d.y >= lot.estimate_low && d.y <= lot.estimate_high
             ? "#000000"
@@ -216,158 +216,171 @@ class LotList extends React.Component {
     debugger;
   };
 
+  everything = () => {};
+
   render() {
-    console.log("LOT LIST", this.state, this.props);
     return (
       <div>
-        <h1>{this.props.loading ? "Loading" : null}</h1>
-        <h1 className="ui left aligned header"> Analytics </h1>
-        <div className="ui segment">
-          <VictoryChart
-            domainPadding={10}
-            width={800}
-            containerComponent={<VictoryZoomContainer />}
-            animate={{ duration: 500 }}
-          >
-            <VictoryLabel
-              text={`Price Realized x ${
-                this.state.xLabel ? this.state.xLabel : "Lot Number"
-              }`}
-              x={400}
-              y={5}
-              textAnchor="middle"
-            />
-            <VictoryLegend
-              x={305}
-              y={25}
-              orientation="horizontal"
-              symbolSpacer={3}
-              gutter={20}
-              data={[
-                {
-                  name: "Within Estimate",
-                  symbol: { fill: "#000000" },
-                  labels: { fontSize: 6 }
-                },
-                {
-                  name: "Above Estimate",
-                  symbol: { fill: "#006400" },
-                  labels: { fontSize: 6 }
-                },
-                {
-                  name: "Below Estimate",
-                  symbol: { fill: "#c43a31" },
-                  labels: { fontSize: 6 }
-                }
-              ]}
-            />
-            <VictoryAxis
-              label={this.state.xLabel}
-              style={{ tickLabels: { fontSize: 0, padding: 1 } }}
-            />
-            <VictoryAxis
-              label={"Realized"}
-              style={{ tickLabels: { fontSize: 4, padding: 4 } }}
-              dependentAxis
-            />
-            {this.state.sorted ? (
-              <VictoryLabel text="👉🏼" x={450} y={275} textAnchor="middle" />
-            ) : (
-              <VictoryLabel text="👈🏼" x={350} y={275} textAnchor="middle" />
-            )}
-            <VictoryScatter
-              bubbleProperty="amount"
-              minBubbleSize={1}
-              maxBubbleSize={10}
-              groupComponent={<VictoryClipContainer />}
-              labelComponent={<VictoryTooltip />}
-              data={this.makeData()}
-              animate={{ duration: 500 }}
-            />
-          </VictoryChart>
-        </div>
-        <h1 className="ui left aligned header"> Lots </h1>
-        <div className="ui centered grid">
-          <div className="twelve wide column">
-            <div className="ui left aligned container">
-              <table className="ui very basic table">
-                <thead>
-                  <tr>
-                    <th onClick={event => this.handleClick(event)}>
-                      Lot Number
-                    </th>
-                    <th />
-                    <th onClick={event => this.handleClick(event)}>Artist</th>
-                    <th onClick={event => this.handleClick(event)}>Title</th>
-                    <th onClick={event => this.handleClick(event)}>
-                      Low Estimate
-                    </th>
-                    <th onClick={event => this.handleClick(event)}>
-                      High Estimate
-                    </th>
-                    <th onClick={event => this.handleClick(event)}>
-                      Price Realized
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {this.props.displayLots ? (
-                    this.props.displayLots.map((lot, i) => (
-                      <tr key={i}>
-                        <td key={`${i}0`}>{lot.lot_number}</td>
-                        <td key={`${i}1`}>
-                          <img
-                            onError={this.addDefaultSrc}
-                            src={lot.image}
-                            alt={christiesLink}
-                          />
-                        </td>
-                        <td key={`${i}2`}>
-                          <a
-                            href={""}
-                            onClick={() => {
-                              this.props.history.replace(
-                                `/artists/${lot.artist_id}`
-                              );
-                            }}
-                          >
-                            {this.findArtist(lot).name}
-                          </a>
-                        </td>
-                        <td key={`${i}3`}>{lot.art_title}</td>
-                        <td key={`${i}4`}>
-                          ${lot.estimate_low.toLocaleString(
-                            navigator.language,
-                            {
-                              minimumFractionDigits: 0
-                            }
-                          )}
-                        </td>
-                        <td key={`${i}5`}>
-                          ${lot.estimate_high.toLocaleString(
-                            navigator.language,
-                            {
-                              minimumFractionDigits: 0
-                            }
-                          )}
-                        </td>
-                        <td key={`${i}6`}>
-                          ${lot.realized.toLocaleString(navigator.language, {
-                            minimumFractionDigits: 0
-                          })}
-                        </td>
+        {this.props.loading ? (
+          <div className="ui loading segment" />
+        ) : (
+          <div>
+            <h1 className="ui left aligned header"> Analytics </h1>
+            <div className="ui segment">
+              <VictoryChart
+                domainPadding={10}
+                width={800}
+                containerComponent={<VictoryZoomContainer />}
+                animate={{ duration: 500 }}
+              >
+                <VictoryLabel
+                  text={`Price Realized x ${
+                    this.state.xLabel ? this.state.xLabel : "Lot Number"
+                  }`}
+                  x={400}
+                  y={5}
+                  textAnchor="middle"
+                />
+                <VictoryLegend
+                  x={305}
+                  y={25}
+                  orientation="horizontal"
+                  symbolSpacer={3}
+                  gutter={20}
+                  data={[
+                    {
+                      name: "Within Estimate",
+                      symbol: { fill: "#000000" },
+                      labels: { fontSize: 6 }
+                    },
+                    {
+                      name: "Above Estimate",
+                      symbol: { fill: "#006400" },
+                      labels: { fontSize: 6 }
+                    },
+                    {
+                      name: "Below Estimate",
+                      symbol: { fill: "#c43a31" },
+                      labels: { fontSize: 6 }
+                    }
+                  ]}
+                />
+                <VictoryAxis
+                  label={this.state.xLabel}
+                  style={{ tickLabels: { fontSize: 0, padding: 1 } }}
+                />
+                <VictoryAxis
+                  label={"Realized"}
+                  style={{ tickLabels: { fontSize: 4, padding: 4 } }}
+                  dependentAxis
+                />
+                {this.state.sorted ? (
+                  <VictoryLabel text="👉🏼" x={450} y={275} textAnchor="middle" />
+                ) : (
+                  <VictoryLabel text="👈🏼" x={350} y={275} textAnchor="middle" />
+                )}
+                <VictoryScatter
+                  bubbleProperty="amount"
+                  minBubbleSize={1}
+                  maxBubbleSize={10}
+                  groupComponent={<VictoryClipContainer />}
+                  labelComponent={<VictoryTooltip />}
+                  data={this.makeData()}
+                  animate={{ duration: 500 }}
+                />
+              </VictoryChart>
+            </div>
+            <h1 className="ui left aligned header"> Lots </h1>
+            <div className="ui centered grid">
+              <div className="twelve wide column">
+                <div className="ui left aligned container">
+                  <table className="ui very basic table">
+                    <thead>
+                      <tr>
+                        <th onClick={event => this.handleClick(event)}>
+                          <div className="hover">Lot Number</div>
+                        </th>
+                        <th />
+                        <th onClick={event => this.handleClick(event)}>
+                          <div className="hover">Artist</div>
+                        </th>
+                        <th onClick={event => this.handleClick(event)}>
+                          <div className="hover">Title</div>
+                        </th>
+                        <th onClick={event => this.handleClick(event)}>
+                          <div className="hover">Low Estimate</div>
+                        </th>
+                        <th onClick={event => this.handleClick(event)}>
+                          <div className="hover">High Estimate</div>
+                        </th>
+                        <th onClick={event => this.handleClick(event)}>
+                          <div className="hover">Price Realized</div>
+                        </th>
                       </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td>Loading</td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
+                    </thead>
+                    <tbody>
+                      {this.props.displayLots ? (
+                        this.props.displayLots.map((lot, i) => (
+                          <tr key={i}>
+                            <td key={`${i}0`}>{lot.lot_number}</td>
+                            <td key={`${i}1`}>
+                              <img
+                                onError={this.addDefaultSrc}
+                                src={lot.image}
+                                alt={christiesLink}
+                              />
+                            </td>
+                            <td key={`${i}2`}>
+                              <a
+                                href={""}
+                                onClick={() => {
+                                  this.props.history.replace(
+                                    `/artists/${lot.artist_id}`
+                                  );
+                                }}
+                              >
+                                {this.findArtist(lot).name}
+                              </a>
+                            </td>
+                            <td key={`${i}3`}>{lot.art_title}</td>
+                            <td key={`${i}4`}>
+                              ${lot.estimate_low.toLocaleString(
+                                navigator.language,
+                                {
+                                  minimumFractionDigits: 0
+                                }
+                              )}
+                            </td>
+                            <td key={`${i}5`}>
+                              ${lot.estimate_high.toLocaleString(
+                                navigator.language,
+                                {
+                                  minimumFractionDigits: 0
+                                }
+                              )}
+                            </td>
+                            <td key={`${i}6`}>
+                              ${lot.realized.toLocaleString(
+                                navigator.language,
+                                {
+                                  minimumFractionDigits: 0
+                                }
+                              )}
+                            </td>
+                          </tr>
+                        ))
+                      ) : (
+                        <tr>
+                          <td>Loading</td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     );
   }

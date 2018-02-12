@@ -213,7 +213,6 @@ class LotList extends React.Component {
   };
 
   render() {
-    console.log("LOT LIST", this.state, this.props);
     return (
       <div>
         <h1>{this.props.loading ? "Loading" : null}</h1>

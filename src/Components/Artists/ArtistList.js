@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import * as actions from "../../actions";
 
 const ArtistList = props => {
-  console.log("ARTIST LIST", props);
   return (
     <div className="ui container">
       <div className="ui fluid icon input">

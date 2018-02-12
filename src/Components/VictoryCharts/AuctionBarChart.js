@@ -4,7 +4,8 @@ import {
   VictoryChart,
   VictoryAxis,
   VictoryTheme,
-  VictoryTooltip
+  VictoryTooltip,
+  VictoryLabel
 } from "victory";
 import { connect } from "react-redux";
 
@@ -45,13 +46,13 @@ const AuctionBarChart = props => {
       Object.assign(
         {},
         {
-          year: "'07",
+          year: "2007",
           sum: yearReducer(findSales(sales, "2007")),
           label: `Annual Sales Total: $${yearReducer(
             findSales(sales, "2007")
           ).toLocaleString(navigator.language, {
             minimumFractionDigits: 0
-          })}`
+          })}\nNumber of Sales:${findSales(sales, "2007").length}`
         }
       )
     );
@@ -59,13 +60,13 @@ const AuctionBarChart = props => {
       Object.assign(
         {},
         {
-          year: "'08",
+          year: "2008",
           sum: yearReducer(findSales(sales, "2008")),
           label: `Annual Sales Total: $${yearReducer(
             findSales(sales, "2008")
           ).toLocaleString(navigator.language, {
             minimumFractionDigits: 0
-          })}`
+          })}\nNumber of Sales:${findSales(sales, "2008").length}`
         }
       )
     );
@@ -73,13 +74,13 @@ const AuctionBarChart = props => {
       Object.assign(
         {},
         {
-          year: "'09",
+          year: "2009",
           sum: yearReducer(findSales(sales, "2009")),
           label: `Annual Sales Total: $${yearReducer(
             findSales(sales, "2009")
           ).toLocaleString(navigator.language, {
             minimumFractionDigits: 0
-          })}`
+          })}\nNumber of Sales:${findSales(sales, "2008").length}`
         }
       )
     );
@@ -87,13 +88,13 @@ const AuctionBarChart = props => {
       Object.assign(
         {},
         {
-          year: "'10",
+          year: "2010",
           sum: yearReducer(findSales(sales, "2010")),
           label: `Annual Sales Total: $${yearReducer(
             findSales(sales, "2010")
           ).toLocaleString(navigator.language, {
             minimumFractionDigits: 0
-          })}`
+          })}\nNumber of Sales:${findSales(sales, "2009").length}`
         }
       )
     );
@@ -101,13 +102,13 @@ const AuctionBarChart = props => {
       Object.assign(
         {},
         {
-          year: "'11",
+          year: "2011",
           sum: yearReducer(findSales(sales, "2011")),
           label: `Annual Sales Total: $${yearReducer(
             findSales(sales, "2011")
           ).toLocaleString(navigator.language, {
             minimumFractionDigits: 0
-          })}`
+          })}\nNumber of Sales: ${findSales(sales, "2010").length}`
         }
       )
     );
@@ -115,13 +116,13 @@ const AuctionBarChart = props => {
       Object.assign(
         {},
         {
-          year: "'12",
+          year: "2012",
           sum: yearReducer(findSales(sales, "2012")),
           label: `Annual Sales Total: $${yearReducer(
             findSales(sales, "2012")
           ).toLocaleString(navigator.language, {
             minimumFractionDigits: 0
-          })}`
+          })}\nNumber of Sales: ${findSales(sales, "2011").length}`
         }
       )
     );
@@ -129,13 +130,13 @@ const AuctionBarChart = props => {
       Object.assign(
         {},
         {
-          year: "'13",
+          year: "2013",
           sum: yearReducer(findSales(sales, "2013")),
           label: `Annual Sales Total: $${yearReducer(
             findSales(sales, "2013")
           ).toLocaleString(navigator.language, {
             minimumFractionDigits: 0
-          })}`
+          })}\nNumber of Sales: ${findSales(sales, "2013").length}`
         }
       )
     );
@@ -143,13 +144,13 @@ const AuctionBarChart = props => {
       Object.assign(
         {},
         {
-          year: "'14",
+          year: "2014",
           sum: yearReducer(findSales(sales, "2014")),
           label: `Annual Sales Total: $${yearReducer(
             findSales(sales, "2014")
           ).toLocaleString(navigator.language, {
             minimumFractionDigits: 0
-          })}`
+          })}\nNumber of Sales: ${findSales(sales, "2014").length}`
         }
       )
     );
@@ -157,13 +158,13 @@ const AuctionBarChart = props => {
       Object.assign(
         {},
         {
-          year: "'15",
+          year: "2015",
           sum: yearReducer(findSales(sales, "2015")),
           label: `Annual Sales Total: $${yearReducer(
             findSales(sales, "2015")
           ).toLocaleString(navigator.language, {
             minimumFractionDigits: 0
-          })}`
+          })}\nNumber of Sales: ${findSales(sales, "2015").length}`
         }
       )
     );
@@ -171,13 +172,13 @@ const AuctionBarChart = props => {
       Object.assign(
         {},
         {
-          year: "'16",
+          year: "2016",
           sum: yearReducer(findSales(sales, "2016")),
           label: `Annual Sales Total: $${yearReducer(
             findSales(sales, "2016")
           ).toLocaleString(navigator.language, {
             minimumFractionDigits: 0
-          })}`
+          })}\nNumber of Sales: ${findSales(sales, "2016").length}`
         }
       )
     );
@@ -185,22 +186,27 @@ const AuctionBarChart = props => {
       Object.assign(
         {},
         {
-          year: "'17",
+          year: "2017",
           sum: yearReducer(findSales(sales, "2017")),
           label: `Annual Sales Total: $${yearReducer(
             findSales(sales, "2017")
           ).toLocaleString(navigator.language, {
             minimumFractionDigits: 0
-          })}`
+          })}\nNumber of Sales: ${findSales(sales, "2017").length}`
         }
       )
     );
-    console.log("DATA", data);
     return data;
   };
 
   return (
-    <VictoryChart domainPadding={10} theme={VictoryTheme.material}>
+    <VictoryChart width={900} domainPadding={25} theme={VictoryTheme.material}>
+      <VictoryLabel
+        text={"Annual Sum x Year"}
+        x={450}
+        y={65}
+        textAnchor="middle"
+      />
       <VictoryAxis />
       <VictoryAxis dependentAxis tickFormat={x => `${x / 1000000000}B`} />
       <VictoryBar

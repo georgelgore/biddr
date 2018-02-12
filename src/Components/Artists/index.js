@@ -14,12 +14,10 @@ class ArtistContainer extends Component {
   }
 
   updateDisplayArtist = (history, artistId) => {
-    console.log("IN UPDATE DISPLAY", history, artistId);
     history.push(`/artists/${artistId}`);
   };
 
   updateSearchTerm = event => {
-    console.log("HELLO", this.props);
     if (event.target.value.length === 0) {
       return this.setState({ display: [], searchTerm: "" });
     } else {
@@ -28,15 +26,14 @@ class ArtistContainer extends Component {
           return artist.name.includes(event.target.value.toUpperCase());
         }
       });
-      return this.setState(
-        { searchTerm: event.target.value, display: toShow.sort() },
-        console.log("updating1", this.state, this.props)
-      );
+      return this.setState({
+        searchTerm: event.target.value,
+        display: toShow.sort()
+      });
     }
   };
 
   render() {
-    console.log("artist container", this.state, this.props);
     return (
       <div className="ui container">
         <h1> Artists </h1>

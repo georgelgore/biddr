@@ -25,7 +25,6 @@ const SaleList = props => {
       sale => sale.sale_date.slice(0, 4) === props.year
     );
   };
-  console.log("sale list", props);
   return (
     <div className="ui left aligned container">
       <h1> Sales – {props.year} </h1>
@@ -44,12 +43,17 @@ const SaleList = props => {
       <div className="ui container">
         <VictoryPie
           innerRadius={100}
+          domainPadding={10}
           data={makeData()}
           // style={{ labels: { fontSize: 5, angle: 45 } }}
           labelComponent={<VictoryTooltip renderInPortal={true} />}
-          width={1200}
+          width={800}
         />
       </div>
+      <div style={{ opacity: 0 }}>""</div>
+      <div style={{ opacity: 0 }}>""</div>
+      <div style={{ opacity: 0 }}>""</div>
+      <div style={{ opacity: 0 }}>""</div>
     </div>
   );
 };

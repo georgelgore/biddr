@@ -3,7 +3,6 @@ import SaleList from "./SaleList";
 import { connect } from "react-redux";
 
 const Year = props => {
-  console.log("year props", props);
   return (
     <div>
       <SaleList year={props.year} sales={props.sales} />
