@@ -9,8 +9,8 @@
 # artists = Artist.all.sort_by{|sale| sale.lots.map{|lot| lot.realized}.reduce(:+)}[-11..-1]
 # artists.each{|artist| TopArtist.create(name: artist.name, image: artist.image)}
 
-lots = Lot.all.sort_by{|lot| lot.realized}[-11..-1]
-lots.each{|lot| HighLot.create(lot_number: lot.lot_number, artist_id: lot.artist_id, image: lot.image, art_title: lot.art_title, size_mat: lot.size_mat, estimate_low: lot.estimate_low, estimate_high: lot.estimate_high, realized: lot.realized, sale_id: lot.sale_id)}
+# lots = Lot.all.sort_by{|lot| lot.realized}[-11..-1]
+# lots.each{|lot| HighLot.create(lot_number: lot.lot_number, artist_id: lot.artist_id, image: lot.image, art_title: lot.art_title, size_mat: lot.size_mat, estimate_low: lot.estimate_low, estimate_high: lot.estimate_high, realized: lot.realized, sale_id: lot.sale_id)}
 
 # Dir.foreach('../christies_datascrape/ALL/2012-2017') do |item|
 #   next if item == '.' or item == '..' or item == '.DS_Store' or item.nil?
