@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { Modal } from "semantic-ui-react";
 import * as actions from "../../actions";
 import {
   VictoryScatter,
@@ -296,21 +297,21 @@ class ArtistLotList extends Component {
         </div>
         <div className="ui centered grid">
           <div className="twelve wide column">
-            <br />
-            <h1> Lots </h1>
-            {this.props.lots.length > 150 ? null : (
-              <div className="ui fluid icon input">
-                <i className="search icon" />
-                <input
-                  onChange={event => this.updateSearchTerm(event)}
-                  value={this.state.searchTerm}
-                  type="text"
-                  placeholder="Search for lots by name..."
-                />
-              </div>
-            )}
-            <br />
             <div className="ui left aligned container">
+              <br />
+              <h1> Lots </h1>
+              <br />
+              {this.props.lots.length > 150 ? null : (
+                <div className="ui fluid icon input">
+                  <i className="search icon" />
+                  <input
+                    onChange={event => this.updateSearchTerm(event)}
+                    value={this.state.searchTerm}
+                    type="text"
+                    placeholder="Search for lots by name..."
+                  />
+                </div>
+              )}
               <table className="ui very basic table">
                 <thead>
                   <tr>
