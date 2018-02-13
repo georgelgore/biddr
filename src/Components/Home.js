@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 
 class Home extends React.Component {
   render() {
-    console.log("home props", this.props);
     return (
       <div>
         <div id="fullscreen-bg">

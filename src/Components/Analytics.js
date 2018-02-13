@@ -1,5 +1,5 @@
 import React from "react";
-
+import { withRouter } from "react-router-dom";
 class Analytics extends React.Component {
   constructor() {
     super();
@@ -31,7 +31,12 @@ class Analytics extends React.Component {
           .sort((a, b) => a.realized - b.realized)
           .map((lot, i) => (
             <div key={i} className="card">
-              <div className="image">
+              <div
+                className="hover image"
+                onClick={() =>
+                  this.props.history.push(`artists/${lot.artist_id}`)
+                }
+              >
                 <img
                   alt="https://www.christies.com/img/lotimages//Alert/NoImage/non_NoImag.jpg?Width=77"
                   src={encodeURI(
@@ -86,7 +91,12 @@ class Analytics extends React.Component {
     return this.state.artists
       ? this.state.artists.sort((a, b) => a.sum - b.sum).map((artist, i) => (
           <div key={i} className="card">
-            <div className="image">
+            <div
+              className="hover image"
+              onClick={() =>
+                this.props.history.push(`artists/${artist.artist_id}`)
+              }
+            >
               <img
                 alt="https://www.christies.com/img/lotimages//Alert/NoImage/non_NoImag.jpg?Width=77"
                 src={encodeURI(
@@ -95,7 +105,7 @@ class Analytics extends React.Component {
               />
             </div>
             <div className="content">
-              <div className="header">{artist.name}</div>
+              <div className="header ">{artist.name}</div>
               <div className="extra content">
                 Amount Sold: ${artist.sum.toLocaleString(navigator.language, {
                   minimumFractionDigits: 0
@@ -111,7 +121,14 @@ class Analytics extends React.Component {
     return this.state.sales
       ? this.state.sales.sort((a, b) => a.sum - b.sum).map((sale, i) => (
           <div key={i} className="card">
-            <div className="image">
+            <div
+              className="hover image"
+              onClick={() =>
+                this.props.history.push(
+                  `/auctions/${sale.sale_date.slice(0, 5)}/${sale.sale_id}`
+                )
+              }
+            >
               <img
                 alt="https://www.christies.com/img/lotimages//Alert/NoImage/non_NoImag.jpg?Width=77"
                 src={encodeURI(
@@ -155,6 +172,7 @@ class Analytics extends React.Component {
   };
 
   render() {
+    console.log("analytics states", this.state);
     return (
       <div>
         <div className="ui top attached tabular menu">
@@ -194,7 +212,7 @@ class Analytics extends React.Component {
   }
 }
 
-export default Analytics;
+export default withRouter(Analytics);
 
 // <div className="ui top attached tabular menu">
 //   <a
