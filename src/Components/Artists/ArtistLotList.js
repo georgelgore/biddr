@@ -225,7 +225,9 @@ class ArtistLotList extends Component {
   render() {
     return (
       <div>
-        {this.props.loading ? <div className="ui loading segment" /> : null}
+        {this.props.loading ? (
+          <div className="ui active centered inline loader" />
+        ) : null}
         <div className="ui  container">
           <h1 className="ui left aligned header"> Analytics </h1>
           {this.props.lots && this.props.lots.length > 0 ? (
@@ -343,11 +345,68 @@ class ArtistLotList extends Component {
                       this.state.displayLots.map((lot, i) => (
                         <tr key={i}>
                           <td key={`${i}0`}>
-                            <img
-                              onError={this.addDefaultSrc}
-                              src={lot.image}
-                              alt={christiesLink}
-                            />
+                            <Modal
+                              trigger={
+                                <img
+                                  className="hover"
+                                  onError={this.addDefaultSrc}
+                                  src={lot.image}
+                                  alt={christiesLink}
+                                />
+                              }
+                              closeIcon
+                              size={"large"}
+                            >
+                              <Modal.Content image>
+                                <img
+                                  onError={this.addDefaultSrc}
+                                  src={
+                                    lot.image.slice(0, lot.image.length - 2) +
+                                    "500"
+                                  }
+                                  alt={christiesLink}
+                                />
+                                <Modal.Description>
+                                  <div
+                                    style={{
+                                      paddingBottom: "20%"
+                                    }}
+                                    className="ui basic center aligned segment"
+                                  >
+                                    <h1>{`"${lot.art_title.length > 20}"`}</h1>
+                                    <h3 style={{ maxWidth: "100%" }}>
+                                      {this.props.artist.name}
+                                    </h3>
+                                    <p />
+                                    <p>
+                                      {lot.size_mat.length < 60
+                                        ? `${lot.size_mat}`
+                                        : null}
+                                    </p>
+                                    <p
+                                    >{`Estimate: $${lot.estimate_low.toLocaleString(
+                                      navigator.language,
+                                      {
+                                        minimumFractionDigits: 0
+                                      }
+                                    )}-$${lot.estimate_high.toLocaleString(
+                                      navigator.language,
+                                      {
+                                        minimumFractionDigits: 0
+                                      }
+                                    )}`}</p>
+                                    <p>
+                                      {`Price Realized: $${lot.realized.toLocaleString(
+                                        navigator.language,
+                                        {
+                                          minimumFractionDigits: 0
+                                        }
+                                      )}`}
+                                    </p>
+                                  </div>
+                                </Modal.Description>
+                              </Modal.Content>
+                            </Modal>
                           </td>
                           <td key={`${i}1`}>
                             <Link
@@ -388,11 +447,68 @@ class ArtistLotList extends Component {
                       this.props.lots.map((lot, i) => (
                         <tr key={i}>
                           <td key={`${i}0`}>
-                            <img
-                              onError={this.addDefaultSrc}
-                              src={lot.image}
-                              alt={christiesLink}
-                            />
+                            <Modal
+                              trigger={
+                                <img
+                                  className="hover"
+                                  onError={this.addDefaultSrc}
+                                  src={lot.image}
+                                  alt={christiesLink}
+                                />
+                              }
+                              closeIcon
+                              size={"large"}
+                            >
+                              <Modal.Content image>
+                                <img
+                                  onError={this.addDefaultSrc}
+                                  src={
+                                    lot.image.slice(0, lot.image.length - 2) +
+                                    "500"
+                                  }
+                                  alt={christiesLink}
+                                />
+                                <Modal.Description
+                                  style={{
+                                    marginTop: "10%",
+                                    marginLeft: "5%",
+                                    marginRight: "5%",
+                                    width: "20%"
+                                  }}
+                                >
+                                  <div className="ui basic center aligned segment">
+                                    <h1>{`"${lot.art_title}"`}</h1>
+                                    <h3>{this.props.artist.name}</h3>
+                                    <p />
+                                    <p>
+                                      {lot.size_mat.length < 60
+                                        ? `${lot.size_mat}`
+                                        : null}
+                                    </p>
+                                    <p
+                                    >{`Estimate: $${lot.estimate_low.toLocaleString(
+                                      navigator.language,
+                                      {
+                                        minimumFractionDigits: 0
+                                      }
+                                    )}-$${lot.estimate_high.toLocaleString(
+                                      navigator.language,
+                                      {
+                                        minimumFractionDigits: 0
+                                      }
+                                    )}`}</p>
+                                    <p>
+                                      {`Price Realized: $${lot.realized.toLocaleString(
+                                        navigator.language,
+                                        {
+                                          minimumFractionDigits: 0
+                                        }
+                                      )}`}
+                                    </p>
+                                  </div>
+                                </Modal.Description>
+                              </Modal.Content>
+                            </Modal>
                           </td>
                           <td key={`${i}1`}>
                             <Link
@@ -443,13 +559,25 @@ class ArtistLotList extends Component {
   }
 }
 
-const mapStateToProps = ({ sales, displayArtist, display_artist, loading }) => {
+const mapStateToProps = ({
+  sales,
+  displayArtist,
+  display_artist,
+  loading,
+  artist
+}) => {
   const lots = displayArtist.data
-    ? displayArtist.data.attributes.lots.sort(
-        (a, b) =>
-          parseInt(a.lot_number.slice(4), 10) -
-          parseInt(b.lot_number.slice(4), 10)
-      )
+    ? displayArtist.data.attributes.lots.count > 250
+      ? displayArtist.data.attributes.lots[(0, 250)].sort(
+          (a, b) =>
+            parseInt(a.lot_number.slice(4), 10) -
+            parseInt(b.lot_number.slice(4), 10)
+        )
+      : displayArtist.data.attributes.lots.sort(
+          (a, b) =>
+            parseInt(a.lot_number.slice(4), 10) -
+            parseInt(b.lot_number.slice(4), 10)
+        )
     : [];
 
   return {
@@ -457,9 +585,23 @@ const mapStateToProps = ({ sales, displayArtist, display_artist, loading }) => {
     displayArtist,
     display_artist,
     lots,
-    loading
+    loading,
+    artist
     // lots_loading: displayArtist.id === artist.id
   };
 };
 
 export default withRouter(connect(mapStateToProps, actions)(ArtistLotList));
+
+// ? displayArtist.data.attributes.lots.count > 250
+//   ? displayArtist.data.attributes.lots[(0, 250)].sort(
+//       (a, b) =>
+//         parseInt(a.lot_number.slice(4), 10) -
+//         parseInt(b.lot_number.slice(4), 10)
+//     )
+//   : displayArtist.data.attributes.lots.sort(
+//       (a, b) =>
+//         parseInt(a.lot_number.slice(4), 10) -
+//         parseInt(b.lot_number.slice(4), 10)
+//     )
+// : [];

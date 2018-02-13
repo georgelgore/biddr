@@ -21,7 +21,9 @@ class App extends Component {
     console.log("app props", this.props);
     return (
       <div className="App">
-        {this.props.loading ? <div class="ui loading form" /> : null}
+        {this.props.loading ? (
+          <div className="ui active centered inline loader" />
+        ) : null}
         {this.props.sales && this.props.sales.length > 0 ? (
           <div>
             <Navbar />

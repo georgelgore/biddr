@@ -6,10 +6,12 @@ class Home extends React.Component {
     console.log("home props", this.props);
     return (
       <div>
+        <div id="fullscreen-bg">
+          <video autoPlay muted loop id="myVideo">
+            <source src={require("./Media/video.mp4")} type="video/mp4" />
+          </video>
+        </div>
         <div className="ui huge header">Welcome to Biddr</div>
-        <video autoPlay muted loop id="myVideo">
-          <source src={require("./Media/video.mp4")} type="video/mp4" />
-        </video>
       </div>
     );
   }

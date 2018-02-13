@@ -1,6 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { Modal } from "semantic-ui-react";
 import {
   VictoryScatter,
   VictoryLabel,
@@ -242,7 +243,7 @@ class LotList extends React.Component {
     return (
       <div>
         {this.props.loading ? (
-          <div className="ui loading segment" />
+          <div className="ui active centered inline loader" />
         ) : (
           <div>
             <h1 className="ui left aligned header"> Analytics </h1>
@@ -323,7 +324,7 @@ class LotList extends React.Component {
             </div>
             <br />
             <div className="ui centered grid">
-              <div className="twelve wide column">
+              <div className="forteen wide column">
                 <div className="ui left aligned container">
                   <table className="ui very basic table">
                     <thead>
@@ -356,11 +357,70 @@ class LotList extends React.Component {
                             <tr key={i}>
                               <td key={`${i}0`}>{lot.lot_number}</td>
                               <td key={`${i}1`}>
-                                <img
-                                  onError={this.addDefaultSrc}
-                                  src={lot.image}
-                                  alt={christiesLink}
-                                />
+                                <Modal
+                                  trigger={
+                                    <img
+                                      className="hover"
+                                      onError={this.addDefaultSrc}
+                                      src={lot.image}
+                                      alt={christiesLink}
+                                    />
+                                  }
+                                  closeIcon
+                                  size={"large"}
+                                >
+                                  <Modal.Content image>
+                                    <img
+                                      onError={this.addDefaultSrc}
+                                      src={
+                                        lot.image.slice(
+                                          0,
+                                          lot.image.length - 2
+                                        ) + "500"
+                                      }
+                                      alt={christiesLink}
+                                    />
+                                    <Modal.Description>
+                                      <div
+                                        style={{
+                                          marginTop: "20%",
+                                          maxWidth: "80%",
+                                          marginLeft: "10%"
+                                        }}
+                                        className="ui basic center aligned segment"
+                                      >
+                                        <h1>{this.findArtist(lot).name}</h1>
+                                        <h1>{`"${lot.art_title}"`}</h1>
+                                        <p />
+                                        <p>
+                                          {lot.size_mat.length < 60
+                                            ? `${lot.size_mat}`
+                                            : null}
+                                        </p>
+                                        <p
+                                        >{`Estimate: $${lot.estimate_low.toLocaleString(
+                                          navigator.language,
+                                          {
+                                            minimumFractionDigits: 0
+                                          }
+                                        )}-$${lot.estimate_high.toLocaleString(
+                                          navigator.language,
+                                          {
+                                            minimumFractionDigits: 0
+                                          }
+                                        )}`}</p>
+                                        <p>
+                                          {`Price Realized: $${lot.realized.toLocaleString(
+                                            navigator.language,
+                                            {
+                                              minimumFractionDigits: 0
+                                            }
+                                          )}`}
+                                        </p>
+                                      </div>
+                                    </Modal.Description>
+                                  </Modal.Content>
+                                </Modal>
                               </td>
                               <td key={`${i}2`}>
                                 <a
@@ -406,11 +466,70 @@ class LotList extends React.Component {
                             <tr key={i}>
                               <td key={`${i}0`}>{lot.lot_number}</td>
                               <td key={`${i}1`}>
-                                <img
-                                  onError={this.addDefaultSrc}
-                                  src={lot.image}
-                                  alt={christiesLink}
-                                />
+                                <Modal
+                                  trigger={
+                                    <img
+                                      className="hover"
+                                      onError={this.addDefaultSrc}
+                                      src={lot.image}
+                                      alt={christiesLink}
+                                    />
+                                  }
+                                  closeIcon
+                                  size={"large"}
+                                >
+                                  <Modal.Content image>
+                                    <img
+                                      onError={this.addDefaultSrc}
+                                      src={
+                                        lot.image.slice(
+                                          0,
+                                          lot.image.length - 2
+                                        ) + "500"
+                                      }
+                                      alt={christiesLink}
+                                    />
+                                    <Modal.Description>
+                                      <div
+                                        style={{
+                                          marginTop: "20%",
+                                          maxWidth: "80%",
+                                          marginLeft: "10%"
+                                        }}
+                                        className="ui basic center aligned segment"
+                                      >
+                                        <h1>{this.findArtist(lot).name}</h1>
+                                        <h1>{`"${lot.art_title}"`}</h1>
+                                        <p />
+                                        <p>
+                                          {lot.size_mat.length < 60
+                                            ? `${lot.size_mat}`
+                                            : null}
+                                        </p>
+                                        <p
+                                        >{`Estimate: $${lot.estimate_low.toLocaleString(
+                                          navigator.language,
+                                          {
+                                            minimumFractionDigits: 0
+                                          }
+                                        )}-$${lot.estimate_high.toLocaleString(
+                                          navigator.language,
+                                          {
+                                            minimumFractionDigits: 0
+                                          }
+                                        )}`}</p>
+                                        <p>
+                                          {`Price Realized: $${lot.realized.toLocaleString(
+                                            navigator.language,
+                                            {
+                                              minimumFractionDigits: 0
+                                            }
+                                          )}`}
+                                        </p>
+                                      </div>
+                                    </Modal.Description>
+                                  </Modal.Content>
+                                </Modal>
                               </td>
                               <td key={`${i}2`}>
                                 <a
@@ -454,7 +573,13 @@ class LotList extends React.Component {
                         )
                       ) : (
                         <tr>
-                          <td>Loading</td>
+                          <div className="ui segment">
+                            <div className="ui active inverted dimmer">
+                              <div className="ui large text loader">
+                                Loading
+                              </div>
+                            </div>
+                          </div>
                         </tr>
                       )}
                     </tbody>

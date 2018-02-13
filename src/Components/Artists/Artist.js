@@ -58,7 +58,7 @@ class Artist extends Component {
             <ArtistLotList />
           </div>
         ) : (
-          <h1>Loading</h1>
+          <div className="ui active centered inline loader" />
         )}
       </div>
     );

@@ -10,9 +10,21 @@ class Sale extends React.Component {
   render() {
     return (
       <div>
-        {this.props.loading ? null : (
+        {this.props.loading ? (
+          <div className="ui active centered inline loader" />
+        ) : (
           <div className="ui container">
-            <h1>{this.props.sale.title ? this.props.sale.title : "Loading"}</h1>
+            <h1>
+              {this.props.sale.title ? (
+                this.props.sale.title
+              ) : (
+                <div className="ui segment">
+                  <div className="ui active inverted dimmer">
+                    <div className="ui large text loader">Loading</div>
+                  </div>
+                </div>
+              )}
+            </h1>
             <h1>
               {this.props.sale.sale_date ? this.props.sale.sale_date : ""}
             </h1>

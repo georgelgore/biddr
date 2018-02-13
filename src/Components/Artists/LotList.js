@@ -215,7 +215,11 @@ class LotList extends React.Component {
   render() {
     return (
       <div>
-        <h1>{this.props.loading ? "Loading" : null}</h1>
+        <h1>
+          {this.props.loading ? (
+            <div className="ui active centered inline loader" />
+          ) : null}
+        </h1>
         <h1 className="ui left aligned header"> Analytics </h1>
         <div className="ui segment">
           <VictoryChart
