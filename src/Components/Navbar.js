@@ -1,8 +1,90 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Modal, Image, Menu } from "semantic-ui-react";
+import { Modal, Image, Menu, Segment } from "semantic-ui-react";
 
 class Navbar extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      activeItem: "What is Biddr?"
+    };
+  }
+
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+
+  showAbout = () => {
+    return (
+      <div>
+        <p>
+          Biddr is a resource for researching artworks and artists on the
+          secondary market. The data on this website comes from publicly
+          available auction data from sales dating between 2007 and 2017. For
+          more information about the how to use the website or how the
+          information was collected, please contact George Gore:
+          georgelgore@gmail.com
+        </p>
+      </div>
+    );
+  };
+
+  handleDisplay = () => {
+    switch (this.state.activeItem) {
+      case "What is Biddr?":
+        return this.showAbout();
+      case "How do the Charts Work?":
+        return this.showCharts();
+      case "How can I use Biddr?":
+        return this.showUse();
+      default:
+        return this.showAbout();
+    }
+  };
+
+  showUse = () => {
+    return (
+      <div>
+        <h4>Search for Artists by Name</h4>
+        <p>
+          Click on the "Artists" tab at the top of the screen. Type in the
+          artist you are looking for or select from the randomly generated
+          artists.
+        </p>
+        <p>
+          Once you have found the artist you are looking for, scroll down on
+          their page to view all artworks that have been put on sale in the past
+          ten years. Click on the artwork image to see more information about
+          the work, or click on the headers of the table to sort the artworks by
+          different elements; such as price realized or title.
+        </p>
+        <h4>Search for Sales by Date</h4>
+        <p>
+          Click on the "Auctions" tab at the top of the screen. Select the year
+          you would like to learn more information about. Next, select a sale
+          and see all of the artworks sold in that sale. Like the "Artists"
+          page, you have the ability to search and sort the artworks.
+        </p>
+      </div>
+    );
+  };
+
+  showCharts = () => {
+    return (
+      <div>
+        <h4> Bar Charts & Pie Charts </h4>
+        <p>Hover over the display elements to see further information.</p>
+        <h4> Scatter Charts </h4>
+        <p>
+          Scatter charts have the added functionality of zoom and sorting! Click
+          on the headers above the lots to change the data display. The data
+          points in the scatter charts have the additional benefit of size,
+          which represents the amount the artwork was sold for. If you want more
+          specific information about a lot that is small, use the zoom
+          functionality to have better access all artworks.
+        </p>
+      </div>
+    );
+  };
+
   render() {
     return (
       <div style={{ maxHeight: 75 }} className="ui top fixed menu">
@@ -59,6 +141,7 @@ class Navbar extends React.Component {
               </div>
             </Link>
             <Modal
+              style={{ height: 400 }}
               dimmer="blurring"
               trigger={
                 <a>
@@ -83,58 +166,36 @@ class Navbar extends React.Component {
               <Modal.Content image>
                 <Image
                   wrapped
-                  size="massive"
+                  size="large"
                   src="https://www.christies.com/img/lotimages//2016/NYR/2016_NYR_12152_0018B_000(joan_mitchell_noon).jpg?mode=max&down.speed=-1&Width=700"
                 />
-                <Modal.Description>
-                  <h2>What is Biddr?</h2>
-                  <p>
-                    Biddr is a resource for researching artworks and artists on
-                    the secondary market. The data on this website comes from
-                    publicly available auction data from sales dating between
-                    2007 and 2017.
-                  </p>
-                  <h2>How Can I Use Biddr?</h2>
-                  <p>
-                    <h4>Search for Artists by Name</h4>
-                    <p>
-                      Click on the "Artists" tab at the top of the screen. Type
-                      in the artist you are looking for or select from the
-                      randomly generated artists.
-                    </p>
-                    <p>
-                      Once you have found the artist you are looking for, scroll
-                      down on their page to view all artworks that have been put
-                      on sale in the past ten years. Click on the artwork image
-                      to see more information about the work, or click on the
-                      headers of the table to sort the artworks by different
-                      elements; such as price realized or title.
-                    </p>
-                    <h4>Search for Sales by Date</h4>
-                    <p>
-                      Click on the "Auctions" tab at the top of the screen.
-                      Select the year you would like to learn more information
-                      about. Next, select a sale and see all of the artworks
-                      sold in that sale. Like the "Artists" page, you have the
-                      ability to search and sort the artworks.
-                    </p>
-                    <h2>How do the Charts Work?</h2>
-                    <h4> Bar Charts & Pie Charts </h4>
-                    <p>
-                      Hover over the display elements to see further information
-                    </p>
-                    <h4> Scatter Charts </h4>
-                    <p>
-                      Scatter charts have the added functionality of zoom and
-                      sorting! Click on the headers above the lots to change the
-                      data display. The data points in the scatter charts have
-                      the additional benefit of size, which represents the
-                      amount the artwork was sold for. If you want more specific
-                      information about a lot that is small, use the zoom
-                      functionality to have better access all artworks.
-                    </p>
-                  </p>
-                </Modal.Description>
+                <div>
+                  <Menu attached="top" tabular>
+                    <Menu.Item
+                      name="What is Biddr?"
+                      active={this.state.activeItem === "What is Biddr?"}
+                      onClick={this.handleItemClick}
+                    />
+                    <Menu.Item
+                      name="How can I use Biddr?"
+                      active={this.state.activeItem === "How can I use Biddr?"}
+                      onClick={this.handleItemClick}
+                    />
+                    <Menu.Item
+                      name="How do the Charts Work?"
+                      active={
+                        this.state.activeItem === "How do the Charts Work?"
+                      }
+                      onClick={this.handleItemClick}
+                    />
+                  </Menu>
+                  <Segment
+                    style={{ width: 600, height: 340 }}
+                    attached="bottom"
+                  >
+                    {this.handleDisplay()}
+                  </Segment>
+                </div>
               </Modal.Content>
             </Modal>
           </div>
