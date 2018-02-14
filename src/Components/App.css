@@ -27,13 +27,12 @@
 .homePage {
   position: absolute;
   left: 0px;
-  bottom: 0px;
-  background-color: #91a8d0;
-  opacity: 0.8;
-  width: 400px;
-  height: 400px;
-  font-size: 300%;
+  top: 275px;
+  width: 100%;
+  font-size: 200%;
+  color: white;
   line-height: normal;
+  font-family: "Open Sans", sans-serif;
 }
 
 #myVideo {
@@ -42,6 +41,7 @@
   bottom: 0;
   min-width: 100%;
   min-height: 100%;
+  filter: brightness(99%) contrast(90%);
 }
 
 #fullscreen-bg {

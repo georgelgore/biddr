@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import ArtistList from "./ArtistList";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 class ArtistContainer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       display: [],
@@ -17,22 +18,34 @@ class ArtistContainer extends Component {
     history.push(`/artists/${artistId}`);
   };
 
-  randomlySelectArtist = () => {
+  randomlySelectArtist = input => {
     let newArtists = [];
     for (let x = 0; x < 10; x++) {
-      newArtists.push(
-        this.props.artists[
-          Math.floor(Math.random() * this.props.artists.length)
-        ]
-      );
+      newArtists.push(input[Math.floor(Math.random() * input.length)]);
     }
     return newArtists;
   };
 
+  componentWillReceiveProps(nextProps) {
+    if (
+      this.props !== nextProps &&
+      nextProps.artists.length > 0 &&
+      !nextProps.searchTerm
+    ) {
+      this.setState({ display: this.randomlySelectArtist(nextProps.artists) });
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.artists.length > 0 && !this.props.searchTerm) {
+      this.setState({ display: this.randomlySelectArtist(this.props.artists) });
+    }
+  }
+
   updateSearchTerm = event => {
     if (event.target.value.length === 0) {
       return this.setState({
-        display: this.randomlySelectArtist(),
+        display: this.randomlySelectArtist(this.props.artists),
         searchTerm: ""
       });
     } else {
@@ -49,6 +62,8 @@ class ArtistContainer extends Component {
   };
 
   render() {
+    console.log("RENDER PROPS", this.props);
+    window.artistprops = this.props.location;
     return (
       <div className="ui container">
         <h1> Artists </h1>
@@ -68,4 +83,4 @@ const mapStateToProps = ({ artists, sales }) => {
   };
 };
 
-export default connect(mapStateToProps)(ArtistContainer);
+export default withRouter(connect(mapStateToProps)(ArtistContainer));
