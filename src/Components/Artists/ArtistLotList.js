@@ -280,9 +280,9 @@ class ArtistLotList extends Component {
                   dependentAxis
                 />
                 {this.state.sorted ? (
-                  <VictoryLabel text="👉🏼" x={450} y={275} textAnchor="middle" />
+                  <VictoryLabel text="⟶" x={452} y={282} textAnchor="middle" />
                 ) : (
-                  <VictoryLabel text="👈🏼" x={350} y={275} textAnchor="middle" />
+                  <VictoryLabel text="⟵" x={348} y={282} textAnchor="middle" />
                 )}
                 <VictoryScatter
                   bubbleProperty="amount"
@@ -320,22 +320,34 @@ class ArtistLotList extends Component {
                     <th />
                     <th>Sale</th>
                     <th onClick={event => this.handleClick(event)}>
-                      <div className="hover">Sale Date</div>
+                      <div className="hover">
+                        <i className="sort icon" />Sale Date
+                      </div>
                     </th>
                     <th onClick={event => this.handleClick(event)}>
-                      <div className="hover">Lot Number </div>
+                      <div className="hover">
+                        <i className="sort icon" />Lot Number{" "}
+                      </div>
                     </th>
                     <th onClick={event => this.handleClick(event)}>
-                      <div className="hover">Title </div>
+                      <div className="hover">
+                        <i className="sort icon" />Title{" "}
+                      </div>
                     </th>
                     <th onClick={event => this.handleClick(event)}>
-                      <div className="hover">Low Estimate</div>
+                      <div className="hover">
+                        <i className="sort icon" />Low Estimate
+                      </div>
                     </th>
                     <th onClick={event => this.handleClick(event)}>
-                      <div className="hover">High Estimate </div>
+                      <div className="hover">
+                        <i className="sort icon" />High Estimate{" "}
+                      </div>
                     </th>
                     <th onClick={event => this.handleClick(event)}>
-                      <div className="hover">Price Realized </div>
+                      <div className="hover">
+                        <i className="sort icon" />Price Realized{" "}
+                      </div>
                     </th>
                   </tr>
                 </thead>

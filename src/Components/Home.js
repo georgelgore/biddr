@@ -10,7 +10,10 @@ class Home extends React.Component {
             <source src={require("./Media/video.mp4")} type="video/mp4" />
           </video>
         </div>
-        <div className="ui huge header">Welcome to Biddr</div>
+        <div className="homePage">
+          Welcome to Biddr, a website for researching artworks and artists on
+          the secondary market
+        </div>
       </div>
     );
   }

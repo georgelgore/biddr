@@ -17,9 +17,24 @@ class ArtistContainer extends Component {
     history.push(`/artists/${artistId}`);
   };
 
+  randomlySelectArtist = () => {
+    let newArtists = [];
+    for (let x = 0; x < 10; x++) {
+      newArtists.push(
+        this.props.artists[
+          Math.floor(Math.random() * this.props.artists.length)
+        ]
+      );
+    }
+    return newArtists;
+  };
+
   updateSearchTerm = event => {
     if (event.target.value.length === 0) {
-      return this.setState({ display: [], searchTerm: "" });
+      return this.setState({
+        display: this.randomlySelectArtist(),
+        searchTerm: ""
+      });
     } else {
       let toShow = this.props.artists.filter(artist => {
         if (artist.name) {

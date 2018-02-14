@@ -24,6 +24,18 @@
   cursor: pointer;
 }
 
+.homePage {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  background-color: #91a8d0;
+  opacity: 0.8;
+  width: 400px;
+  height: 400px;
+  font-size: 300%;
+  line-height: normal;
+}
+
 #myVideo {
   position: absolute;
   right: 0;
