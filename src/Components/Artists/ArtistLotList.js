@@ -559,7 +559,7 @@ class ArtistLotList extends Component {
                       ))
                     )
                   ) : (
-                    <tr>null</tr>
+                    <tr>{null}</tr>
                   )}
                 </tbody>
               </table>

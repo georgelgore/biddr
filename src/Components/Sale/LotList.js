@@ -227,19 +227,11 @@ class LotList extends React.Component {
             .name.toLowerCase()
             .includes(event.target.value)
       );
-      this.setState(
-        { displayLots: lots },
-        console.log("new lots", this.state.displayLots)
-      );
+      this.setState({ displayLots: lots });
     }
   }
 
-  chooseLots = () => {
-    this.state.search ? this.state.displayLots : this.props.lots;
-  };
-
   render() {
-    console.log("LOTS", this.props.displayLots);
     return (
       <div>
         {this.props.loading ? (

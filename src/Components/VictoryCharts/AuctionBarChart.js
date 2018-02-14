@@ -10,9 +10,6 @@ import {
 import { connect } from "react-redux";
 
 const AuctionBarChart = props => {
-  // const reducer = (accumulator, currentValue) => {
-  //   return accumulator + currentValue.realized;
-  // };
   const reducer2 = (accumulator, currentValue) => {
     return accumulator + currentValue.sum;
   };

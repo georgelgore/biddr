@@ -12,21 +12,6 @@ class Navbar extends React.Component {
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
-  showAbout = () => {
-    return (
-      <div>
-        <p>
-          Biddr is a resource for researching artworks and artists on the
-          secondary market. The data on this website comes from publicly
-          available auction data from sales dating between 2007 and 2017. For
-          more information about the how to use the website or how the
-          information was collected, please contact George Gore:
-          georgelgore@gmail.com
-        </p>
-      </div>
-    );
-  };
-
   handleDisplay = () => {
     switch (this.state.activeItem) {
       case "What is Biddr?":
@@ -38,6 +23,22 @@ class Navbar extends React.Component {
       default:
         return this.showAbout();
     }
+  };
+  showAbout = () => {
+    return (
+      <div>
+        <p style={{ fontSize: 18 }}>
+          Biddr is a resource for researching artworks and artists on the
+          secondary market. The data on this website comes from publicly
+          available auction data from sales dating between 2007 and 2017.{" "}
+        </p>
+        <p style={{ fontSize: 18 }}>
+          For more information about the how to use the website or how the
+          information was collected, please contact George Gore:
+          georgelgore@gmail.com.
+        </p>
+      </div>
+    );
   };
 
   showUse = () => {
