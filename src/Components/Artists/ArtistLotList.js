@@ -203,17 +203,11 @@ class ArtistLotList extends Component {
     if (event.target.value.length === 0) {
       return this.setState({ search: false, searchTerm: "", displayLots: [] });
     } else {
-      this.setState({ searchTerm: event.target.value, search: true }, () =>
-        console.log("1 STATE LOCAL", this.state)
-      );
+      this.setState({ searchTerm: event.target.value, search: true });
       let lots = this.props.lots.filter(lot =>
         lot.art_title.toLowerCase().includes(event.target.value)
       );
-      console.log("2 LOTS!", lots);
-      this.setState(
-        { displayLots: lots },
-        console.log("3 new lots", this.state.displayLots)
-      );
+      this.setState({ displayLots: lots });
     }
   }
 
@@ -385,7 +379,7 @@ class ArtistLotList extends Component {
                                     }}
                                     className="ui basic center aligned segment"
                                   >
-                                    <h1>{`"${lot.art_title.length > 20}"`}</h1>
+                                    <h1>{lot.art_title}</h1>
                                     <h3 style={{ maxWidth: "100%" }}>
                                       {this.props.artist.name}
                                     </h3>
@@ -489,7 +483,7 @@ class ArtistLotList extends Component {
                                   }}
                                 >
                                   <div className="ui basic center aligned segment">
-                                    <h1>{`"${lot.art_title}"`}</h1>
+                                    <h1>{lot.art_title}</h1>
                                     <h3>{this.props.artist.name}</h3>
                                     <p />
                                     <p>
@@ -599,21 +593,7 @@ const mapStateToProps = ({
     lots,
     loading,
     artist
-    // lots_loading: displayArtist.id === artist.id
   };
 };
 
 export default withRouter(connect(mapStateToProps, actions)(ArtistLotList));
-
-// ? displayArtist.data.attributes.lots.count > 250
-//   ? displayArtist.data.attributes.lots[(0, 250)].sort(
-//       (a, b) =>
-//         parseInt(a.lot_number.slice(4), 10) -
-//         parseInt(b.lot_number.slice(4), 10)
-//     )
-//   : displayArtist.data.attributes.lots.sort(
-//       (a, b) =>
-//         parseInt(a.lot_number.slice(4), 10) -
-//         parseInt(b.lot_number.slice(4), 10)
-//     )
-// : [];

@@ -172,7 +172,7 @@ class Analytics extends React.Component {
   };
 
   render() {
-    console.log("analytics states", this.state);
+    "analytics states", this.state;
     return (
       <div>
         <div className="ui top attached tabular menu">

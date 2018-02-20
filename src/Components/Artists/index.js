@@ -53,6 +53,7 @@ class ArtistContainer extends Component {
         if (artist.name) {
           return artist.name.includes(event.target.value.toUpperCase());
         }
+        return;
       });
       return this.setState({
         searchTerm: event.target.value,
