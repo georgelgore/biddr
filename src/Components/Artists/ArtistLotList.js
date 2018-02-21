@@ -44,18 +44,9 @@ class ArtistLotList extends Component {
         strokeWidth: 3,
         label: `"${lot.art_title}"\n${lot.size_mat}\n${
           this.findSale(lot).title
-        }\nSale Date ${
-          this.findSale(lot).sale_date
-        }\nEstimate $${lot.estimate_low.toLocaleString(navigator.language, {
-          minimumFractionDigits: 0
-        })}-$${lot.estimate_high.toLocaleString(navigator.language, {
-          minimumFractionDigits: 0
-        })}\nPrice Realized: $${lot.realized.toLocaleString(
-          navigator.language,
-          {
-            minimumFractionDigits: 0
-          }
-        )}`
+        }\nSale Date ${this.findSale(lot).sale_date}\nEstimate $${
+          lot.estimate_low
+        }-$${lot.estimate_high}\nPrice Realized: $${lot.realized}`
       })
     );
     return data;

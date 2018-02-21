@@ -48,19 +48,9 @@ class LotList extends React.Component {
             : d.y <= lot.estimate_low ? "#c43a31" : "#006400",
         label: `${lot.lot_number}\n${
           this.findArtist(lot).name
-        }\n\nLow Estimate: $${lot.estimate_low.toLocaleString(
-          navigator.language,
-          {
-            minimumFractionDigits: 0
-          }
-        )}\nHigh Estimate: $${lot.estimate_high.toLocaleString(
-          navigator.language,
-          {
-            minimumFractionDigits: 0
-          }
-        )}\nPrice Realized: $${lot.realized.toLocaleString(navigator.language, {
-          minimumFractionDigits: 0
-        })}`
+        }\nLow Estimate: $${lot.estimate_low}\nHigh Estimate: $${
+          lot.estimate_high
+        }\nPrice Realized: $${lot.realized}`
       })
     );
     return data;
@@ -76,7 +66,7 @@ class LotList extends React.Component {
         if (this.state.sorted === false) {
           return this.setState({
             sorted: true,
-            lots: lots.sort(
+            displayLots: lots.sort(
               (a, b) =>
                 parseInt(a.lot_number.slice(4), 10) -
                 parseInt(b.lot_number.slice(4), 10)
@@ -85,7 +75,7 @@ class LotList extends React.Component {
         } else {
           return this.setState({
             sorted: false,
-            lots: lots.sort(
+            displayLots: lots.sort(
               (a, b) =>
                 parseInt(b.lot_number.slice(4), 10) -
                 parseInt(a.lot_number.slice(4), 10)
@@ -96,7 +86,7 @@ class LotList extends React.Component {
         if (this.state.sorted === false) {
           return this.setState({
             sorted: true,
-            lots: lots.sort((a, b) => {
+            displayLots: lots.sort((a, b) => {
               if (a.art_title.slice(0, 1) < b.art_title.slice(0, 1)) {
                 return -1;
               }
@@ -110,7 +100,7 @@ class LotList extends React.Component {
         } else {
           return this.setState({
             sorted: false,
-            lots: lots.sort((a, b) => {
+            displayLots: lots.sort((a, b) => {
               if (a.art_title.slice(0, 1) > b.art_title.slice(0, 1)) {
                 return -1;
               }
@@ -126,7 +116,7 @@ class LotList extends React.Component {
         if (this.state.sorted === false) {
           return this.setState({
             sorted: true,
-            lots: lots.sort((a, b) => {
+            displayLots: lots.sort((a, b) => {
               if (
                 this.findArtist(a).name.slice(0, 2) <
                 this.findArtist(b).name.slice(0, 2)
@@ -146,7 +136,7 @@ class LotList extends React.Component {
         } else {
           return this.setState({
             sorted: false,
-            lots: lots.sort((a, b) => {
+            displayLots: lots.sort((a, b) => {
               if (
                 this.findArtist(a).name.slice(0, 1) >
                 this.findArtist(b).name.slice(0, 1)
@@ -168,41 +158,41 @@ class LotList extends React.Component {
         if (this.state.sorted === false) {
           return this.setState({
             sorted: true,
-            lots: lots.sort((a, b) => a.realized - b.realized)
+            displayLots: lots.sort((a, b) => a.realized - b.realized)
           });
         } else {
           return this.setState({
             sorted: false,
-            lots: lots.sort((a, b) => b.realized - a.realized)
+            displayLots: lots.sort((a, b) => b.realized - a.realized)
           });
         }
       case "High Estimate":
         if (this.state.sorted === false) {
           return this.setState({
             sorted: true,
-            lots: lots.sort((a, b) => a.estimate_high - b.estimate_high)
+            displayLots: lots.sort((a, b) => a.estimate_high - b.estimate_high)
           });
         } else {
           return this.setState({
             sorted: false,
-            lots: lots.sort((a, b) => b.estimate_high - a.estimate_high)
+            displayLots: lots.sort((a, b) => b.estimate_high - a.estimate_high)
           });
         }
       case "Low Estimate":
         if (this.state.sorted === false) {
           return this.setState({
             sorted: true,
-            lots: lots.sort((a, b) => a.estimate_low - b.estimate_low)
+            displayLots: lots.sort((a, b) => a.estimate_low - b.estimate_low)
           });
         } else {
           return this.setState({
             sorted: false,
-            lots: lots.sort((a, b) => b.estimate_low - a.estimate_low)
+            displayLots: lots.sort((a, b) => b.estimate_low - a.estimate_low)
           });
         }
       default:
         return this.setState({
-          lots: lots
+          displayLots: lots
         });
     }
   };
@@ -212,7 +202,7 @@ class LotList extends React.Component {
 
   handleClick = event => {
     this.sortLots(this.props.displayLots, event.target.innerText);
-    this.setState({ xLabel: event.target.innerText });
+    this.setState({ xLabel: event.target.innerText || "Lot Number" });
   };
 
   updateSearchTerm(event) {
