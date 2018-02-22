@@ -4,7 +4,7 @@ Biddr is an online art market research platform for researching artworks and art
 
 ## Authors
 
-* **George Gore** -
+* **George Gore** 
 
 ## License
 
