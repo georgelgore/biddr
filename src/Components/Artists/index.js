@@ -63,7 +63,6 @@ class ArtistContainer extends Component {
   };
 
   render() {
-    console.log("RENDER PROPS", this.props);
     window.artistprops = this.props.location;
     return (
       <div className="ui container">

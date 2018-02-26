@@ -172,7 +172,6 @@ class Analytics extends React.Component {
   };
 
   render() {
-    "analytics states", this.state;
     return (
       <div>
         <div className="ui top attached tabular menu">
@@ -213,34 +212,3 @@ class Analytics extends React.Component {
 }
 
 export default withRouter(Analytics);
-
-// <div className="ui top attached tabular menu">
-//   <a
-//     id={1}
-//     onClick={event => this.handleClick(event)}
-//     className={`item ${
-//       this.state.inner === "Top Ten Artists" ? "active" : ""
-//     }`}
-//   >
-//     Top Ten Artists
-//   </a>
-//   <a
-//     id={2}
-//     onClick={event => this.handleClick(event)}
-//     className={`item ${
-//       this.state.inner === "Top Ten Lots" ? "active" : ""
-//     }`}
-//   >
-//     Top Ten Lots
-//   </a>
-//   <a
-//     id={3}
-//     onClick={event => this.handleClick(event)}
-//     className={`item ${
-//       this.state.inner === "Top Ten Sales" ? "active" : ""
-//     }`}
-//   >
-//     Top Ten Sales
-//   </a>
-//   <div className="ui bottom attached segment">{this.handleDisplay()}</div>
-// </div>
