@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Modal, Image, Menu, Segment } from "semantic-ui-react";
+import { Modal, Image, Menu, Segment, Item } from "semantic-ui-react";
 
 class Navbar extends React.Component {
   constructor() {
@@ -88,7 +88,7 @@ class Navbar extends React.Component {
 
   render() {
     return (
-      <div style={{ maxHeight: 75 }} className="ui top fixed menu">
+      <Menu style={{ maxHeight: 75 }}>
         <Link to="/">
           <h1
             style={{ fontSize: 30, paddingBottom: 17 }}
@@ -100,108 +100,100 @@ class Navbar extends React.Component {
         <div className="right fixed menu">
           <div className="right fixed menu">
             <Link to="/artists">
-              <div
-                className="item"
+              <Item
                 style={{
                   fontSize: 20,
-                  paddingTop: "25px",
-                  paddingBottom: "25px",
-                  marginTop: "5px",
-                  marginBottom: "5px"
+                  marginBottom: "35px",
+                  marginTop: "9px"
                 }}
               >
                 <h4 className="head2">ARTISTS</h4>
-              </div>
+              </Item>
             </Link>
             <Link to="/auctions">
-              <div
-                className="item"
+              <Item
                 style={{
                   fontSize: 20,
-                  paddingTop: "25px",
-                  paddingBottom: "25px",
-                  marginTop: "5px",
-                  marginBottom: "5px"
+                  marginBottom: "35px",
+                  marginTop: "9px"
                 }}
               >
                 <h4 className="head2">AUCTIONS</h4>
-              </div>
+              </Item>
             </Link>
             <Link to="/analytics">
-              <div
-                className="item"
+              <Item
                 style={{
                   fontSize: 20,
-                  paddingTop: "25px",
-                  paddingBottom: "25px",
-                  marginTop: "5px",
-                  marginBottom: "5px"
+                  marginBottom: "35px",
+                  marginTop: "9px"
                 }}
               >
                 <h4 className="head2">ANALYTICS</h4>
-              </div>
+              </Item>
             </Link>
-            <Modal
-              style={{ height: 400 }}
-              dimmer="blurring"
-              trigger={
-                <a>
-                  <div
-                    className="hover item"
-                    style={{
-                      fontSize: 20,
-                      paddingTop: "25px",
-                      paddingBottom: "25px",
-                      marginTop: "5px",
-                      marginBottom: "5px"
-                    }}
-                  >
-                    <h4 className="head2">ABOUT BIDDR</h4>
+            <div>
+              <Modal
+                style={{ marginTop: "300 px", margin: "0 auto" }}
+                dimmer="blurring"
+                trigger={
+                  <a>
+                    <Item
+                      style={{
+                        fontSize: 20,
+                        marginBottom: "35px",
+                        marginTop: "9px"
+                      }}
+                    >
+                      <h4 className="head2">ABOUT BIDDR</h4>
+                    </Item>
+                  </a>
+                }
+              >
+                <Modal.Header>
+                  <h1>Welcome to Biddr!</h1>
+                </Modal.Header>
+                <Modal.Content image>
+                  <Image
+                    wrapped
+                    size="large"
+                    src="https://www.christies.com/img/lotimages//2016/NYR/2016_NYR_12152_0018B_000(joan_mitchell_noon).jpg?mode=max&down.speed=-1&Width=700"
+                  />
+                  <div>
+                    <Menu attached="top" tabular>
+                      <Menu.Item
+                        name="What is Biddr?"
+                        active={this.state.activeItem === "What is Biddr?"}
+                        onClick={this.handleItemClick}
+                      />
+                      <Menu.Item
+                        name="How can I use Biddr?"
+                        active={
+                          this.state.activeItem === "How can I use Biddr?"
+                        }
+                        onClick={this.handleItemClick}
+                      />
+                      <Menu.Item
+                        name="How do the Charts Work?"
+                        active={
+                          this.state.activeItem === "How do the Charts Work?"
+                        }
+                        onClick={this.handleItemClick}
+                      />
+                    </Menu>
+                    <Segment
+                      style={{ width: 600, height: 277, overflow: "auto" }}
+                      attached="bottom"
+                    >
+                      {this.handleDisplay()}
+                    </Segment>
                   </div>
-                </a>
-              }
-            >
-              <Modal.Header>
-                <h1>Welcome to Biddr!</h1>
-              </Modal.Header>
-              <Modal.Content image>
-                <Image
-                  wrapped
-                  size="large"
-                  src="https://www.christies.com/img/lotimages//2016/NYR/2016_NYR_12152_0018B_000(joan_mitchell_noon).jpg?mode=max&down.speed=-1&Width=700"
-                />
-                <div>
-                  <Menu attached="top" tabular>
-                    <Menu.Item
-                      name="What is Biddr?"
-                      active={this.state.activeItem === "What is Biddr?"}
-                      onClick={this.handleItemClick}
-                    />
-                    <Menu.Item
-                      name="How can I use Biddr?"
-                      active={this.state.activeItem === "How can I use Biddr?"}
-                      onClick={this.handleItemClick}
-                    />
-                    <Menu.Item
-                      name="How do the Charts Work?"
-                      active={
-                        this.state.activeItem === "How do the Charts Work?"
-                      }
-                      onClick={this.handleItemClick}
-                    />
-                  </Menu>
-                  <Segment
-                    style={{ width: 600, height: 277, overflow: "auto" }}
-                    attached="bottom"
-                  >
-                    {this.handleDisplay()}
-                  </Segment>
-                </div>
-              </Modal.Content>
-            </Modal>
+                </Modal.Content>
+              </Modal>
+            </div>
           </div>
         </div>
-      </div>
+      </Menu>
     );
   }
 }

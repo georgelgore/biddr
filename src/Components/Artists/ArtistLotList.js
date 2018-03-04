@@ -343,6 +343,7 @@ class ArtistLotList extends Component {
                         <tr key={i}>
                           <td key={`${i}0`}>
                             <Modal
+                              style={{ margin: "0 auto", marginTop: 100 }}
                               trigger={
                                 <img
                                   className="hover"
@@ -351,7 +352,6 @@ class ArtistLotList extends Component {
                                   alt={christiesLink}
                                 />
                               }
-                              closeIcon
                               size={"large"}
                             >
                               <Modal.Content image>
@@ -445,6 +445,7 @@ class ArtistLotList extends Component {
                         <tr key={i}>
                           <td key={`${i}0`}>
                             <Modal
+                              style={{ margin: "0 auto", marginTop: 500 }}
                               trigger={
                                 <img
                                   className="hover"
@@ -453,7 +454,6 @@ class ArtistLotList extends Component {
                                   alt={christiesLink}
                                 />
                               }
-                              closeIcon
                               size={"large"}
                             >
                               <Modal.Content image>

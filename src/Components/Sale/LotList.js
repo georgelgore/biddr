@@ -361,6 +361,7 @@ class LotList extends React.Component {
                                     />
                                   }
                                   closeIcon
+                                  style={{ marginTop: 500, margin: "0 auto" }}
                                   size={"large"}
                                 >
                                   <Modal.Content image>
@@ -461,6 +462,8 @@ class LotList extends React.Component {
                               <td key={`${i}0`}>{lot.lot_number}</td>
                               <td key={`${i}1`}>
                                 <Modal
+                                  style={{ marginTop: 500, margin: "0 auto" }}
+                                  size={"large"}
                                   trigger={
                                     <img
                                       className="hover"
@@ -469,8 +472,6 @@ class LotList extends React.Component {
                                       alt={christiesLink}
                                     />
                                   }
-                                  closeIcon
-                                  size={"large"}
                                 >
                                   <Modal.Content image>
                                     <img
