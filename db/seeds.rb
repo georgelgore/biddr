@@ -1,3 +1,75 @@
+require 'csv'
+
+# SALE
+# csv_text = File.read(Rails.root.join('lib', 'seeds', 'sales.csv'))
+# csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
+# csv.each do |row|
+#   Sale.create(id: row['id'], house_id: 1, title: row['title'], internal_id: row['internal_id'], sale_date:row['sale_date'], sum: row['sum']  )
+#   puts "row#{row}"
+# end
+
+# ARTISTS
+# csv_text = File.read(Rails.root.join('lib', 'seeds', 'artists.csv'))
+# csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
+# csv.each do |row|
+#   Artist.create(id: row['id'], name: row['name'], image:row['image'])
+#   puts "Artist#{row}"
+# end
+
+# Lots
+# csv_text = File.read(Rails.root.join('lib', 'seeds', 'lots.csv'))
+# csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
+# csv.each do |row|
+#   l = Lot.new
+#   l.id = row['id']
+#   l.lot_number = row['lot_number']
+#   l.image = row['image']
+#   l.artist_id = row['artist_id']
+#   l.art_title = row['art_title']
+#   l.size_mat = row['size_mat']
+#   l.estimate_low = row['estimate_low']
+#   l.estimate_high = row['estimate_high']
+#   l.realized = row['realized']
+#   l.sale_id = row['sale_id']
+#
+#   l.save
+#   puts "Lot#{row}"
+# end
+
+# HighLot
+csv_text = File.read(Rails.root.join('lib', 'seeds', 'high_lots.csv'))
+csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
+csv.each do |row|
+    l = HighLot.new
+    l.id = row['id']
+    l.lot_number = row['lot_number']
+    l.image = row['image']
+    l.artist_id = row['artist_id']
+    l.art_title = row['art_title']
+    l.size_mat = row['size_mat']
+    l.estimate_low = row['estimate_low']
+    l.estimate_high = row['estimate_high']
+    l.realized = row['realized']
+    l.sale_id = row['sale_id']
+
+    l.save
+end
+
+# TopArtist
+csv_text2 = File.read(Rails.root.join('lib', 'seeds', 'high_lots.csv'))
+csv2 = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
+csv2.each do |row|
+  TopArtist.create(id: row['id'], name: row['name'], image:row['image'])
+end
+
+# TopSale
+csv_text3 = File.read(Rails.root.join('lib', 'seeds', 'high_lots.csv'))
+csv3 = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
+csv3.each do |row|
+  TopSale.create(id: row['id'], house_id: 1, title: row['title'], internal_id: row['internal_id'], sale_date:row['sale_date'], sum: row['sum']  )
+end
+
+
 # House.create(name:"Christie's")
 # House.create(name:"Sotheby's")
 # Sale.create(house_id: 1, title:"First Open Post-War and Contemporary Art", internal_id: "1806", sale_date: Date.parse("28 February 2007") )
