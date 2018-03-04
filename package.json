@@ -1,8 +1,7 @@
 {
   "name": "biddr",
   "version": "1.0.0",
-  "description":
-    "Biddr is an online art market research platform for researching artworks and artists on the secondary market. The data on this website was scraped from publicly available auction data from sales dating between 2007 and 2017. This product was built with the intention of bringing difficult to find information together under one product for galleries, collectors, and sellers. Users can search for an artist by name and see all of that artist's sold artworks. The display page offers the user search and sort functionality, as well as data visualization and artwork information. Additionally users are able to search for an auction by date and see all of the artworks that were sold in the sale with similar functionality as the artist display.",
+  "description": "Biddr is an online art market research platform for researching artworks and artists on the secondary market. The data on this website was scraped from publicly available auction data from sales dating between 2007 and 2017. This product was built with the intention of bringing difficult to find information together under one product for galleries, collectors, and sellers. Users can search for an artist by name and see all of that artist's sold artworks. The display page offers the user search and sort functionality, as well as data visualization and artwork information. Additionally users are able to search for an auction by date and see all of the artworks that were sold in the sale with similar functionality as the artist display.",
   "main": "index.js",
   "directories": {
     "lib": "lib",
@@ -26,8 +25,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "deploy": "npm run build&&gh-pages -d build"
+    "eject": "react-scripts eject"
   },
   "repository": {
     "type": "git",
