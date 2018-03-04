@@ -20,8 +20,19 @@ require 'csv'
 csv_text = File.read(Rails.root.join('lib', 'seeds', 'lots.csv'))
 csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
 csv.each do |row|
-  Lot.create(id: row['id'], lot_number: row['lot_number'], image: row['image'], artist_id: row['artist_id'], art_title: row['art_title'], size_mat: row['size_mat'], estimate_low: row['estimate_low'], estimate_high: row['estimate_high'], realized: row['realized'], sale_id: row.sale_id)
+  l = Lot.new
+  l.id = row['id']
+  l.lot_number = row['lot_number']
+  l.image = row['image']
+  l.artist_id = row['artist_id']
+  l.art_title = row['art_title']
+  l.size_mat = row['size_mat']
+  l.estimate_low = row['estimate_low']
+  l.estimate_high = row['estimate_high']
+  l.realized = row['realized']
+  l.sale_id = row['sale_id']
 
+  l.save
   puts "Lot#{row}"
 end
 
