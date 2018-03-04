@@ -3,7 +3,16 @@ require 'csv'
 
 csv_text = File.read(Rails.root.join('lib', 'seeds', 'sales.csv'))
 csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
-puts csv
+csv.each do |row|
+  s = Sale.new
+  s.id = row['id']
+  s.title = row['title']
+  s.internal_id = row['internal_id']
+  s.sale_date = row['sale_date']
+  s.sum = row['sum']
+  s.save
+end
+
 # House.create(name:"Christie's")
 # House.create(name:"Sotheby's")
 # Sale.create(house_id: 1, title:"First Open Post-War and Contemporary Art", internal_id: "1806", sale_date: Date.parse("28 February 2007") )
