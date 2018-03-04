@@ -14,13 +14,13 @@ class Analytics extends React.Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:3000/api/v1/top_artists/")
+    fetch("https://biddr-app.herokuapp.com/api/v1/top_artists/")
       .then(res => res.json())
       .then(obj => this.setState({ artists: obj }));
-    fetch("http://localhost:3000/api/v1/top_sales/")
+    fetch("https://biddr-app.herokuapp.com/api/v1/top_sales/")
       .then(res => res.json())
       .then(obj => this.setState({ sales: obj }));
-    fetch("http://localhost:3000/api/v1/high_lots/")
+    fetch("https://biddr-app.herokuapp.com/api/v1/high_lots/")
       .then(res => res.json())
       .then(obj => this.setState({ lots: obj }));
   }
