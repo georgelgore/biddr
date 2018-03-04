@@ -4,14 +4,14 @@ require 'csv'
 csv_text = File.read(Rails.root.join('lib', 'seeds', 'sales.csv'))
 csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
 csv.each do |row|
+  Sale.create(id: row['id'], house_id: 1, title: row['title'], internal_id: row['internal_id'], sale_date:row['sale_date'], sum: row['sum']  )
   # s = Sale.new
   # s.id = row['id']
   # s.title = row['title']
   # s.internal_id = row['internal_id']
   # s.sale_date = row['sale_date']
   # s.sum = row['sum']
-  puts "row#{row} #{row['id']}"
-  # s.save
+  puts "row#{row}"
 end
 
 # House.create(name:"Christie's")
