@@ -1,4 +1,10 @@
-# House.create(name:"Christie's")
+require 'csv'
+
+House.create(name:"Christie's")
+
+# csv_text = File.read(Rails.root.join('lib', 'seeds', 'sales.csv'))
+# puts csv_text
+
 # House.create(name:"Sotheby's")
 # Sale.create(house_id: 1, title:"First Open Post-War and Contemporary Art", internal_id: "1806", sale_date: Date.parse("28 February 2007") )
 
