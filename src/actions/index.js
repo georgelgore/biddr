@@ -14,7 +14,7 @@ import {
 export function fetchArtists() {
   return dispatch => {
     dispatch({ type: ASYNC_START });
-    return fetch("http://localhost:3000/api/v1/artists/")
+    return fetch("https://biddr-app.herokuapp.com/api/v1/artists")
       .then(res => res.json())
       .then(data => {
         dispatch({ type: FETCH_ARTISTS, artists: data });
@@ -25,7 +25,7 @@ export function fetchArtists() {
 export function fetchSales() {
   return dispatch => {
     dispatch({ type: ASYNC_START });
-    return fetch("http://localhost:3000/api/v1/sales/")
+    return fetch("https://biddr-app.herokuapp.com/api/v1/sales")
       .then(res => res.json())
       .then(data => {
         dispatch({ type: FETCH_SALES, sales: data });
@@ -36,7 +36,7 @@ export function fetchSales() {
 export function fetchDisplayArtist(id) {
   return dispatch => {
     dispatch({ type: ASYNC_START });
-    return fetch(`http://localhost:3000/api/v1/artists/${id}`)
+    return fetch(`https://biddr-app.herokuapp.com/api/v1/artists/${id}`)
       .then(res => res.json())
       .then(data => {
         dispatch({ type: FETCH_DISPLAY_ARTIST, displayArtist: data });
@@ -46,7 +46,7 @@ export function fetchDisplayArtist(id) {
 export function fetchDisplaySale(id) {
   return dispatch => {
     dispatch({ type: ASYNC_START });
-    return fetch(`http://localhost:3000/api/v1/sales/${id}`)
+    return fetch(`https://biddr-app.herokuapp.com/api/v1/sales/${id}`)
       .then(res => res.json())
       .then(data => {
         dispatch({ type: FETCH_DISPLAY_SALE, displaySale: data });
