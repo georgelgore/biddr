@@ -22,15 +22,13 @@
     "uniq": "^1.0.1",
     "victory": "^0.25.0"
   },
-  "engines": {
-    "node": "7.8.0",
-    "npm": "4.2.0"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "repository": {
     "type": "git",
@@ -41,7 +39,7 @@
   "bugs": {
     "url": "https://github.com/georgelgore/biddr/issues"
   },
-  "homepage": "https://github.com/georgelgore/biddr",
+  "homepage": "https://georgelgore.github.io/biddr/",
   "devDependencies": {
     "gh-pages": "^1.1.0"
   }
