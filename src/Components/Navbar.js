@@ -191,7 +191,7 @@ class Navbar extends React.Component {
                     />
                   </Menu>
                   <Segment
-                    style={{ width: 600, height: 340 }}
+                    style={{ width: 600, height: 277, overflow: "auto" }}
                     attached="bottom"
                   >
                     {this.handleDisplay()}

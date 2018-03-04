@@ -7,7 +7,6 @@ Rails.application.routes.draw do
       resources :top_artists
       resources :top_sales
       resources :high_lots
-      # get '/data' to 'data#'
     end
   end
 end

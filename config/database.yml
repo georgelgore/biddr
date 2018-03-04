@@ -80,6 +80,6 @@ test:
 #
 production:
   <<: *default
-  database: auctioneer_production
+  database: auctioneer_development
   username: auctioneer
   password: <%= ENV['AUCTIONEER_DATABASE_PASSWORD'] %>
