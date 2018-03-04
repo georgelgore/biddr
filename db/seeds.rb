@@ -10,6 +10,7 @@ csv.each do |row|
   s.internal_id = row['internal_id']
   s.sale_date = row['sale_date']
   s.sum = row['sum']
+  "put row#{row} #{row['id']}"
   s.save
 end
 
