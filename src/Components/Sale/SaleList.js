@@ -33,7 +33,7 @@ const SaleList = props => {
           <Link
             className="ui item"
             key={i}
-            to={`biddr/auctions/${props.year}/${sale.id}`}
+            to={`/auctions/${props.year}/${sale.id}`}
           >
             <div className="content">{sale.title}</div>
           </Link>
