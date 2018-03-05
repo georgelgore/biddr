@@ -71,7 +71,7 @@ class ArtistLotList extends Component {
   linkAuction = lot => {
     let year = this.getYear(lot);
     let sale = this.findSale(lot).id;
-    return `auctions/${year}/${sale}`;
+    return `biddr/auctions/${year}/${sale}`;
   };
 
   sortLots = (lots, filter) => {
