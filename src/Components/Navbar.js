@@ -89,7 +89,7 @@ class Navbar extends React.Component {
   render() {
     return (
       <Menu style={{ maxHeight: 75 }}>
-        <Link to="/">
+        <Link to="/biddr/">
           <h1
             style={{ fontSize: 30, paddingBottom: 17 }}
             className="Iconic header item"
@@ -99,7 +99,7 @@ class Navbar extends React.Component {
         </Link>
         <div className="right fixed menu">
           <div className="right fixed menu">
-            <Link to="/artists">
+            <Link to="/biddr/artists">
               <Item
                 style={{
                   fontSize: 20,
@@ -110,7 +110,7 @@ class Navbar extends React.Component {
                 <h4 className="head2">ARTISTS</h4>
               </Item>
             </Link>
-            <Link to="/auctions">
+            <Link to="/biddr/auctions">
               <Item
                 style={{
                   fontSize: 20,
@@ -121,7 +121,7 @@ class Navbar extends React.Component {
                 <h4 className="head2">AUCTIONS</h4>
               </Item>
             </Link>
-            <Link to="/analytics">
+            <Link to="/biddr/analytics">
               <Item
                 style={{
                   fontSize: 20,
@@ -144,6 +144,7 @@ class Navbar extends React.Component {
                         marginBottom: "35px",
                         marginTop: "9px"
                       }}
+                      className="hover"
                     >
                       <h4 className="head2">ABOUT BIDDR</h4>
                     </Item>
