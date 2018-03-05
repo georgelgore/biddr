@@ -173,7 +173,7 @@ class Analytics extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{ top: 50 }}>
         <div className="ui top attached tabular menu">
           <a
             id={1}
