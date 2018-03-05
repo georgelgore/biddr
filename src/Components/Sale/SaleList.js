@@ -30,7 +30,11 @@ const SaleList = props => {
       <h1> Sales – {props.year} </h1>
       <div className="ui link list">
         {yearSales().map((sale, i) => (
-          <Link className="ui item" key={i} to={`/${props.year}/${sale.id}`}>
+          <Link
+            className="ui item"
+            key={i}
+            to={`biddr/auctions/${props.year}/${sale.id}`}
+          >
             <div className="content">{sale.title}</div>
           </Link>
         ))}
