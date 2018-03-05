@@ -509,7 +509,7 @@ class ArtistLotList extends Component {
                           </td>
                           <td key={`${i}1`}>
                             <Link
-                              to={`/auctions/${this.getYear(lot)}/${
+                              to={`/biddr/auctions/${this.getYear(lot)}/${
                                 this.findSale(lot).id
                               }`}
                             >
