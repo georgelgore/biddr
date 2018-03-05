@@ -34,7 +34,7 @@ class Analytics extends React.Component {
               <div
                 className="hover image"
                 onClick={() =>
-                  this.props.history.push(`artists/${lot.artist_id}`)
+                  this.props.history.push(`biddr/artists/${lot.artist_id}`)
                 }
               >
                 <img
@@ -94,7 +94,7 @@ class Analytics extends React.Component {
             <div
               className="hover image"
               onClick={() =>
-                this.props.history.push(`artists/${artist.artist_id}`)
+                this.props.history.push(`biddr/artists/${artist.artist_id}`)
               }
             >
               <img
@@ -125,7 +125,7 @@ class Analytics extends React.Component {
               className="hover image"
               onClick={() =>
                 this.props.history.push(
-                  `/auctions/${sale.sale_date.slice(0, 5)}/${sale.sale_id}`
+                  `biddr/auctions/${sale.sale_date.slice(0, 5)}/${sale.sale_id}`
                 )
               }
             >

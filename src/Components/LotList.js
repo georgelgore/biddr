@@ -367,7 +367,7 @@ class LotList extends React.Component {
                                   href={""}
                                   onClick={() => {
                                     this.props.history.replace(
-                                      `/artists/${lot.artist_id}`
+                                      `biddr/artists/${lot.artist_id}`
                                     );
                                   }}
                                 >
@@ -417,7 +417,7 @@ class LotList extends React.Component {
                                   href={""}
                                   onClick={() => {
                                     this.props.history.replace(
-                                      `/artists/${lot.artist_id}`
+                                      `biddr/artists/${lot.artist_id}`
                                     );
                                   }}
                                 >
