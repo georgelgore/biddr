@@ -44,7 +44,7 @@ class App extends Component {
                     );
                   }}
                 />
-                <Route exact path="/auctions" component={Auction} />
+                <Route exact path="/biddr/auctions" component={Auction} />
                 <Route
                   exact
                   path="/biddr/auctions/:year/:id"
