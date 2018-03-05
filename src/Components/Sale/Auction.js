@@ -18,7 +18,7 @@ const Auction = props => {
                 <Link to="/auctions/2007">2007</Link>
               </td>
               <td>
-                <Link to="/biddr/auctions/2011">2011</Link>
+                <Link to="/auctions/2011">2011</Link>
               </td>
               <td>
                 <Link to="/biddr/auctions/2015">2015</Link>
