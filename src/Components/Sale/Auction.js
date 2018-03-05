@@ -15,10 +15,10 @@ const Auction = props => {
           <tbody className="center aligned">
             <tr>
               <td>
-                <Link to="/auctions/2007">2007</Link>
+                <Link to="/biddr/auctions/2007">2007</Link>
               </td>
               <td>
-                <Link to="/auctions/2011">2011</Link>
+                <Link to="/biddr/auctions/2011">2011</Link>
               </td>
               <td>
                 <Link to="/biddr/auctions/2015">2015</Link>
