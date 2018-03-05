@@ -32,7 +32,7 @@ const ArtistList = props => {
                     id={artist.id}
                     onClick={() => {
                       props.updateDisplayArtist(artist.id);
-                      props.history.push(`/artists/${artist.id}`);
+                      props.history.push(`biddr/artists/${artist.id}`);
                     }}
                   >
                     <a href={""}>
