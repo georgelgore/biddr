@@ -28,11 +28,11 @@ class App extends Component {
             <Navbar />
             <div className="Main">
               <Switch>
-                <Route exact path="/" component={Home} />
-                <Route exact path="/analytics" component={Analytics} />
+                <Route exact path="/biddr/" component={Home} />
+                <Route exact path="/biddr/analytics" component={Analytics} />
                 <Route
                   exact
-                  path="/auctions/:year"
+                  path="/biddr/auctions/:year"
                   render={({ match }) => {
                     return (
                       <Year
@@ -44,10 +44,10 @@ class App extends Component {
                     );
                   }}
                 />
-                <Route exact path="/auctions" component={Auction} />
+                <Route exact path="/biddr/auctions" component={Auction} />
                 <Route
                   exact
-                  path="/auctions/:year/:id"
+                  path="/biddr/auctions/:year/:id"
                   render={({ match }) => {
                     return (
                       <Sale
@@ -67,7 +67,7 @@ class App extends Component {
                 />
                 <Route
                   exact
-                  path="/artists"
+                  path="/biddr/artists"
                   render={({ match }) => {
                     return (
                       <ArtistContainer
@@ -78,7 +78,7 @@ class App extends Component {
                 />
                 <Route
                   exact
-                  path="/artists/:id"
+                  path="/biddr/artists/:id"
                   render={() => {
                     return <Artist />;
                   }}

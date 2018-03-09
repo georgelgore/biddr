@@ -71,7 +71,7 @@ class ArtistLotList extends Component {
   linkAuction = lot => {
     let year = this.getYear(lot);
     let sale = this.findSale(lot).id;
-    return `auctions/${year}/${sale}`;
+    return `/biddr/auctions/${year}/${sale}`;
   };
 
   sortLots = (lots, filter) => {
@@ -343,6 +343,7 @@ class ArtistLotList extends Component {
                         <tr key={i}>
                           <td key={`${i}0`}>
                             <Modal
+                              style={{ margin: "0 auto", marginTop: 100 }}
                               trigger={
                                 <img
                                   className="hover"
@@ -351,7 +352,6 @@ class ArtistLotList extends Component {
                                   alt={christiesLink}
                                 />
                               }
-                              closeIcon
                               size={"large"}
                             >
                               <Modal.Content image>
@@ -407,7 +407,7 @@ class ArtistLotList extends Component {
                           </td>
                           <td key={`${i}1`}>
                             <Link
-                              to={`/auctions/${this.getYear(lot)}/${
+                              to={`/biddr/auctions/${this.getYear(lot)}/${
                                 this.findSale(lot).id
                               }`}
                             >
@@ -445,6 +445,7 @@ class ArtistLotList extends Component {
                         <tr key={i}>
                           <td key={`${i}0`}>
                             <Modal
+                              style={{ margin: "0 auto", marginTop: 500 }}
                               trigger={
                                 <img
                                   className="hover"
@@ -453,7 +454,6 @@ class ArtistLotList extends Component {
                                   alt={christiesLink}
                                 />
                               }
-                              closeIcon
                               size={"large"}
                             >
                               <Modal.Content image>
@@ -509,7 +509,7 @@ class ArtistLotList extends Component {
                           </td>
                           <td key={`${i}1`}>
                             <Link
-                              to={`/auctions/${this.getYear(lot)}/${
+                              to={`/biddr/auctions/${this.getYear(lot)}/${
                                 this.findSale(lot).id
                               }`}
                             >

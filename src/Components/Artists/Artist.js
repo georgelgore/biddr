@@ -7,7 +7,7 @@ import { withRouter } from "react-router-dom";
 class Artist extends Component {
   getArtistId = () => {
     let url = window.location.href;
-    return url.split("/").splice(4)[0];
+    return url.split("/").splice(4)[1];
   };
 
   findArtist = (newId, thisPropArtists) => {
