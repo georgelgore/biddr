@@ -56,20 +56,20 @@ require 'csv'
 #
 #     l.save
 # end
-
-# TopArtist
-csv_text2 = File.read(Rails.root.join('lib', 'seeds', 'top_artists.csv'))
-csv2 = CSV.parse(csv_text2, :headers => true, :encoding => 'ISO-8859-1')
-csv2.each do |row|
-  TopArtist.create(id: row['id'], name: row['name'], image:row['image'])
-end
-
-# TopSale
-csv_text3 = File.read(Rails.root.join('lib', 'seeds', 'top_sales.csv'))
-csv3 = CSV.parse(csv_text3 , :headers => true, :encoding => 'ISO-8859-1')
-csv3.each do |row|
-  TopSale.create(id: row['id'], house_id: 1, title: row['title'], internal_id: row['internal_id'], sale_date:row['sale_date'], sum: row['sum']  )
-end
+#
+# # TopArtist
+# csv_text2 = File.read(Rails.root.join('lib', 'seeds', 'top_artists.csv'))
+# csv2 = CSV.parse(csv_text2, :headers => true, :encoding => 'ISO-8859-1')
+# csv2.each do |row|
+#   TopArtist.create(id: row['id'], name: row['name'], image:row['image'])
+# end
+#
+# # TopSale
+# csv_text3 = File.read(Rails.root.join('lib', 'seeds', 'top_sales.csv'))
+# csv3 = CSV.parse(csv_text3 , :headers => true, :encoding => 'ISO-8859-1')
+# csv3.each do |row|
+#   TopSale.create(id: row['id'], house_id: 1, title: row['title'], internal_id: row['internal_id'], sale_date:row['sale_date'], sum: row['sum']  )
+# end
 
 
 # House.create(name:"Christie's")
