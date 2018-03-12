@@ -91,11 +91,7 @@ class Navbar extends React.Component {
       <Menu style={{ maxHeight: 75 }}>
         <Link to="/biddr/">
           <h1
-            style={{
-              fontSize: 30,
-              marginBottom: "35px",
-              marginTop: "9px"
-            }}
+            style={{ fontSize: 30, paddingBottom: 17 }}
             className="Iconic header item"
           >
             Biddr
