@@ -8,13 +8,14 @@ require 'csv'
 #   puts "row#{row}"
 # end
 
-# ARTISTS
-# csv_text = File.read(Rails.root.join('lib', 'seeds', 'artists.csv'))
-# csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
-# csv.each do |row|
-#   Artist.create(id: row['id'], name: row['name'], image:row['image'])
-#   puts "Artist#{row}"
-# end
+ARTISTS
+csv_text = File.read(Rails.root.join('lib', 'seeds', 'artists.csv'))
+csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
+csv.each do |row|
+  byebug
+  Artist.create(id: row['id'], name: row['name'], image:row['image'])
+  puts "Artist#{row}"
+end
 
 # Lots
 # csv_text = File.read(Rails.root.join('lib', 'seeds', 'lots.csv'))
