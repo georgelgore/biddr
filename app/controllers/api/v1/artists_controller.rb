@@ -5,7 +5,7 @@ class Api::V1::ArtistsController < ApplicationController
   end
 
   def show
-    @sale = Artist.find(params[:id])
+    @artist = Artist.find(params[:id])
     render json: ArtistSerializer.new(@artist).serialized_json
   end
 
