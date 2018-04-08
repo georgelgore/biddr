@@ -61,7 +61,7 @@ class Navbar extends React.Component {
         <p>
           Click on the "Auctions" tab at the top of the screen. Select the year
           you would like to learn more information about. Next, select a sale
-          and see all of the artworks sold in that sale. Like the "Artists"
+          and see all of the artworks sold in that auction. Like the "Artists"
           page, you have the ability to search and sort the artworks.
         </p>
       </div>
@@ -73,7 +73,7 @@ class Navbar extends React.Component {
       <div>
         <h4> Bar Charts & Pie Charts </h4>
         <p>Hover over the display elements to see further information.</p>
-        <h4> Scatter Charts </h4>
+        <h4> Scatter Plots </h4>
         <p>
           Scatter charts have the added functionality of zoom and sorting! Click
           on the headers above the lots to change the data display. The data
